@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Maintenance_log extends Model {
+  class Maintenance extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Maintenance_log.belongsTo(models.Charger, { foreignKey: 'charger_id', targetKey: 'charger_name', as: 'chargerData' })
+      //Maintenance_log.belongsTo(models.Charger, { foreignKey: 'charger_id', targetKey: 'id', as: 'chargerLog' })
      
-    }
+      }
   };
-  Maintenance_log.init({
+  Maintenance.init({
     charger_id: DataTypes.INTEGER,
     maintenance_date: DataTypes.DATE,
     completion_date: DataTypes.DATE,
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     maintenance_cost: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'Maintenance_log',
+    modelName: 'Maintenance',
   });
-  return Maintenance_log;
+  return Maintenance;
 };

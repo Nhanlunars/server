@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Notification.belongsTo(models.User, { foreignKey: 'user_id ', as: 'userData' })
+      //Notification.belongsTo(models.User, { foreignKey: 'user_id ',targetKey: 'id', as: 'userNotification'})
       
     }
   };
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     is_read : DataTypes.BOOLEAN,
   }, {
     sequelize,
-    modelName: 'Notification ',
+    modelName: 'Notification',
   });
   return Notification ;
 };

@@ -79,11 +79,10 @@ let getAllUsers = (userId) => {
         try {
             let users = '';
             if (userId === 'All') {
-                users = db.User.findAll({
+                users = await db.User.findAll({
                     attributes: {
                         exclude: ['password']
                     }
-
                 })
             }
             if (userId && userId !== 'All') {
@@ -122,8 +121,8 @@ let createNewUser = (data) => {
                     phonenumber: data.phonenumber,
                     gender: data.gender,
                     roleId: data.roleId,
-                    positionId: data.positionId,
-                    image: data.avatar
+                    image: data.avatar,
+                    ban: data.ban,
                 })
 
                 resolve({
@@ -169,7 +168,7 @@ let deleteUser = (userId) => {
 let updateUserData = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.id || !data.roleId || !data.positionId || !data.gender) {
+            if (!data.id || !data.roleId || !data.gender) {
                 resolve({
                     errCode: 2,
                     message: 'Missing required parameter !'
@@ -184,7 +183,6 @@ let updateUserData = (data) => {
                 user.lastName = data.lastName;
                 user.address = data.address;
                 user.roleId = data.roleId;
-                user.positionId = data.positionId;
                 user.gender = data.gender;
                 user.phonenumber = data.phonenumber;
                 if (data.avatar) {

@@ -1,8 +1,8 @@
 'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('notification', {
-            notification_id: {
+        await queryInterface.createTable('notifications', {
+            id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
@@ -32,6 +32,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('notification');
+        await queryInterface.dropTable('notifications');
     }
 };

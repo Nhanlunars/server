@@ -1,8 +1,8 @@
 'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('charger_type', {
-            type_id: {
+        await queryInterface.createTable('charger_types', {
+            id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
@@ -12,7 +12,7 @@ module.exports = {
             type_name: {
                 type: Sequelize.STRING
             },
-            default_duration: {
+            describe: {
                 type: Sequelize.STRING
             },
             default_price: {
@@ -29,6 +29,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('charger_type');
+        await queryInterface.dropTable('charger_types');
     }
 };

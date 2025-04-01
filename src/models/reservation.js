@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Reservation.belongsTo(models.User, { foreignKey: 'user_id',  as: 'userData' })
-      Reservation.belongsTo(models.Charger, { foreignKey: 'gender',  as: 'chargerData' })
-      Reservation.hasOne(models.Charger_type, { foreignKey: 'user_id', as : 'typeDate' })
+      //Reservation.belongsTo(models.User, { foreignKey: 'user_id',targetKey: 'id',  as: 'userReservation' })
+      //Reservation.belongsTo(models.Charger, { foreignKey: 'charger_id',targetKey: 'id',  as: 'chargerReservation' })
+      //Reservation.belongsTo(models.Charger_type, { foreignKey: 'type_id',targetKey: 'id', as : 'typeResaervation' })
       
 
     }
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     status : DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'Reservation ',
+    modelName: 'Reservation',
   });
   return Reservation ;
 };

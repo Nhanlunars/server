@@ -11,18 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsTo(models.Allcode, { foreignKey: 'roleId', targetKey: 'keyMap', as: 'roleData' })
-      User.belongsTo(models.Allcode, { foreignKey: 'gender', targetKey: 'keyMap', as: 'genderData' })
-      User.hasOne(models.Owner_charger_info, { foreignKey: 'user_id' })
-      User.hasMany(models.Charger, { foreignKey: 'user_id', as: 'userData' })
-      User.hasMany(models.Reservation, { foreignKey: 'user_id', as: 'userData' })
-      User.hasMany(models.Notification, { foreignKey: 'user_id', as: 'userData' })
-      User.hasMany(models.Usege_histories, { foreignKey: 'user_id', as: 'userData' })
-      User.hasMany(models.User_device, { foreignKey: 'user_id', as: 'userData' })
-      User.hasMany(models.Password_reset, { foreignKey: 'user_id', as: 'userData' })
-      User.hasMany(models.Feedback, { foreignKey: 'user_id', as: 'userData' })
-      User.hasMany(models.User_ban_history, { foreignKey: 'user_id', as: 'userData' })
-      User.hasMany(models.OTP, { foreignKey: 'user_id', as: 'userData' })
+      //User.belongsTo(models.Allcode, { foreignKey: 'roleId', targetKey: 'keyMap', as: 'roleData' })
+      //User.belongsTo(models.Allcode, { foreignKey: 'gender', targetKey: 'keyMap', as: 'genderData' })
+      //User.hasMany(models.Location, { foreignKey: 'user_id', as: 'userLocation' })
+      //User.hasMany(models.Reservation, { foreignKey: 'user_id', as: 'userReservation' })
+      //User.hasOne(models.Owner_charger_info, { foreignKey: 'user_id' })
+      //User.hasMany(models.Notification, { foreignKey: 'user_id', as: 'userNotification' })
+      //User.hasMany(models.Usege_histories, { foreignKey: 'user_id', as: 'userHistory' })
+      //User.hasMany(models.Feedback, { foreignKey: 'user_id', as: 'userFeedback' })
+      //User.hasMany(models.OTP, { foreignKey: 'user_id', as: 'userOTP' })
 
     }
   };
@@ -36,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     gender: DataTypes.STRING,
     image: DataTypes.BLOB('long'),
     roleId: DataTypes.STRING,
+    ban: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',

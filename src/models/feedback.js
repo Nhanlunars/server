@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Feedback.belongsTo(models.User, { foreignKey: 'user_id',  as: 'userData' })
-      Feedback.belongsTo(models.Charger, { foreignKey: 'charger_id', as: 'chargerData' })
+      //Feedback.belongsTo(models.User, { foreignKey: 'user_id',targetKey: 'id',  as: 'userFeedback' })
+      //Feedback.belongsTo(models.Charger, { foreignKey: 'charger_id',targetKey: 'id', as: 'chargerFeedback' })
       
     }
   };

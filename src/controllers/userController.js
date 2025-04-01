@@ -1,4 +1,4 @@
-import { response } from "express";
+import  response  from "express";
 import userService from "../services/userService";
 
 let handleLogin = async (req, res) => {
@@ -50,7 +50,6 @@ let handleGetAllUser = async (req, res) => {
 
 let handleCreateNewUser = async (req, res) => {
     let message = await userService.createNewUser(req.body);
-
     return res.status(200).json(message);
 }
 

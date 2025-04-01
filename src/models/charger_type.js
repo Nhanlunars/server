@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Charger_type.hasMany(models.Usege_histories, { foreignKey: 'type_id', as: 'typeData' })
-      Charger_type.hasMany(models.Reservation, { foreignKey: 'type_id', as: 'typeData' })
-
+      //Charger_type.hasMany(models.Usege_history, { foreignKey: 'type_id', as: 'typeHistory' })
+      //Charger_type.hasMany(models.Reservation, { foreignKey: 'type_id', as: 'typeResaervation' })
+//
     }
   };
   Charger_type.init({
     type_name: DataTypes.STRING,
-    default_duration: DataTypes.STRING,
+    describe: DataTypes.STRING,
     default_price: DataTypes.STRING,
   }, {
     sequelize,

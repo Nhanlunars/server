@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User_device.belongsTo(models.User, { foreignKey: 'user_id', as: 'userData' })
+      //User_device.belongsTo(models.Changer, { foreignKey: 'charger_id',targetKey: 'id', as: 'chargerDevice' })
       
     }
   };
   User_device.init({
-    user_id: DataTypes.INTEGER,
+    charger_id: DataTypes.INTEGER,
     fcm_token: DataTypes.STRING,
   }, {
     sequelize,

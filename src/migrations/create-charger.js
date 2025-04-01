@@ -1,15 +1,12 @@
 'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('charger', {
-            charger_id: {
+        await queryInterface.createTable('chargers', {
+            id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
-            },
-            secret_id: {
-                type: Sequelize.STRING
             },
             charger_name: {
                 type: Sequelize.STRING
@@ -29,11 +26,11 @@ module.exports = {
             last_maintence_date: {
                 type: Sequelize.DATE
             },
-            user_id: {
-                type: Sequelize.INTEGER
-            },
             location_id: {
                 type: Sequelize.INTEGER
+            },
+            image: {
+                type: Sequelize.BLOB('long')
             },
             createdAt: {
                 allowNull: false,
@@ -46,6 +43,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('charger');
+        await queryInterface.dropTable('chargers');
     }
 };

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      OTP.belongsTo(models.User, { foreignKey: 'user_id', as: 'userData' })
+      //OTP.belongsTo(models.User, { foreignKey: 'user_id',targetKey: 'id', as: 'userOTP' })
       
     }
   };

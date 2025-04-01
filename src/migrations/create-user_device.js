@@ -1,14 +1,14 @@
 'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('user_device', {
+        await queryInterface.createTable('user_devices', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-    user_id: {
+            charger_id: {
                 type: Sequelize.INTEGER
             },
             fcm_token: {
@@ -25,6 +25,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('user_device');
+        await queryInterface.dropTable('user_devices');
     }
 };
