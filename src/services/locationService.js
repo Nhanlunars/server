@@ -1,5 +1,4 @@
 //mport db from "../models/index";
-
 const db = require("../models/index");
 //const models = require('./src/models').default;
 
@@ -19,12 +18,12 @@ let createLocation = (data) => {
             await db.Location.create({
                 location_name: data.location_name,
                 user_id: data.user_id,
-                //city: data.city,
-                //address : data.address,
-                //ward : data.ward,
-                //district : data.district,
-                //lng : data.lng,
-                //lat : data.lat,
+                city: data.city,
+                address : data.address,
+                ward : data.ward,
+                district : data.district,
+                lng : data.lng,
+                lat : data.lat,
             })
             resolve({
                 errCode: 0,
@@ -61,7 +60,7 @@ let getAllLocations = (locationId) => {
         try {
             let users = '';
             if (locationId === 'All') {
-                users = db.Location.findAll({
+                users = await db.Location.findAll({
                     
 
                 })

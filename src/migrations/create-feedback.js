@@ -15,6 +15,9 @@ module.exports = {
             charger_id: {
                 type: Sequelize.INTEGER
             },
+            type_id: {
+                type: Sequelize.INTEGER
+            },
             rating: {
                 type: Sequelize.STRING
             },

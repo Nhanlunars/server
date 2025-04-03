@@ -95,5 +95,4 @@ module.exports = {
     getAllLocationByUserId: getAllLocationByUserId,
     deleteLocation: deleteLocation,
     editLocation: editLocation
-
 }

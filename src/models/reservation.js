@@ -14,8 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       //Reservation.belongsTo(models.User, { foreignKey: 'user_id',targetKey: 'id',  as: 'userReservation' })
       //Reservation.belongsTo(models.Charger, { foreignKey: 'charger_id',targetKey: 'id',  as: 'chargerReservation' })
       //Reservation.belongsTo(models.Charger_type, { foreignKey: 'type_id',targetKey: 'id', as : 'typeResaervation' })
-      
-
     }
   };
   Reservation.init({

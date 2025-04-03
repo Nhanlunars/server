@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Charger_type.init({
+    charger_id: DataTypes.INTEGER,
     type_name: DataTypes.STRING,
     describe: DataTypes.STRING,
     default_price: DataTypes.STRING,

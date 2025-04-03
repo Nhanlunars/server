@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       //Charger.hasMany(models.Maintenance_log, { foreignKey: 'charger_id', as: 'chargerLog' })
       //Charger.hasMany(models.Reservation, { foreignKey: 'charger_id', as: 'chargerReservation' })
       //Charger.hasMany(models.Feedback, { foreignKey: 'charger_id', as: 'chargerFeedback' })
-     //Charger.hasMany(models.Usege_history, { foreignKey: 'charger_id', as: 'chargerHistory' })
-     //Charger.belongsTo(models.Location, { foreignKey: 'location_id', targetKey: 'id', as: 'locationCharger' })
+      //Charger.hasMany(models.Usege_history, { foreignKey: 'charger_id', as: 'chargerHistory' })
+      //Charger.belongsTo(models.Location, { foreignKey: 'location_id', targetKey: 'id', as: 'locationCharger' })
     }
   };
   Charger.init({

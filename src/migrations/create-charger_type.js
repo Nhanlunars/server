@@ -8,7 +8,9 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-
+            charger_id: {
+                type: Sequelize.INTEGER
+            },
             type_name: {
                 type: Sequelize.STRING
             },

@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   Feedback.init({
     user_id: DataTypes.INTEGER,
     charger_id: DataTypes.INTEGER,
+    type_id: DataTypes.INTEGER,
     rating: DataTypes.STRING,
     comment: DataTypes.STRING,
   }, {

@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Maintenance.init({
     charger_id: DataTypes.INTEGER,
+    type_id: DataTypes.INTEGER,
     maintenance_date: DataTypes.DATE,
     completion_date: DataTypes.DATE,
     maintenance_type: DataTypes.STRING,
