@@ -23,6 +23,12 @@ module.exports = {
             end_time: {
                 type: Sequelize.DATE
             },
+            number_start: {
+                type: Sequelize.FLOAT
+            },
+            number_end: {
+                type: Sequelize.FLOAT
+            },
             cost: {
                 type: Sequelize.FLOAT
             },
