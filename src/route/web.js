@@ -1,7 +1,8 @@
 import express from "express";
 import userController from "../controllers/userController";
 import locationController from "../controllers/locationController";
-
+import chargerController from "../controllers/chargerController";
+import typeController from "../controllers/typeController";
 
 let router = express.Router();
 
@@ -25,7 +26,20 @@ let initWebRoutes = (app) => {
     router.put('/api/edit-location', locationController.editLocation);
 
   
+    
+    router.post('/api/create-charger', chargerController.createCharger);
+    router.get('/api/get-all-charger', chargerController.getAllCharger);
+    //router.get('/api/get-all-chargers', chargerController.handleGetAllLocation);
+    router.get('/api/get-all-charger-by-locationid', chargerController.getAllChargerByLocationId);
+    router.delete('/api/delete-charger', chargerController.deleteCharger);
+    router.put('/api/edit-charger', chargerController.updateCharger);
 
+
+    router.post('/api/create-type', typeController.createType);
+    router.get('/api/get-all-type', typeController.getAllType);
+    router.get('/api/get-all-type-by-chargerid', typeController.getAllTypeByChargerId);
+    router.delete('/api/delete-type', typeController.deleteType);
+    router.put('/api/edit-type', typeController.updateType);
     
 
 

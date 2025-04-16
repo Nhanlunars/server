@@ -3,7 +3,8 @@ import db from "../models/index";
 let createType = (data) => {
     return new Promise(async (resolve, reject) => {
         try { 
-            if ( !data.charger_id || !data.type_name || !default_price ) {
+            if ( !data.charger_id || !data.type_name || !data.default_price 
+                ) {
             resolve({
                 errCode: 1,
                 errMessage: "Missing parameter"
@@ -13,7 +14,7 @@ let createType = (data) => {
                     charger_id: data.charger_id,
                     type_name: data.type_name,
                     describe: data.describe,
-                    default_price : data.default_price,
+                    default_price: data.default_price,
                 })
                 resolve({
                     errCode: 0,
@@ -91,7 +92,7 @@ let deleteType = (typeId) => {
 let updateType = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.id || !data.charger_name || !data.default_price) {
+            if (!data.id || !data.type_name || !data.default_price) {
                 resolve({
                     errCode: 2,
                     message: 'Missing required parameter !'
