@@ -61,8 +61,6 @@ let getAllLocations = (locationId) => {
             let users = '';
             if (locationId === 'All') {
                 users = await db.Location.findAll({
-                    
-
                 })
             }
             if (locationId && locationId !== 'All') {

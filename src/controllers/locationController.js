@@ -38,15 +38,15 @@ let handleGetAllLocation = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            users: []
+            locations: []
         })
     }
-    let users = await locationServices.getAllLocations(id);
-    //console.log(users);
+    let locations = await locationServices.getAllLocations(id);
+    //console.log(locations);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        users
+        locations
     })
 }
 
@@ -56,15 +56,15 @@ let getAllLocationByUserId = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            users: []
+            locations: []
         })
     }
-    let users = await locationServices.getAllLocationByUserId(id);
-    //console.log(users);
+    let locations = await locationServices.getAllLocationByUserId(id);
+    //console.log(locations);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        users
+        locations
     })
 }
 let deleteLocation = async (req, res) => {

@@ -21,15 +21,15 @@ let getAllFeedback = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            users: []
+            feedbacks: []
         })
     }
-    let users = await typeService.getAllFeedback(id);
-    //console.log(users);
+    let feedbacks = await typeService.getAllFeedback(id);
+    //console.log(feedbacks);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        users
+        feedbacks
     })
 }
 
@@ -39,15 +39,15 @@ let getAllFeedbackByChargerId = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            users: []
+            feedbacks: []
         })
     }
-    let users = await typeService.getAllFeedbackByChargerId(id);
-    //console.log(users);
+    let feedbacks = await typeService.getAllFeedbackByChargerId(id);
+    //console.log(feedbacks);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        users
+        feedbacks
     })
 }
 let deleteFeedback = async (req, res) => {

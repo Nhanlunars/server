@@ -3,8 +3,7 @@ import db from "../models/index";
 let createType = (data) => {
     return new Promise(async (resolve, reject) => {
         try { 
-            if ( !data.charger_id || !data.type_name || !data.default_price 
-                ) {
+            if ( !data.charger_id || !data.type_name || !data.default_price  ) {
             resolve({
                 errCode: 1,
                 errMessage: "Missing parameter"

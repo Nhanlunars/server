@@ -21,15 +21,15 @@ let getAllType = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            users: []
+            types: []
         })
     }
-    let users = await typeService.getAllType(id);
-    //console.log(users);
+    let types = await typeService.getAllType(id);
+    //console.log(types);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        users
+        types
     })
 }
 
@@ -39,15 +39,15 @@ let getAllTypeByChargerId = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            users: []
+            types: []
         })
     }
-    let users = await typeService.getAllTypeByChargerId(id);
-    //console.log(users);
+    let types = await typeService.getAllTypeByChargerId(id);
+    //console.log(types);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        users
+        types
     })
 }
 let deleteType = async (req, res) => {
