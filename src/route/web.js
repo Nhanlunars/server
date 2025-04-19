@@ -5,6 +5,7 @@ import chargerController from "../controllers/chargerController";
 import typeController from "../controllers/typeController";
 import reservationController from "../controllers/reservationController";
 import historyController from "../controllers/historyController";
+import infoController from "../controllers/infoController";
 
 let router = express.Router();
 
@@ -57,6 +58,12 @@ let initWebRoutes = (app) => {
     router.delete('/api/delete-history', historyController.deleteHistory);
     router.put('/api/edit-history', historyController.updateHistory);
 
+
+    router.get('/api/get-all-info', infoController.getAllInfos);
+    router.post('/api/create-info', infoController.createInfo);
+    router.get('/api/get-info-by-userid', infoController.getInfoByUserId);
+    router.delete('/api/delete-info', infoController.deleteInfo);
+    router.put('/api/edit-info', infoController.updateInfo);
 
     return app.use("/", router);
 
