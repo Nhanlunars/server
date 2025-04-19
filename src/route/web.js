@@ -7,6 +7,8 @@ import reservationController from "../controllers/reservationController";
 import historyController from "../controllers/historyController";
 import infoController from "../controllers/infoController";
 import feedbackController from "../controllers/feedbackController";
+import deviceController from "../controllers/deviceController";
+
 
 
 let router = express.Router();
@@ -70,11 +72,17 @@ let initWebRoutes = (app) => {
 
     router.get('/api/get-all-feedback', feedbackController.getAllFeedback);
     router.post('/api/create-feedback', feedbackController.createFeedback);
-    router.get('/api/get-all-feedback-by-chargerrid', feedbackController.getAllFeedbackByChargerId);
+    router.get('/api/get-all-feedback-by-chargerid', feedbackController.getAllFeedbackByChargerId);
     router.get('/api/get-all-feedback-by-userid', feedbackController.getAllFeedbackByuserId);
     router.delete('/api/delete-feedback', feedbackController.deleteFeedback);
     router.put('/api/edit-feedback', feedbackController.updateFeedback);
 
+
+    router.get('/api/get-all-device', deviceController.getAllDevice);
+    router.post('/api/create-device', deviceController.createDevice);
+    router.get('/api/get-all-device-by-userid', deviceController.getAllDeviceByuserId);
+    router.delete('/api/delete-device', deviceController.deleteDevice);
+    router.put('/api/edit-device', deviceController.updateDevice);
     return app.use("/", router);
 
 
