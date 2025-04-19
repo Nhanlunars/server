@@ -3,6 +3,8 @@ import userController from "../controllers/userController";
 import locationController from "../controllers/locationController";
 import chargerController from "../controllers/chargerController";
 import typeController from "../controllers/typeController";
+import reservationController from "../controllers/reservationController";
+import historyController from "../controllers/historyController";
 
 let router = express.Router();
 
@@ -42,8 +44,18 @@ let initWebRoutes = (app) => {
     router.put('/api/edit-type', typeController.updateType);
     
 
+    router.get('/api/get-all-reservation', reservationController.getAllReservations);
+    router.post('/api/create-reservation', reservationController.createReservation);
+    //router.get('/api/get-all-reservation-by-userid', reservationController.getAllTypeByChargerId);
+    router.delete('/api/delete-reservation', reservationController.deleteReservation);
+    router.put('/api/edit-reservation', reservationController.updateReservation);
 
 
+    router.get('/api/get-all-history', historyController.getAllHistorys);
+    router.post('/api/create-history', historyController.createHistory);
+    //router.get('/api/get-all-history-by-userid', historyController.getAllTypeByChargerId);
+    router.delete('/api/delete-history', historyController.deleteHistory);
+    router.put('/api/edit-history', historyController.updateHistory);
 
 
     return app.use("/", router);

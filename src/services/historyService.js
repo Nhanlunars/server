@@ -134,12 +134,12 @@ let updateHistory = (data) => {
                 await history.save();
                 resolve({
                     errCode: 0,
-                    message: 'Update the location succeeds!'
+                    message: 'Update the history succeeds!'
                 });
             } else {
                 resolve({
                     errCode: 1,
-                    message: `Location's not found!`
+                    message: `History's not found!`
                 });
             }
         } catch (e) {

@@ -88,7 +88,7 @@ let deleteReservation = (reservationId) => {
         if (!foundReservation) {
             resolve({
                 errCode: 2,
-                errMessage: `The user isn't exist`
+                errMessage: `The reservation isn't exist`
             })
         }
         //console.log('check', foundUser)
@@ -98,7 +98,7 @@ let deleteReservation = (reservationId) => {
         );
         resolve({
             errCode: 0,
-            errMessage: `The user is delete`
+            errMessage: `The reservation is delete`
         })
 
 
@@ -128,12 +128,12 @@ let updateReservation = (data) => {
                 await reser.save();
                 resolve({
                     errCode: 0,
-                    message: 'Update the location succeeds!'
+                    message: 'Update the reservation succeeds!'
                 });
             } else {
                 resolve({
                     errCode: 1,
-                    message: `Location's not found!`
+                    message: `reservation's not found!`
                 });
             }
         } catch (e) {
