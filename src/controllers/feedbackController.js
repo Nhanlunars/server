@@ -1,8 +1,8 @@
-import typeService from "../services/typeService";
+import feedbackService from "../services/feedbackService";
 
 let createFeedback = async (req, res) => {
     try {
-        let infor = await typeService.createFeedback(req.body);
+        let infor = await feedbackService.createFeedback(req.body);
         return res.status(200).json(
             infor
         )
@@ -24,7 +24,7 @@ let getAllFeedback = async (req, res) => {
             feedbacks: []
         })
     }
-    let feedbacks = await typeService.getAllFeedback(id);
+    let feedbacks = await feedbackService.getAllFeedback(id);
     //console.log(feedbacks);
     return res.status(200).json({
         errCode: 0,
@@ -34,7 +34,7 @@ let getAllFeedback = async (req, res) => {
 }
 
 let getAllFeedbackByChargerId = async (req, res) => {
-    let id = req.query.location_id; //All, id
+    let id = req.query.charger_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -42,7 +42,7 @@ let getAllFeedbackByChargerId = async (req, res) => {
             feedbacks: []
         })
     }
-    let feedbacks = await typeService.getAllFeedbackByChargerId(id);
+    let feedbacks = await feedbackService.getAllFeedbackByChargerId(id);
     //console.log(feedbacks);
     return res.status(200).json({
         errCode: 0,
@@ -50,6 +50,27 @@ let getAllFeedbackByChargerId = async (req, res) => {
         feedbacks
     })
 }
+
+
+let getAllFeedbackByuserId = async (req, res) => {
+    let id = req.query.user_id; //All, id
+    if (!id) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: 'Missing require parameters',
+            feedbacks: []
+        })
+    }
+    let feedbacks = await feedbackService.getAllFeedbackByuserId(id);
+    //console.log(feedbacks);
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'Ok',
+        feedbacks
+    })
+}
+
+
 let deleteFeedback = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
@@ -57,14 +78,14 @@ let deleteFeedback = async (req, res) => {
             errMessage: "Missing required parameters!"
         })
     }
-    let message = await typeService.deleteFeedback(req.body.id);
+    let message = await feedbackService.deleteFeedback(req.body.id);
 
     return res.status(200).json(message);
 }
 
 let updateFeedback = async (req, res) => {
     let data = req.body;
-    let message = await typeService.updateFeedback(data);
+    let message = await feedbackService.updateFeedback(data);
     return res.status(200).json(message)
 
 }
@@ -75,6 +96,7 @@ module.exports = {
     createFeedback: createFeedback,
     getAllFeedback: getAllFeedback,
     getAllFeedbackByChargerId: getAllFeedbackByChargerId,
+    getAllFeedbackByuserId: getAllFeedbackByuserId,
     deleteFeedback: deleteFeedback,
     updateFeedback: updateFeedback
 }

@@ -6,6 +6,8 @@ import typeController from "../controllers/typeController";
 import reservationController from "../controllers/reservationController";
 import historyController from "../controllers/historyController";
 import infoController from "../controllers/infoController";
+import feedbackController from "../controllers/feedbackController";
+
 
 let router = express.Router();
 
@@ -64,6 +66,14 @@ let initWebRoutes = (app) => {
     router.get('/api/get-info-by-userid', infoController.getInfoByUserId);
     router.delete('/api/delete-info', infoController.deleteInfo);
     router.put('/api/edit-info', infoController.updateInfo);
+
+
+    router.get('/api/get-all-feedback', feedbackController.getAllFeedback);
+    router.post('/api/create-feedback', feedbackController.createFeedback);
+    router.get('/api/get-all-feedback-by-chargerrid', feedbackController.getAllFeedbackByChargerId);
+    router.get('/api/get-all-feedback-by-userid', feedbackController.getAllFeedbackByuserId);
+    router.delete('/api/delete-feedback', feedbackController.deleteFeedback);
+    router.put('/api/edit-feedback', feedbackController.updateFeedback);
 
     return app.use("/", router);
 

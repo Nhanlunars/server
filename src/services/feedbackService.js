@@ -64,6 +64,20 @@ let getAllFeedbackByChargerId = (chargerId) => {
     })
 }
 
+let getAllFeedbackByuserId = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let locations = await db.Feedback.findAll({
+                    where: { user_id: userId }
+                })
+            
+            resolve(locations)
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 let deleteFeedback = (feedbackId) => {
     return new Promise(async (resolve, reject) => {
         let foundFeedback = await db.Feedback.findOne({
@@ -130,6 +144,7 @@ module.exports = {
     createFeedback: createFeedback,
     getAllFeedback: getAllFeedback,
     getAllFeedbackByChargerId: getAllFeedbackByChargerId,
+    getAllFeedbackByuserId: getAllFeedbackByuserId,
     deleteFeedback: deleteFeedback,
     updateFeedback: updateFeedback
 
