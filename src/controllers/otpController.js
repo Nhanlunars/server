@@ -1,8 +1,8 @@
-import locationServices from "../services/locationService";
+import otpService from "../services/otpService";
 
-let createLocation = async (req, res) => {
+let createOTP = async (req, res) => {
     try {
-        let infor = await locationServices.createLocation(req.body);
+        let infor = await otpService.createOTP(req.body);
         return res.status(200).json(
             infor
         )
@@ -15,57 +15,59 @@ let createLocation = async (req, res) => {
     }
 }
 
-
-let getAllLocation = async (req, res) => {
+let getAllOTP = async (req, res) => {
     let id = req.query.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            locations: []
+            otps: []
         })
     }
-    let locations = await locationServices.getAllLocation(id);
-    //console.log(locations);
+    let otps = await otpService.getAllOTP(id);
+    //console.log(otps);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        locations
+        otps
     })
 }
 
-let getAllLocationByUserId = async (req, res) => {
+
+let getAllOTPByUserId = async (req, res) => {
     let id = req.query.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            locations: []
+            otps: []
         })
     }
-    let locations = await locationServices.getAllLocationByUserId(id);
-    //console.log(locations);
+    let otps = await otpService.getAllOTPByUserId(id);
+    //console.log(otps);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        locations
+        otps
     })
 }
-let deleteLocation = async (req, res) => {
+
+
+let deleteOTP = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
             errCode: 1,
             errMessage: "Missing required parameters!"
         })
     }
-    let message = await locationServices.deleteLocation(req.body.id);
+    let message = await otpService.deleteOTP(req.body.id);
 
     return res.status(200).json(message);
 }
 
-let editLocation = async (req, res) => {
+let updateOTP = async (req, res) => {
     let data = req.body;
-    let message = await locationServices.updateLocation(data);
+    let message = await otpService.updateOTP(data);
     return res.status(200).json(message)
 
 }
@@ -73,9 +75,9 @@ let editLocation = async (req, res) => {
 
 
 module.exports = {
-    createLocation: createLocation,
-    getAllLocation: getAllLocation,
-    getAllLocationByUserId: getAllLocationByUserId,
-    deleteLocation: deleteLocation,
-    editLocation: editLocation
+    createOTP: createOTP,
+    getAllOTP: getAllOTP,
+    getAllOTPByUserId: getAllOTPByUserId,
+    deleteOTP: deleteOTP,
+    updateOTP: updateOTP
 }

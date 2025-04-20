@@ -1,8 +1,8 @@
-import locationServices from "../services/locationService";
+import notificationService from "../services/notificationService";
 
-let createLocation = async (req, res) => {
+let createNotification = async (req, res) => {
     try {
-        let infor = await locationServices.createLocation(req.body);
+        let infor = await notificationService.createNotification(req.body);
         return res.status(200).json(
             infor
         )
@@ -15,57 +15,59 @@ let createLocation = async (req, res) => {
     }
 }
 
-
-let getAllLocation = async (req, res) => {
+let getAllNotification = async (req, res) => {
     let id = req.query.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            locations: []
+            notifications: []
         })
     }
-    let locations = await locationServices.getAllLocation(id);
-    //console.log(locations);
+    let notifications = await notificationService.getAllNotification(id);
+    //console.log(notifications);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        locations
+        notifications
     })
 }
 
-let getAllLocationByUserId = async (req, res) => {
+
+let getAllNotificationByUserId = async (req, res) => {
     let id = req.query.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            locations: []
+            notifications: []
         })
     }
-    let locations = await locationServices.getAllLocationByUserId(id);
-    //console.log(locations);
+    let notifications = await notificationService.getAllNotificationByUserId(id);
+    //console.log(notifications);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        locations
+        notifications
     })
 }
-let deleteLocation = async (req, res) => {
+
+
+let deleteNotification = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
             errCode: 1,
             errMessage: "Missing required parameters!"
         })
     }
-    let message = await locationServices.deleteLocation(req.body.id);
+    let message = await notificationService.deleteNotification(req.body.id);
 
     return res.status(200).json(message);
 }
 
-let editLocation = async (req, res) => {
+let updateNotification = async (req, res) => {
     let data = req.body;
-    let message = await locationServices.updateLocation(data);
+    let message = await notificationService.updateNotification(data);
     return res.status(200).json(message)
 
 }
@@ -73,9 +75,9 @@ let editLocation = async (req, res) => {
 
 
 module.exports = {
-    createLocation: createLocation,
-    getAllLocation: getAllLocation,
-    getAllLocationByUserId: getAllLocationByUserId,
-    deleteLocation: deleteLocation,
-    editLocation: editLocation
+    createNotification: createNotification,
+    getAllNotification: getAllNotification,
+    getAllNotificationByUserId: getAllNotificationByUserId,
+    deleteNotification: deleteNotification,
+    updateNotification: updateNotification
 }

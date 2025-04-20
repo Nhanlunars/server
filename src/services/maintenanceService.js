@@ -74,7 +74,7 @@ let deleteMaintenance = (maintenanceId) => {
         if (!foundMaintenance) {
             resolve({
                 errCode: 2,
-                errMessage: `The feedback isn't exist`
+                errMessage: `The maintenance isn't exist`
             })
         }
         //console.log('check', foundUser)
@@ -84,7 +84,7 @@ let deleteMaintenance = (maintenanceId) => {
         );
         resolve({
             errCode: 0,
-            errMessage: `The feedback is delete`
+            errMessage: `The maintenance is delete`
         })
 
 

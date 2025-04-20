@@ -39,23 +39,7 @@ let createLocation = (data) => {
     })
 }
 
-
-let getAllLocation = () => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let data = await db.Location.findAll();       
-            resolve({
-                errMessage: 'Ok',
-                errCode: 0,
-                data
-            })     
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-
-let getAllLocations = (locationId) => {
+let getAllLocation = (locationId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let users = '';
@@ -163,7 +147,6 @@ let updateLocation = (data) => {
 module.exports = {
     createLocation: createLocation,
     getAllLocation: getAllLocation,
-    getAllLocations: getAllLocations,
     getAllLocationByUserId: getAllLocationByUserId,
     deleteLocation: deleteLocation,
     updateLocation: updateLocation

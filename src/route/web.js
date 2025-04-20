@@ -8,8 +8,9 @@ import historyController from "../controllers/historyController";
 import infoController from "../controllers/infoController";
 import feedbackController from "../controllers/feedbackController";
 import deviceController from "../controllers/deviceController";
-
-
+import maintenanceController from "../controllers/maintenanceController";
+import notificationController from "../controllers/notificationController";
+import otpController from "../controllers/otpController";
 
 let router = express.Router();
 
@@ -83,6 +84,30 @@ let initWebRoutes = (app) => {
     router.get('/api/get-all-device-by-userid', deviceController.getAllDeviceByuserId);
     router.delete('/api/delete-device', deviceController.deleteDevice);
     router.put('/api/edit-device', deviceController.updateDevice);
+   
+   
+    router.get('/api/get-all-maintenance', maintenanceController.getAllMaintenance);
+    router.post('/api/create-maintenance', maintenanceController.createMaintenance);
+    router.get('/api/get-all-maintenance-by-chargerid', maintenanceController.getAllMaintenanceByChargerId);
+    router.delete('/api/delete-maintenance', maintenanceController.deleteMaintenance);
+    router.put('/api/edit-maintenance', maintenanceController.updateMaintenance);
+   
+
+    router.get('/api/get-all-notification', notificationController.getAllNotification);
+    router.post('/api/create-notification', notificationController.createNotification);
+    router.get('/api/get-all-notification-by-userid', notificationController.getAllNotificationByUserId);
+    router.delete('/api/delete-notification', notificationController.deleteNotification);
+    router.put('/api/edit-notification', notificationController.updateNotification);
+   
+   
+    router.get('/api/get-all-otp', otpController.getAllOtp);
+    router.post('/api/create-otp', otpController.createOtp);
+    router.get('/api/get-all-otp-by-userid', otpController.getAllOtpByUserId);
+    router.delete('/api/delete-otp', otpController.deleteOtp);
+    router.put('/api/edit-otp', otpController.updateOtp);
+   
+   
+   
     return app.use("/", router);
 
 
