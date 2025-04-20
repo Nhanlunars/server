@@ -16,7 +16,7 @@ let createMaintenance = async (req, res) => {
 }
 
 let getAllMaintenance = async (req, res) => {
-    let id = req.query.id; //All, id
+    let id = req.body.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -35,7 +35,7 @@ let getAllMaintenance = async (req, res) => {
 
 
 let getAllMaintenanceByChargerId = async (req, res) => {
-    let id = req.query.charger_id; //All, id
+    let id = req.body.charger_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,

@@ -11,9 +11,9 @@ let createOTP = (data) => {
             } else {
                 await db.OTP.create({
                     user_id: data.user_id,
-                    title: data.title,
-                    message: data.message,
-                    is_read : data.is_read,
+                    code: data.code,
+                    expiry_date: data.expiry_date,
+                    is_used: data.is_used,
                 })
                 resolve({
                     errCode: 0,
@@ -103,9 +103,9 @@ let updateOTP = (data) => {
             })
             if (Otp) {
                 Otp.user_id = data.user_id;
-                Otp.title = data.title;
-                Otp.message = data.message;
-                Otp.is_read = data.is_read;
+                Otp.code = data.code;
+                Otp.expiry_date = data.expiry_date;
+                Otp.is_used = data.is_used;
                 await Otp.save();
                 resolve({
                     errCode: 0,

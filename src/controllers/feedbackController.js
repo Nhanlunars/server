@@ -16,7 +16,7 @@ let createFeedback = async (req, res) => {
 }
 
 let getAllFeedback = async (req, res) => {
-    let id = req.query.id; //All, id
+    let id = req.body.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -34,7 +34,7 @@ let getAllFeedback = async (req, res) => {
 }
 
 let getAllFeedbackByChargerId = async (req, res) => {
-    let id = req.query.charger_id; //All, id
+    let id = req.body.charger_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -53,7 +53,7 @@ let getAllFeedbackByChargerId = async (req, res) => {
 
 
 let getAllFeedbackByuserId = async (req, res) => {
-    let id = req.query.user_id; //All, id
+    let id = req.body.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,

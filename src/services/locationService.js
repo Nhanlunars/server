@@ -1,8 +1,4 @@
-//mport db from "../models/index";
-const db = require("../models/index");
-//const models = require('./src/models').default;
-
-
+import db from "../models/index";
 
 let createLocation = (data) => {
     return new Promise(async (resolve, reject) => {

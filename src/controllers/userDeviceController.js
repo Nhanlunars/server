@@ -16,7 +16,7 @@ let createDevice = async (req, res) => {
 }
 
 let getAllDevice = async (req, res) => {
-    let id = req.query.id; //All, id
+    let id = req.body.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -35,7 +35,7 @@ let getAllDevice = async (req, res) => {
 
 
 let getAllDeviceByuserId = async (req, res) => {
-    let id = req.query.user_id; //All, id
+    let id = req.body.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,

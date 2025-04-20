@@ -16,7 +16,7 @@ let createHistory = async (req, res) => {
 }
 
 let getAllHistorys = async (req, res) => {
-    let id = req.query.id; //All, id
+    let id = req.body.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -34,7 +34,7 @@ let getAllHistorys = async (req, res) => {
 }
 /*
 let getAllTypeByChargerId = async (req, res) => {
-    let id = req.query.location_id; //All, id
+    let id = req.body.location_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,

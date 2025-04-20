@@ -7,7 +7,7 @@ import reservationController from "../controllers/reservationController";
 import historyController from "../controllers/historyController";
 import infoController from "../controllers/infoController";
 import feedbackController from "../controllers/feedbackController";
-import deviceController from "../controllers/deviceController";
+import deviceController from "../controllers/userDeviceController";
 import maintenanceController from "../controllers/maintenanceController";
 import notificationController from "../controllers/notificationController";
 import otpController from "../controllers/otpController";
@@ -28,7 +28,6 @@ let initWebRoutes = (app) => {
 
     router.post('/api/create-location', locationController.createLocation);
     router.get('/api/get-all-location', locationController.getAllLocation);
-    router.get('/api/get-all-locations', locationController.handleGetAllLocation);
     router.get('/api/get-all-location-by-userid', locationController.getAllLocationByUserId);
     router.delete('/api/delete-location', locationController.deleteLocation);
     router.put('/api/edit-location', locationController.editLocation);
@@ -91,7 +90,6 @@ let initWebRoutes = (app) => {
     router.get('/api/get-all-maintenance-by-chargerid', maintenanceController.getAllMaintenanceByChargerId);
     router.delete('/api/delete-maintenance', maintenanceController.deleteMaintenance);
     router.put('/api/edit-maintenance', maintenanceController.updateMaintenance);
-   
 
     router.get('/api/get-all-notification', notificationController.getAllNotification);
     router.post('/api/create-notification', notificationController.createNotification);
@@ -100,12 +98,11 @@ let initWebRoutes = (app) => {
     router.put('/api/edit-notification', notificationController.updateNotification);
    
    
-    router.get('/api/get-all-otp', otpController.getAllOtp);
-    router.post('/api/create-otp', otpController.createOtp);
-    router.get('/api/get-all-otp-by-userid', otpController.getAllOtpByUserId);
-    router.delete('/api/delete-otp', otpController.deleteOtp);
-    router.put('/api/edit-otp', otpController.updateOtp);
-   
+    router.get('/api/get-all-otp', otpController.getAllOTP);
+    router.post('/api/create-otp', otpController.createOTP);
+    router.get('/api/get-all-otp-by-userid', otpController.getAllOTPByUserId);
+    router.delete('/api/delete-otp', otpController.deleteOTP);
+    router.put('/api/edit-otp', otpController.updateOTP);
    
    
     return app.use("/", router);

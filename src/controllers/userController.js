@@ -31,7 +31,7 @@ let handleLogin = async (req, res) => {
 }
 
 let handleGetAllUser = async (req, res) => {
-    let id = req.query.id; //All, id
+    let id = req.body.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -74,7 +74,7 @@ let handleEditUser = async (req, res) => {
 
 let getAllCode = async (req, res) => {
     try {
-        let data = await userService.getAllCodeService(req.query.type);
+        let data = await userService.getAllCodeService(req.body.type);
         return res.status(200).json(data);
     } catch (e) {
         console.log('Get all code error: ', e)

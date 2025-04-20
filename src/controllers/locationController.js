@@ -1,8 +1,8 @@
-import locationServices from "../services/locationService";
+import locationService from "../services/locationService";
 
 let createLocation = async (req, res) => {
     try {
-        let infor = await locationServices.createLocation(req.body);
+        let infor = await locationService.createLocation(req.body);
         return res.status(200).json(
             infor
         )
@@ -17,7 +17,7 @@ let createLocation = async (req, res) => {
 
 
 let getAllLocation = async (req, res) => {
-    let id = req.query.id; //All, id
+    let id = req.body.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -25,7 +25,7 @@ let getAllLocation = async (req, res) => {
             locations: []
         })
     }
-    let locations = await locationServices.getAllLocation(id);
+    let locations = await locationService.getAllLocation(id);
     //console.log(locations);
     return res.status(200).json({
         errCode: 0,
@@ -35,7 +35,7 @@ let getAllLocation = async (req, res) => {
 }
 
 let getAllLocationByUserId = async (req, res) => {
-    let id = req.query.user_id; //All, id
+    let id = req.body.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -43,7 +43,7 @@ let getAllLocationByUserId = async (req, res) => {
             locations: []
         })
     }
-    let locations = await locationServices.getAllLocationByUserId(id);
+    let locations = await locationService.getAllLocationByUserId(id);
     //console.log(locations);
     return res.status(200).json({
         errCode: 0,
@@ -58,14 +58,14 @@ let deleteLocation = async (req, res) => {
             errMessage: "Missing required parameters!"
         })
     }
-    let message = await locationServices.deleteLocation(req.body.id);
+    let message = await locationService.deleteLocation(req.body.id);
 
     return res.status(200).json(message);
 }
 
 let editLocation = async (req, res) => {
     let data = req.body;
-    let message = await locationServices.updateLocation(data);
+    let message = await locationService.updateLocation(data);
     return res.status(200).json(message)
 
 }
