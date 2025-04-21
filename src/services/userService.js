@@ -89,7 +89,7 @@ console.log('checkemai', check1);
                     resolve(false)
                 )
             } else {
-                resolve(1, {errMessage: 'email k dung'})
+                resolve(1)
             }
             
         } catch (e) {
@@ -180,7 +180,7 @@ let createNewUser1 = (data) => {
                 if(check ===1) {
                     resolve({
                         errCode: 1,
-                        errMessage: 'Your email is not right, Plz try another email'
+                        errMessage: 'Your email is not right, email it nhat 8 ki tự, phải có @'
                     })
                 } else {
                     let check1 = schema.validate(data.password);
