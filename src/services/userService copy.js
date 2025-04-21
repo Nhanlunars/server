@@ -5,9 +5,6 @@ var passwordValidator = require('password-validator');
 
 // Create a schema
 var schema = new passwordValidator();
-var checkemail = new passwordValidator();
-checkemail.is().min(8).has(['@'])                               
-
 
 // Add properties to it
 schema
@@ -18,6 +15,8 @@ schema
 .has().digits(1)                                // Must have at least 2 digits
 .has().not().spaces()  ;                         // Should not have spaces
 //.is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
+
+
 
 let hashUserPassword = (password) => {
     return new Promise(async (resoleve, reject) => {
@@ -80,18 +79,11 @@ let checkUserEmail = (userEmail) => {
             let user = await db.User.findOne({
                 where: { email: userEmail }
             })
-            let check1 = checkemail.validate(userEmail);
-console.log('checkemai', check1);
-            if(check1 === true) {
-                if (user) {
-                    resolve(true)
-                } else (
-                    resolve(false)
-                )
-            } else {
-                resolve(1, {errMessage: 'email k dung'})
-            }
-            
+            if (user) {
+                resolve(true)
+            } else (
+                resolve(false)
+            )
         } catch (e) {
             reject(e);
         }
@@ -135,55 +127,7 @@ let createNewUser = (data) => {
                     errMessage: 'Your email is already in used, Plz try another email'
                 })
             } else {
-                let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-                await db.User.create({
-                    email: data.email,
-                    password: hashPasswordFromBcrypt,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    address: data.address,
-                    phonenumber: data.phonenumber,
-                    gender: data.gender,
-                    roleId: data.roleId,
-                    image: data.avatar,
-                    ban: data.ban,
-                })
-
-                resolve({
-                    errCode: 0,
-                    message: 'Ok'
-                })
-            }
-
-
-
-
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-
-
-let createNewUser1 = (data) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            //check email is exist ???
-            let check = await checkUserEmail(data.email);
-            console.log('kiem tra gia tri email', check)
-            if (check === true) {
-                resolve({
-                    errCode: 1,
-                    errMessage: 'Your email is already in used, Plz try another email'
-                })
-            } else {
-                if(check ===1) {
-                    resolve({
-                        errCode: 1,
-                        errMessage: 'Your email is not right, Plz try another email'
-                    })
-                } else {
-                    let check1 = schema.validate(data.password);
+                let check1 = schema.validate(data.password);
                 if(check1 === false){
                     resolve({
                         errCode: 2,
@@ -212,17 +156,12 @@ let createNewUser1 = (data) => {
                     
                 }
                
-                }
-                
             }
         } catch (e) {
             reject(e);
         }
     })
 }
-
-
-
 
 let deleteUser = (userId) => {
     return new Promise(async (resolve, reject) => {
@@ -317,7 +256,6 @@ module.exports = {
     handleUserLogin: handleUserLogin,
     getAllUsers: getAllUsers,
     createNewUser: createNewUser,
-    createNewUser1: createNewUser1,
     deleteUser: deleteUser,
     updateUserData: updateUserData,
     getAllCodeService: getAllCodeService,

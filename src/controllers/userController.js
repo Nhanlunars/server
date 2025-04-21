@@ -53,6 +53,11 @@ let handleCreateNewUser = async (req, res) => {
     return res.status(200).json(message);
 }
 
+let handleCreateNewUser1 = async (req, res) => {
+    let message = await userService.createNewUser1(req.body);
+    return res.status(200).json(message);
+}
+
 let handleDeleteUser = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
@@ -91,6 +96,7 @@ module.exports = {
     handleLogin: handleLogin,
     handleGetAllUser: handleGetAllUser,
     handleCreateNewUser: handleCreateNewUser,
+    handleCreateNewUser1: handleCreateNewUser1,
     handleEditUser: handleEditUser,
     handleDeleteUser: handleDeleteUser,
     getAllCode: getAllCode,
