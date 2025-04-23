@@ -16,7 +16,7 @@ let createNotification = async (req, res) => {
 }
 
 let getAllNotification = async (req, res) => {
-    let id = req.body.id; //All, id
+    let id = req.query.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -35,7 +35,7 @@ let getAllNotification = async (req, res) => {
 
 
 let getAllNotificationByUserId = async (req, res) => {
-    let id = req.body.user_id; //All, id
+    let id = req.query.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,

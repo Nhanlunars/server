@@ -11,9 +11,6 @@ module.exports = {
             charger_name: {
                 type: Sequelize.STRING
             },
-            model: {
-                type: Sequelize.STRING
-            },
             capacity: {
                 type: Sequelize.STRING
             },

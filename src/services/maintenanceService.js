@@ -17,6 +17,7 @@ let createMaintenance = (data) => {
                     maintenance_type : data.maintenance_type,
                     technician_name : data.technician_name,
                     maintenance_cost : data.maintenance_cost,
+                    maintain: data.maintain,
                 })
                 resolve({
                     errCode: 0,
@@ -112,6 +113,8 @@ let updateMaintenance = (data) => {
                 maintenance.maintenance_type = data.maintenance_type;
                 maintenance.technician_name = data.technician_name;
                 maintenance.maintenance_cost = data.maintenance_cost;
+                maintenance.maintain = data.maintain;
+
                 await maintenance.save();
                 resolve({
                     errCode: 0,

@@ -30,6 +30,9 @@ module.exports = {
             maintenance_cost: {
                 type: Sequelize.INTEGER
             },
+            maintain: {
+                type: Sequelize.BOOLEAN
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

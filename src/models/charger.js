@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
   };
   Charger.init({
     charger_name: DataTypes.STRING,
-    model: DataTypes.STRING,
     capacity: DataTypes.STRING,
     status: DataTypes.STRING,
     installation_date: DataTypes.DATE,

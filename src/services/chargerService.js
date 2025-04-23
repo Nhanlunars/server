@@ -11,7 +11,6 @@ let createCharger = (data) => {
             } else {
                 await db.Charger.create({
                     charger_name: data.charger_name,
-                    model: data.model,
                     capacity: data.capacity,
                     status : data.status,
                     installation_date : data.installation_date,
@@ -107,7 +106,6 @@ let updateCharger = (data) => {
             })
             if (charger) {
                 charger.charger_name = data.charger_name;
-                charger.model = data.model;
                 charger.capacity = data.capacity;
                 charger.status = data.status;
                 charger.installation_date = data.installation_date;

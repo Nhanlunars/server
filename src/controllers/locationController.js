@@ -17,7 +17,7 @@ let createLocation = async (req, res) => {
 
 
 let getAllLocation = async (req, res) => {
-    let id = req.body.id; //All, id
+    let id = req.query.id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -35,7 +35,7 @@ let getAllLocation = async (req, res) => {
 }
 
 let getAllLocationByUserId = async (req, res) => {
-    let id = req.body.user_id; //All, id
+    let id = req.query.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,

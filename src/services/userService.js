@@ -269,6 +269,7 @@ let updateUserData = (data) => {
                 user.roleId = data.roleId;
                 user.gender = data.gender;
                 user.phonenumber = data.phonenumber;
+                user.ban = data.ban;
                 if (data.avatar) {
                     user.image = data.avatar;
                 }
