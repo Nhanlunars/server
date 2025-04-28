@@ -21,15 +21,15 @@ let getAllReservations = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            types: []
+            reservations: []
         })
     }
-    let types = await reservationService.getAllReservations(id);
+    let reservations = await reservationService.getAllReservations(id);
     //console.log(types);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        types
+        reservations
     })
 }
 /*
@@ -39,15 +39,15 @@ let getAllTypeByChargerId = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            types: []
+            reservations: []
         })
     }
-    let types = await reservationService.getAllTypeByChargerId(id);
+    let reservations = await reservationService.getAllTypeByChargerId(id);
     //console.log(types);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        types
+        reservations
     })
 }*/
 let deleteReservation = async (req, res) => {
