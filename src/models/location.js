@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     ward : DataTypes.STRING,
     lat : DataTypes.FLOAT,
     lng : DataTypes.FLOAT,
-    image: DataTypes.BLOB('long'),
   }, {
     sequelize,
     modelName: 'Location',

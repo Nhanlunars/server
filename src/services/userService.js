@@ -170,7 +170,7 @@ let createNewUser1 = (data) => {
         try {
             //check email is exist ???
             let check = await checkUserEmail(data.email);
-            console.log('kiem tra gia tri email', check)
+            //console.log('kiem tra gia tri email', check)
             if (check === true) {
                 resolve({
                     errCode: 1,
@@ -187,10 +187,10 @@ let createNewUser1 = (data) => {
                 if(check1 === false){
                     resolve({
                         errCode: 2,
-                        message: 'mk sai quy tat'
+                        errMessage: 'Your password is not right, password min 8, max 50, has uppercase, has lowercase, has digits, no space '
                     })
                 } else{
-                    console.log('1')
+                    //console.log('1')
                     let hashPasswordFromBcrypt = await hashUserPassword(data.password);
                     await db.User.create({
                         email: data.email,
@@ -204,7 +204,7 @@ let createNewUser1 = (data) => {
                         image: data.avatar,
                         ban: data.ban,
                     })
-                    console.log(schema.validate(data.password));
+                    //console.log(schema.validate(data.password));
                     resolve({
                         errCode: 0,
                         message: 'Ok'

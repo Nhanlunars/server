@@ -116,9 +116,7 @@ let updateLocation = (data) => {
                 local.ward = data.ward;
                 local.lat = data.lat;
                 local.lng = data.lng;
-                if (data.avatar) {
-                    local.image = data.avatar;
-                }
+                
                 await local.save();
                 resolve({
                     errCode: 0,

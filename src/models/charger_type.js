@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     type_name: DataTypes.STRING,
     describe: DataTypes.STRING,
     default_price: DataTypes.STRING,
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Charger_type',

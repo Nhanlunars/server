@@ -23,11 +23,9 @@ module.exports = (sequelize, DataTypes) => {
   Charger.init({
     charger_name: DataTypes.STRING,
     capacity: DataTypes.STRING,
-    status: DataTypes.STRING,
     installation_date: DataTypes.DATE,
     last_maintence_date: DataTypes.DATE,
     location_id: DataTypes.INTEGER,
-    image: DataTypes.BLOB('long'),
   }, {
     sequelize,
     modelName: 'Charger',

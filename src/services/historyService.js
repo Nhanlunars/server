@@ -20,6 +20,23 @@ let createHistory = (data) => {
                 number_end : data.number_end,
                 cost : data.cost,
             })
+            let typeStatus = await db.Charger_type.findOne({
+                    where: { id: data.type_id },
+                    raw: false
+                })
+            if (typeStatus) {
+                    typeStatus.status = data.status;
+                    await typeStatus.save();
+                    resolve({
+                        errCode: 0,
+                        message: 'Update the type status succeeds!'
+                    });
+            } else {
+                    resolve({
+                        errCode: 1,
+                        message: `Type status not found!`
+                    });
+            }
             resolve({
                 errCode: 0,
                 errMessage: "Ok"
@@ -122,6 +139,23 @@ let updateHistory = (data) => {
                 where: { id: data.id },
                 raw: false
             })
+            let typeStatus = await db.Charger_type.findOne({
+                where: { id: data.type_id },
+                raw: false
+            })
+            if (typeStatus) {
+                typeStatus.status = data.status;
+                await typeStatus.save();
+                resolve({
+                    errCode: 0,
+                    message: 'Update the type status succeeds!'
+                });
+            } else {
+                resolve({
+                    errCode: 1,
+                    message: `Type status not found!`
+                });
+            }
             if (history) {
                 history.user_id = data.user_id;
                 history.charger_id = data.charger_id;

@@ -23,7 +23,7 @@ module.exports = {
             end_time: {
                 type: Sequelize.DATE
             },
-            status: {
+            note: {
                 type: Sequelize.STRING
             },
             createdAt: {

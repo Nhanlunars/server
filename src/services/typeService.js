@@ -14,6 +14,7 @@ let createType = (data) => {
                     type_name: data.type_name,
                     describe: data.describe,
                     default_price: data.default_price,
+                    status: data.status
                 })
                 resolve({
                     errCode: 0,
@@ -106,6 +107,7 @@ let updateType = (data) => {
                 type.type_name = data.type_name;
                 type.describe = data.describe;
                 type.default_price = data.default_price;
+                type.status = data.status;
                 
                 await type.save();
                 resolve({

@@ -21,15 +21,15 @@ let getAllHistorys = async (req, res) => {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            types: []
+            historys: []
         })
     }
-    let types = await historyService.getAllHistorys(id);
+    let historys = await historyService.getAllHistorys(id);
     //console.log(types);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        types
+        historys
     })
 }
 /*

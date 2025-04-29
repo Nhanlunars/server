@@ -14,9 +14,6 @@ module.exports = {
             capacity: {
                 type: Sequelize.STRING
             },
-            status: {
-                type: Sequelize.STRING
-            },
             installation_date: {
                 type: Sequelize.DATE
             }, 
@@ -25,9 +22,6 @@ module.exports = {
             },
             location_id: {
                 type: Sequelize.INTEGER
-            },
-            image: {
-                type: Sequelize.BLOB('long')
             },
             createdAt: {
                 allowNull: false,

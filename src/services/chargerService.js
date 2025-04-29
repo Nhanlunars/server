@@ -12,11 +12,9 @@ let createCharger = (data) => {
                 await db.Charger.create({
                     charger_name: data.charger_name,
                     capacity: data.capacity,
-                    status : data.status,
                     installation_date : data.installation_date,
                     last_maintence_date : data.last_maintence_date,
                     location_id : data.location_id,
-                    image : data.image,
                 })
                 resolve({
                     errCode: 0,
@@ -107,13 +105,9 @@ let updateCharger = (data) => {
             if (charger) {
                 charger.charger_name = data.charger_name;
                 charger.capacity = data.capacity;
-                charger.status = data.status;
                 charger.installation_date = data.installation_date;
                 charger.last_maintence_date = data.last_maintence_date;
                 charger.location_id = data.location_id;
-                if (data.avatar) {
-                    local.image = data.avatar;
-                }
                 await charger.save();
                 resolve({
                     errCode: 0,
@@ -122,7 +116,7 @@ let updateCharger = (data) => {
             } else {
                 resolve({
                     errCode: 1,
-                    message: `Location's not found!`
+                    message: `Charger's not found!`
                 });
             }
         } catch (e) {

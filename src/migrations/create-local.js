@@ -32,9 +32,6 @@ module.exports = {
             lng: {
                 type: Sequelize.FLOAT
             },
-            image: {
-                type: Sequelize.BLOB('long')
-            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

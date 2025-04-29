@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
     maintenance_type: DataTypes.STRING,
     technician_name: DataTypes.STRING,
     maintenance_cost: DataTypes.INTEGER,
-    maintain: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Maintenance',
