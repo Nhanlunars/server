@@ -18,6 +18,23 @@ let createMaintenance = (data) => {
                     technician_name : data.technician_name,
                     maintenance_cost : data.maintenance_cost,
                 })
+                let typeStatus = await db.Charger_type.findOne({
+                                    where: { id: data.type_id },
+                                    raw: false
+                                })
+                            if (typeStatus) {
+                                    typeStatus.status = data.status;
+                                    await typeStatus.save();
+                                    resolve({
+                                        errCode: 0,
+                                        message: 'Update the type status succeeds!'
+                                    });
+                            } else {
+                                    resolve({
+                                        errCode: 1,
+                                        message: `Type status not found!`
+                                    });
+                            }
                 resolve({
                     errCode: 0,
                     errMessage: "Ok"
@@ -104,6 +121,23 @@ let updateMaintenance = (data) => {
                 where: { id: data.id },
                 raw: false
             })
+            let typeStatus = await db.Charger_type.findOne({
+                                where: { id: data.type_id },
+                                raw: false
+                            })
+                        if (typeStatus) {
+                                typeStatus.status = data.status;
+                                await typeStatus.save();
+                                resolve({
+                                    errCode: 0,
+                                    message: 'Update the type status succeeds!'
+                                });
+                        } else {
+                                resolve({
+                                    errCode: 1,
+                                    message: `Type status not found!`
+                                });
+                        }
             if (maintenance) {
                 maintenance.charger_id = data.charger_id;
                 maintenance.type_id = data.type_id;

@@ -14,6 +14,9 @@ module.exports = {
             charger_id: {
                 type: Sequelize.INTEGER
             },
+            type_id: {
+                type: Sequelize.INTEGER
+            },
             fcm_token: {
                 type: Sequelize.STRING
             },

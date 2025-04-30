@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   User_device.init({
     user_id: DataTypes.INTEGER,
     charger_id: DataTypes.INTEGER,
+    type_id: DataTypes.INTEGER,
     fcm_token: DataTypes.STRING,
   }, {
     sequelize,

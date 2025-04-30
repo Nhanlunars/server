@@ -3,7 +3,7 @@ import db from "../models/index";
 let createDevice = (data) => {
     return new Promise(async (resolve, reject) => {
         try { 
-            if ( !data.user_id || !data.charger_id ) {
+            if ( !data.user_id || !data.charger_id || !data.type_id ) {
             resolve({
                 errCode: 1,
                 errMessage: "Missing parameter"
@@ -12,6 +12,7 @@ let createDevice = (data) => {
                 await db.User_device.create({
                     user_id: data.user_id,
                     charger_id: data.charger_id,
+                    type_id: data.type_id,
                     fcm_token: data.fcm_token,
                 })
                 resolve({
@@ -90,7 +91,7 @@ let deleteDevice = (deviceId) => {
 let updateDevice = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.id || !data.user_id || !data.charger_id) {
+            if (!data.id || !data.user_id || !data.charger_id || !data.type_id) {
                 resolve({
                     errCode: 2,
                     message: 'Missing required parameter !'
@@ -103,6 +104,7 @@ let updateDevice = (data) => {
             if (device) {
                 device.user_id = data.user_id;
                 device.charger_id = data.charger_id;
+                device.type_id = data.type_id;
                 device.fcm_token = data.fcm_token;
                 
                 await device.save();

@@ -107,7 +107,10 @@ let updateInfo = (data) => {
                 info.bank_name = data.bank_name;
                 info.account_number = data.account_number;
                 info.account_name = data.account_name;
-                info.picture = data.picture;
+                //info.picture = data.picture;
+                if (data.picture) {
+                    info.picture = data.picture;
+                }
                 await info.save();
                 resolve({
                     errCode: 0,
