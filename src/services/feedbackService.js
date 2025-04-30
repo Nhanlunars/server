@@ -53,11 +53,11 @@ let getAllFeedback = (feedbackId) => {
 let getAllFeedbackByChargerId = (chargerId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let locations = await db.Feedback.findAll({
+            let feedbacks = await db.Feedback.findAll({
                     where: { charger_id: chargerId }
                 })
             
-            resolve(locations)
+            resolve(feedbacks)
         } catch (e) {
             reject(e);
         }
@@ -67,11 +67,11 @@ let getAllFeedbackByChargerId = (chargerId) => {
 let getAllFeedbackByuserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let locations = await db.Feedback.findAll({
+            let feedbacks = await db.Feedback.findAll({
                     where: { user_id: userId }
                 })
             
-            resolve(locations)
+            resolve(feedbacks)
         } catch (e) {
             reject(e);
         }
