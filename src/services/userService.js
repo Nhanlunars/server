@@ -124,6 +124,26 @@ let getAllUsers = (userId) => {
     })
 }
 
+let getAllRoles = (roleType) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let users = await db.User.findAll({
+                    where: { roleId: roleType },
+                    attributes: {
+                        exclude: ['password']
+                    }
+                })
+            
+            
+            resolve(users)
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+
+
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -322,4 +342,5 @@ module.exports = {
     deleteUser: deleteUser,
     updateUserData: updateUserData,
     getAllCodeService: getAllCodeService,
+    getAllRoles: getAllRoles
 }

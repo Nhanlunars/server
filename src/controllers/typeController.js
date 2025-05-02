@@ -34,7 +34,7 @@ let getAllType = async (req, res) => {
 }
 
 let getAllTypeByChargerId = async (req, res) => {
-    let id = req.query.location_id; //All, id
+    let id = req.query.charger_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -43,7 +43,7 @@ let getAllTypeByChargerId = async (req, res) => {
         })
     }
     let types = await typeService.getAllTypeByChargerId(id);
-    //console.log(types);
+    //console.log(id);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',

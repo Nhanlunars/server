@@ -48,6 +48,26 @@ let handleGetAllUser = async (req, res) => {
     })
 }
 
+let GetAllRole = async (req, res) => {
+    let roleId = req.query.roleId; //All, id
+    if (!roleId) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: 'Missing require parameters',
+            users: []
+        })
+    }
+    let users = await userService.getAllRoles(roleId);
+    //console.log(users);
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'Ok',
+        users
+    })
+}
+
+
+
 let handleCreateNewUser = async (req, res) => {
     let message = await userService.createNewUser(req.body);
     return res.status(200).json(message);
@@ -92,6 +112,8 @@ let getAllCode = async (req, res) => {
 }
 
 
+
+
 module.exports = {
     handleLogin: handleLogin,
     handleGetAllUser: handleGetAllUser,
@@ -100,4 +122,5 @@ module.exports = {
     handleEditUser: handleEditUser,
     handleDeleteUser: handleDeleteUser,
     getAllCode: getAllCode,
+    GetAllRole: GetAllRole
 }
