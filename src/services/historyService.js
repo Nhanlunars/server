@@ -1,4 +1,6 @@
 import db from "../models/index";
+import {Usege_history} from '../models/usege_histories'
+import { Charger_type } from "../models/charger_type";
 
 let createHistory = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -10,7 +12,7 @@ let createHistory = (data) => {
                 errMessage: "Missing parameter"
             })
         } else {
-            await db.Usege_history.create({
+            await Usege_history.create({
                 user_id: data.user_id,
                 charger_id: data.charger_id,
                 type_id: data.type_id,
@@ -20,12 +22,13 @@ let createHistory = (data) => {
                 number_end : data.number_end,
                 cost : data.cost,
             })
-            let typeStatus = await db.Charger_type.findOne({
+            let typeStatus = await Charger_type.findOne({
                     where: { id: data.type_id },
                     raw: false
                 })
             if (typeStatus) {
                     typeStatus.status = data.status;
+                    console.log(data.status);
                     await typeStatus.save();
                     resolve({
                         errCode: 0,
@@ -55,7 +58,7 @@ let createHistory = (data) => {
 let getAllHistory = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let data = await db.Location.findAll();       
+            let data = await Location.findAll();       
             resolve({
                 errMessage: 'Ok',
                 errCode: 0,
@@ -72,11 +75,11 @@ let getAllHistorys = (historyId) => {
         try {
             let historys = '';
             if (historyId === 'All') {
-                historys = await db.Usege_history.findAll({
+                historys = await Usege_history.findAll({
                 })
             }
             if (historyId && historyId !== 'All') {
-                historys = await db.Usege_history.findOne({
+                historys = await Usege_history.findOne({
                     where: { id: historyId }
                 })
             }
@@ -90,7 +93,7 @@ let getAllHistorys = (historyId) => {
 let getAllLocationByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let historys = await db.Location.findAll({
+            let historys = await Location.findAll({
                     where: { user_id: userId }
                 })
             
@@ -103,7 +106,7 @@ let getAllLocationByUserId = (userId) => {
 
 let deleteHistory = (historyId) => {
     return new Promise(async (resolve, reject) => {
-        let foundHistory = await db.Usege_history.findOne({
+        let foundHistory = await Usege_history.findOne({
             where: { id: historyId }
         })
         if (!foundHistory) {
@@ -113,7 +116,7 @@ let deleteHistory = (historyId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Usege_history.destroy({
+        await Usege_history.destroy({
             where: { id: historyId }
         }
         );
@@ -135,11 +138,11 @@ let updateHistory = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let history = await db.Usege_history.findOne({
+            let history = await Usege_history.findOne({
                 where: { id: data.id },
                 raw: false
             })
-            let typeStatus = await db.Charger_type.findOne({
+            let typeStatus = await Charger_type.findOne({
                 where: { id: data.type_id },
                 raw: false
             })

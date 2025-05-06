@@ -2,6 +2,8 @@ import db from "../models/index";
 import bcrypt from 'bcryptjs';
 const salt = bcrypt.genSaltSync(10);
 var passwordValidator = require('password-validator');
+import { User } from "../models/user";
+import {Allcode} from '../models/allcode';
 
 // Create a schema
 var schema = new passwordValidator();
@@ -38,8 +40,8 @@ let handleUserLogin = (email, password) => {
             let isExist = await checkUserEmail(email);
             if (isExist) {
                 //User already exist
-                let user = await db.User.findOne({
-                    attributes: ['email', 'roleId', 'password', 'firstName', 'lastName'],
+                let user = await User.findOne({
+                    attributes: ['email', 'roleId', 'password', 'firstName', 'lastName','id'],
                     where: { email: email },
                     raw: true
                 });
@@ -77,7 +79,7 @@ let handleUserLogin = (email, password) => {
 let checkUserEmail = (userEmail) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let user = await db.User.findOne({
+            let user = await User.findOne({
                 where: { email: userEmail }
             })
             let check1 = checkemail.validate(userEmail);
@@ -103,14 +105,14 @@ let getAllUsers = (userId) => {
         try {
             let users = '';
             if (userId === 'All') {
-                users = await db.User.findAll({
+                users = await User.findAll({
                     attributes: {
                         exclude: ['password']
                     }
                 })
             }
             if (userId && userId !== 'All') {
-                users = await db.User.findOne({
+                users = await User.findOne({
                     where: { id: userId },
                     attributes: {
                         exclude: ['password']
@@ -127,7 +129,7 @@ let getAllUsers = (userId) => {
 let getAllRoles = (roleType) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let users = await db.User.findAll({
+            let users = await User.findAll({
                     where: { roleId: roleType },
                     attributes: {
                         exclude: ['password']
@@ -156,7 +158,7 @@ let createNewUser = (data) => {
                 })
             } else {
                 let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-                await db.User.create({
+                await User.create({
                     email: data.email,
                     password: hashPasswordFromBcrypt,
                     firstName: data.firstName,
@@ -212,7 +214,7 @@ let createNewUser1 = (data) => {
                 } else{
                     //console.log('1')
                     let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-                    await db.User.create({
+                    await User.create({
                         email: data.email,
                         password: hashPasswordFromBcrypt,
                         firstName: data.firstName,
@@ -246,7 +248,7 @@ let createNewUser1 = (data) => {
 
 let deleteUser = (userId) => {
     return new Promise(async (resolve, reject) => {
-        let foundUser = await db.User.findOne({
+        let foundUser = await User.findOne({
             where: { id: userId }
         })
         if (!foundUser) {
@@ -256,7 +258,7 @@ let deleteUser = (userId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.User.destroy({
+        await User.destroy({
             where: { id: userId }
         }
         );
@@ -278,7 +280,7 @@ let updateUserData = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let user = await db.User.findOne({
+            let user = await User.findOne({
                 where: { id: data.id },
                 raw: false
             })
@@ -320,7 +322,7 @@ let getAllCodeService = (typeInput) => {
                 })
             } else {
                 let res = {};
-                let allcode = await db.Allcode.findAll({
+                let allcode = await Allcode.findAll({
                     where: { type: typeInput }
                 });
                 res.errCode = 0;

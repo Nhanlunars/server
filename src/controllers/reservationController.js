@@ -25,7 +25,7 @@ let getAllReservations = async (req, res) => {
         })
     }
     let reservations = await reservationService.getAllReservations(id);
-    //console.log(types);
+    // console.log(reservations);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',

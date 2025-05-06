@@ -1,4 +1,5 @@
 import db from "../models/index";
+import { Charger } from "../models/charger";
 
 let createCharger = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -9,7 +10,7 @@ let createCharger = (data) => {
                 errMessage: "Missing parameter"
                 })
             } else {
-                await db.Charger.create({
+                await Charger.create({
                     charger_name: data.charger_name,
                     capacity: data.capacity,
                     installation_date : data.installation_date,
@@ -33,13 +34,13 @@ let getAllCharger = (chargerId) => {
         try {
             let chargers = '';
             if (chargerId === 'All') {
-                chargers = await db.Charger.findAll({
+                chargers = await Charger.findAll({
                     
 
                 })
             }
             if (chargerId && chargerId !== 'All') {
-                chargers = await db.Charger.findOne({
+                chargers = await Charger.findOne({
                     where: { id: chargerId }
                 })
             }
@@ -53,7 +54,7 @@ let getAllCharger = (chargerId) => {
 let getAllChargerByLocationId = (locationId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let locations = await db.Charger.findAll({
+            let locations = await Charger.findAll({
                     where: { location_id: locationId }
                 })
             
@@ -66,7 +67,7 @@ let getAllChargerByLocationId = (locationId) => {
 
 let deleteCharger = (chargerId) => {
     return new Promise(async (resolve, reject) => {
-        let foundCharger = await db.Charger.findOne({
+        let foundCharger = await Charger.findOne({
             where: { id: chargerId }
         })
         if (!foundCharger) {
@@ -76,7 +77,7 @@ let deleteCharger = (chargerId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Charger.destroy({
+        await Charger.destroy({
             where: { id: chargerId }
         }
         );
@@ -98,7 +99,7 @@ let updateCharger = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let charger = await db.Charger.findOne({
+            let charger = await Charger.findOne({
                 where: { id: data.id },
                 raw: false
             })

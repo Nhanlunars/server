@@ -1,4 +1,5 @@
 import db from "../models/index";
+import {} from '../models/'
 
 let createDevice = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -9,7 +10,7 @@ let createDevice = (data) => {
                 errMessage: "Missing parameter"
                 })
             } else {
-                await db.User_device.create({
+                await User_device.create({
                     user_id: data.user_id,
                     charger_id: data.charger_id,
                     type_id: data.type_id,
@@ -32,13 +33,13 @@ let getAllDevice = (deviceId) => {
         try {
             let devices = '';
             if (deviceId === 'All') {
-                devices = await db.User_device.findAll({
+                devices = await User_device.findAll({
                     
 
                 })
             }
             if (deviceId && deviceId !== 'All') {
-                devices = await db.User_device.findOne({
+                devices = await User_device.findOne({
                     where: { id: deviceId }
                 })
             }
@@ -52,7 +53,7 @@ let getAllDevice = (deviceId) => {
 let getAllDeviceByuserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let devices = await db.User_device.findAll({
+            let devices = await User_device.findAll({
                     where: { user_id: userId }
                 })
             
@@ -65,7 +66,7 @@ let getAllDeviceByuserId = (userId) => {
 
 let deleteDevice = (deviceId) => {
     return new Promise(async (resolve, reject) => {
-        let foundDevice = await db.User_device.findOne({
+        let foundDevice = await User_device.findOne({
             where: { id: deviceId }
         })
         if (!foundDevice) {
@@ -75,7 +76,7 @@ let deleteDevice = (deviceId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.User_device.destroy({
+        await User_device.destroy({
             where: { id: deviceId }
         }
         );
@@ -97,7 +98,7 @@ let updateDevice = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let device = await db.User_device.findOne({
+            let device = await User_device.findOne({
                 where: { id: data.id },
                 raw: false
             })

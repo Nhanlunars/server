@@ -1,4 +1,5 @@
 import db from "../models/index";
+import {Owner_charger_info} from '../models/owner_charger_info'
 
 let createInfo = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -9,7 +10,7 @@ let createInfo = (data) => {
                 errMessage: "Missing parameter"
             })
         } else {
-            await db.Owner_charger_info.create({
+            await Owner_charger_info.create({
                 user_id: data.user_id,
                 bank_name: data.bank_name,
                 account_number: data.account_number,
@@ -35,11 +36,11 @@ let getAllInfos = (infoId) => {
         try {
             let infos = '';
             if (infoId === 'All') {
-                infos = await db.Owner_charger_info.findAll({
+                infos = await Owner_charger_info.findAll({
                 })
             }
             if (infoId && infoId !== 'All') {
-                infos = await db.Owner_charger_info.findOne({
+                infos = await Owner_charger_info.findOne({
                     where: { id: infoId }
                 })
             }
@@ -53,7 +54,7 @@ let getAllInfos = (infoId) => {
 let getInfoByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let infos = await db.Owner_charger_info.findAll({
+            let infos = await Owner_charger_info.findAll({
                     where: { user_id: userId }
                 })
             
@@ -66,7 +67,7 @@ let getInfoByUserId = (userId) => {
 
 let deleteInfo = (infoId) => {
     return new Promise(async (resolve, reject) => {
-        let foundInfo = await db.Owner_charger_info.findOne({
+        let foundInfo = await Owner_charger_info.findOne({
             where: { id: infoId }
         })
         if (!foundInfo) {
@@ -76,7 +77,7 @@ let deleteInfo = (infoId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Owner_charger_info.destroy({
+        await Owner_charger_info.destroy({
             where: { id: infoId }
         }
         );
@@ -98,7 +99,7 @@ let updateInfo = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let info = await db.Owner_charger_info.findOne({
+            let info = await Owner_charger_info.findOne({
                 where: { id: data.id },
                 raw: false
             })

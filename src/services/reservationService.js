@@ -1,4 +1,7 @@
-import db from "../models/index";
+
+import {Reservation} from '../models/reservation'
+import {Charger_type} from '../models/charger_type'
+
 
 let createReservation = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -10,7 +13,7 @@ let createReservation = (data) => {
                 errMessage: "Missing parameter"
             })
         } else {
-            await db.Reservation.create({
+            await Reservation.create({
                 user_id: data.user_id,
                 charger_id: data.charger_id,
                 type_id: data.type_id,
@@ -18,7 +21,7 @@ let createReservation = (data) => {
                 end_time : data.end_time,
                 note : data.note,
             })
-            let typeStatus = await db.Charger_type.findOne({
+            let typeStatus = await Charger_type.findOne({
                 where: { id: data.type_id },
                 raw: false
             })
@@ -51,7 +54,7 @@ let createReservation = (data) => {
 /*let getAllReservation = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let data = await db.Location.findAll();       
+            let data = await Location.findAll();       
             resolve({
                 errMessage: 'Ok',
                 errCode: 0,
@@ -68,11 +71,32 @@ let getAllReservations = (reservationId) => {
         try {
             let reservations = '';
             if (reservationId === 'All') {
-                reservations = await db.Reservation.findAll({
+                reservations = await Reservation.findAll({
+                   include: [{
+                    association: 'user',
+                    },
+                    {
+                        association: 'charger',
+                    },
+                    {
+                        association: 'type',
+                    },
+                ],
+                    raw: true, 
+                    nest: true
+                    
+                    
+                    // subQuery: true
+                   
                 })
+                console.log("🚀 ~ returnnewPromise ~ reservations:", reservations)
+
+                
+
+                
             }
             if (reservationId && reservationId !== 'All') {
-                reservations = await db.Reservation.findOne({
+                reservations = await Reservation.findOne({
                     where: { id: reservationId }
                 })
             }
@@ -86,7 +110,7 @@ let getAllReservations = (reservationId) => {
 /*let getAllLocationByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let users = await db.Location.findAll({
+            let users = await Location.findAll({
                     where: { user_id: userId }
                 })
             
@@ -99,7 +123,7 @@ let getAllReservations = (reservationId) => {
 
 let deleteReservation = (reservationId) => {
     return new Promise(async (resolve, reject) => {
-        let foundReservation = await db.Reservation.findOne({
+        let foundReservation = await Reservation.findOne({
             where: { id: reservationId }
         })
         if (!foundReservation) {
@@ -109,7 +133,7 @@ let deleteReservation = (reservationId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Reservation.destroy({
+        await Reservation.destroy({
             where: { id: reservationId }
         }
         );
@@ -131,11 +155,11 @@ let updateReservation = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let reser = await db.Reservation.findOne({
+            let reser = await Reservation.findOne({
                 where: { id: data.id },
                 raw: false
             })
-            let typeStatus = await db.Charger_type.findOne({
+            let typeStatus = await Charger_type.findOne({
                 where: { id: data.type_id },
                 raw: false
             })

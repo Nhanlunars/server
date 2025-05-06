@@ -1,4 +1,6 @@
 import db from "../models/index";
+import {Maintenance} from '../models/maintenance';
+import { Charger_type } from "../models/charger_type";
 
 let createMaintenance = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -9,7 +11,7 @@ let createMaintenance = (data) => {
                 errMessage: "Missing parameter"
                 }) 
             } else {
-                await db.Maintenance.create({
+                await Maintenance.create({
                     charger_id: data.charger_id,
                     type_id: data.type_id,
                     maintenance_date: data.maintenance_date,
@@ -18,7 +20,7 @@ let createMaintenance = (data) => {
                     technician_name : data.technician_name,
                     maintenance_cost : data.maintenance_cost,
                 })
-                let typeStatus = await db.Charger_type.findOne({
+                let typeStatus = await Charger_type.findOne({
                                     where: { id: data.type_id },
                                     raw: false
                                 })
@@ -52,13 +54,13 @@ let getAllMaintenance = (maintenanceId) => {
         try {
             let maintenances = '';
             if (maintenanceId === 'All') {
-                maintenances = await db.Maintenance.findAll({
+                maintenances = await Maintenance.findAll({
                     
 
                 })
             }
             if (maintenanceId && maintenanceId !== 'All') {
-                maintenances = await db.Maintenance.findOne({
+                maintenances = await Maintenance.findOne({
                     where: { id: maintenanceId }
                 })
             }
@@ -72,7 +74,7 @@ let getAllMaintenance = (maintenanceId) => {
 let getAllMaintenanceByChargerId = (chargerId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let maintenances = await db.Maintenance.findAll({
+            let maintenances = await Maintenance.findAll({
                     where: { charger_id: chargerId }
                 })
             
@@ -85,7 +87,7 @@ let getAllMaintenanceByChargerId = (chargerId) => {
 
 let deleteMaintenance = (maintenanceId) => {
     return new Promise(async (resolve, reject) => {
-        let foundMaintenance = await db.Maintenance.findOne({
+        let foundMaintenance = await Maintenance.findOne({
             where: { id: maintenanceId }
         })
         if (!foundMaintenance) {
@@ -95,7 +97,7 @@ let deleteMaintenance = (maintenanceId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Maintenance.destroy({
+        await Maintenance.destroy({
             where: { id: maintenanceId }
         }
         );
@@ -117,11 +119,11 @@ let updateMaintenance = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let maintenance = await db.Maintenance.findOne({
+            let maintenance = await Maintenance.findOne({
                 where: { id: data.id },
                 raw: false
             })
-            let typeStatus = await db.Charger_type.findOne({
+            let typeStatus = await Charger_type.findOne({
                                 where: { id: data.type_id },
                                 raw: false
                             })

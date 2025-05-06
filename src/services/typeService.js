@@ -1,4 +1,5 @@
 import db from "../models/index";
+import { Charger_type } from "../models/charger_type";
 
 let createType = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -9,7 +10,7 @@ let createType = (data) => {
                 errMessage: "Missing parameter"
                 })
             } else {
-                await db.Charger_type.create({
+                await Charger_type.create({
                     charger_id: data.charger_id,
                     type_name: data.type_name,
                     describe: data.describe,
@@ -33,13 +34,13 @@ let getAllType = (typeId) => {
         try {
             let types = '';
             if (typeId === 'All') {
-                types = await db.Charger_type.findAll({
+                types = await Charger_type.findAll({
                     
 
                 })
             }
             if (typeId && typeId !== 'All') {
-                types = await db.Charger_type.findOne({
+                types = await Charger_type.findOne({
                     where: { id: typeId }
                 })
             }
@@ -53,7 +54,7 @@ let getAllType = (typeId) => {
 let getAllTypeByChargerId = (chargerId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let types = await db.Charger_type.findAll({
+            let types = await Charger_type.findAll({
                     where: { charger_id: chargerId }
                 })
             
@@ -66,7 +67,7 @@ let getAllTypeByChargerId = (chargerId) => {
 
 let deleteType = (typeId) => {
     return new Promise(async (resolve, reject) => {
-        let foundType = await db.Charger_type.findOne({
+        let foundType = await Charger_type.findOne({
             where: { id: typeId }
         })
         if (!foundType) {
@@ -76,7 +77,7 @@ let deleteType = (typeId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Charger_type.destroy({
+        await Charger_type.destroy({
             where: { id: typeId }
         }
         );
@@ -98,7 +99,7 @@ let updateType = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let type = await db.Charger_type.findOne({
+            let type = await Charger_type.findOne({
                 where: { id: data.id },
                 raw: false
             })

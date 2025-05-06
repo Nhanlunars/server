@@ -1,4 +1,5 @@
 import db from "../models/index";
+import {Feedback} from '../models/feedback'
 
 let createFeedback = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -9,7 +10,7 @@ let createFeedback = (data) => {
                 errMessage: "Missing parameter"
                 })
             } else {
-                await db.Feedback.create({
+                await Feedback.create({
                     user_id: data.user_id,
                     charger_id: data.charger_id,
                     type_id: data.type_id,
@@ -33,13 +34,13 @@ let getAllFeedback = (feedbackId) => {
         try {
             let feedbacks = '';
             if (feedbackId === 'All') {
-                feedbacks = await db.Feedback.findAll({
+                feedbacks = await Feedback.findAll({
                     
 
                 })
             }
             if (feedbackId && feedbackId !== 'All') {
-                feedbacks = await db.Feedback.findOne({
+                feedbacks = await Feedback.findOne({
                     where: { id: feedbackId }
                 })
             }
@@ -53,7 +54,7 @@ let getAllFeedback = (feedbackId) => {
 let getAllFeedbackByChargerId = (chargerId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let feedbacks = await db.Feedback.findAll({
+            let feedbacks = await Feedback.findAll({
                     where: { charger_id: chargerId }
                 })
             
@@ -67,7 +68,7 @@ let getAllFeedbackByChargerId = (chargerId) => {
 let getAllFeedbackByuserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let feedbacks = await db.Feedback.findAll({
+            let feedbacks = await Feedback.findAll({
                     where: { user_id: userId }
                 })
             
@@ -80,7 +81,7 @@ let getAllFeedbackByuserId = (userId) => {
 
 let deleteFeedback = (feedbackId) => {
     return new Promise(async (resolve, reject) => {
-        let foundFeedback = await db.Feedback.findOne({
+        let foundFeedback = await Feedback.findOne({
             where: { id: feedbackId }
         })
         if (!foundFeedback) {
@@ -90,7 +91,7 @@ let deleteFeedback = (feedbackId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Feedback.destroy({
+        await Feedback.destroy({
             where: { id: feedbackId }
         }
         );
@@ -112,7 +113,7 @@ let updateFeedback = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let feedback = await db.Feedback.findOne({
+            let feedback = await Feedback.findOne({
                 where: { id: data.id },
                 raw: false
             })

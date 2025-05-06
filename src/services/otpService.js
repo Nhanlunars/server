@@ -1,4 +1,5 @@
 import db from "../models/index";
+import {OTP} from '../models/otp';
 
 let createOTP = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -9,7 +10,7 @@ let createOTP = (data) => {
                 errMessage: "Missing parameter"
                 }) 
             } else {
-                await db.OTP.create({
+                await OTP.create({
                     user_id: data.user_id,
                     code: data.code,
                     expiry_date: data.expiry_date,
@@ -32,13 +33,13 @@ let getAllOTP = (OtpId) => {
         try {
             let Otps = '';
             if (OtpId === 'All') {
-                Otps = await db.OTP.findAll({
+                Otps = await OTP.findAll({
                     
 
                 })
             }
             if (OtpId && OtpId !== 'All') {
-                Otps = await db.OTP.findOne({
+                Otps = await OTP.findOne({
                     where: { id: OtpId }
                 })
             }
@@ -52,7 +53,7 @@ let getAllOTP = (OtpId) => {
 let getAllOTPByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let Otps = await db.OTP.findAll({
+            let Otps = await OTP.findAll({
                     where: { user_id: userId }
                 })
             
@@ -65,7 +66,7 @@ let getAllOTPByUserId = (userId) => {
 
 let deleteOTP = (OtpId) => {
     return new Promise(async (resolve, reject) => {
-        let foundOTP = await db.OTP.findOne({
+        let foundOTP = await OTP.findOne({
             where: { id: OtpId }
         })
         if (!foundOTP) {
@@ -75,7 +76,7 @@ let deleteOTP = (OtpId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.OTP.destroy({
+        await OTP.destroy({
             where: { id: OtpId }
         }
         );
@@ -97,7 +98,7 @@ let updateOTP = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let Otp = await db.OTP.findOne({
+            let Otp = await OTP.findOne({
                 where: { id: data.id },
                 raw: false
             })

@@ -1,4 +1,5 @@
 import db from "../models/index";
+import {Location} from '../models/location';
 
 let createLocation = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -11,7 +12,7 @@ let createLocation = (data) => {
                 errMessage: "Missing parameter"
             })
         } else {
-            await db.Location.create({
+            await Location.create({
                 location_name: data.location_name,
                 user_id: data.user_id,
                 city: data.city,
@@ -40,11 +41,11 @@ let getAllLocation = (locationId) => {
         try {
             let users = '';
             if (locationId === 'All') {
-                users = await db.Location.findAll({
+                users = await Location.findAll({
                 })
             }
             if (locationId && locationId !== 'All') {
-                users = await db.Location.findOne({
+                users = await Location.findOne({
                     where: { id: locationId }
                 })
             }
@@ -58,7 +59,7 @@ let getAllLocation = (locationId) => {
 let getAllLocationByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let users = await db.Location.findAll({
+            let users = await Location.findAll({
                     where: { user_id: userId }
                 })
             
@@ -71,7 +72,7 @@ let getAllLocationByUserId = (userId) => {
 
 let deleteLocation = (locationId) => {
     return new Promise(async (resolve, reject) => {
-        let foundLocation = await db.Location.findOne({
+        let foundLocation = await Location.findOne({
             where: { id: locationId }
         })
         if (!foundLocation) {
@@ -81,7 +82,7 @@ let deleteLocation = (locationId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Location.destroy({
+        await Location.destroy({
             where: { id: locationId }
         }
         );
@@ -103,7 +104,7 @@ let updateLocation = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let local = await db.Location.findOne({
+            let local = await Location.findOne({
                 where: { id: data.id },
                 raw: false
             })

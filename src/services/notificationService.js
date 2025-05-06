@@ -1,4 +1,5 @@
 import db from "../models/index";
+import {Notification} from '../models/notification';
 
 let createNotification = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -9,7 +10,7 @@ let createNotification = (data) => {
                 errMessage: "Missing parameter"
                 }) 
             } else {
-                await db.Notification.create({
+                await Notification.create({
                     user_id: data.user_id,
                     title: data.title,
                     message: data.message,
@@ -32,13 +33,13 @@ let getAllNotification = (notificationId) => {
         try {
             let notifications = '';
             if (notificationId === 'All') {
-                notifications = await db.Notification.findAll({
+                notifications = await Notification.findAll({
                     
 
                 })
             }
             if (notificationId && notificationId !== 'All') {
-                notifications = await db.Notification.findOne({
+                notifications = await Notification.findOne({
                     where: { id: notificationId }
                 })
             }
@@ -52,7 +53,7 @@ let getAllNotification = (notificationId) => {
 let getAllNotificationByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let notifications = await db.Notification.findAll({
+            let notifications = await Notification.findAll({
                     where: { user_id: userId }
                 })
             
@@ -65,7 +66,7 @@ let getAllNotificationByUserId = (userId) => {
 
 let deleteNotification = (notificationId) => {
     return new Promise(async (resolve, reject) => {
-        let foundNotification = await db.Notification.findOne({
+        let foundNotification = await Notification.findOne({
             where: { id: notificationId }
         })
         if (!foundNotification) {
@@ -75,7 +76,7 @@ let deleteNotification = (notificationId) => {
             })
         }
         //console.log('check', foundUser)
-        await db.Notification.destroy({
+        await Notification.destroy({
             where: { id: notificationId }
         }
         );
@@ -97,7 +98,7 @@ let updateNotification = (data) => {
                     message: 'Missing required parameter !'
                 })
             }
-            let notification = await db.Notification.findOne({
+            let notification = await Notification.findOne({
                 where: { id: data.id },
                 raw: false
             })
