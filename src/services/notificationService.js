@@ -34,7 +34,12 @@ let getAllNotification = (notificationId) => {
             let notifications = '';
             if (notificationId === 'All') {
                 notifications = await Notification.findAll({
-                    
+                    include: [{
+                        association: 'user',
+                        },
+                    ],
+                        raw: true, 
+                        nest: true
 
                 })
             }

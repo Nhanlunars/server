@@ -33,6 +33,7 @@ const {
   Model
 } = require('sequelize');
 const db = require('.');
+import {User} from './user'
 
 class OTP extends Model {
 
@@ -40,6 +41,7 @@ class OTP extends Model {
     console.log("🚀 ~ OTP ~ associate ~ models:", models)
  
      // define association here
+     OTP.belongsTo(User, { foreignKey: 'user_id',targetKey: 'id',  as: 'user' })
 
    }
 

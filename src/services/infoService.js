@@ -37,6 +37,12 @@ let getAllInfos = (infoId) => {
             let infos = '';
             if (infoId === 'All') {
                 infos = await Owner_charger_info.findAll({
+                    include: [{
+                        association: 'user',
+                        },
+                    ],
+                        raw: true, 
+                        nest: true
                 })
             }
             if (infoId && infoId !== 'All') {

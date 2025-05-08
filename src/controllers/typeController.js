@@ -32,7 +32,6 @@ let getAllType = async (req, res) => {
         types
     })
 }
-
 let getAllTypeByChargerId = async (req, res) => {
     let id = req.query.charger_id; //All, id
     if (!id) {
@@ -43,6 +42,25 @@ let getAllTypeByChargerId = async (req, res) => {
         })
     }
     let types = await typeService.getAllTypeByChargerId(id);
+    //console.log(id);
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'Ok',
+        types
+    })
+}
+
+
+let getAllTypeByUserId = async (req, res) => {
+    let id = req.query.user_id; //All, id
+    if (!id) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: 'Missing require parameters',
+            types: []
+        })
+    }
+    let types = await typeService.getAllTypeByUserId(id);
     //console.log(id);
     return res.status(200).json({
         errCode: 0,
@@ -75,6 +93,7 @@ module.exports = {
     createType: createType,
     getAllType: getAllType,
     getAllTypeByChargerId: getAllTypeByChargerId,
+    getAllTypeByUserId: getAllTypeByUserId,
     deleteType: deleteType,
     updateType: updateType
 }

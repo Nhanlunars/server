@@ -33,6 +33,7 @@ const {
   Model
 } = require('sequelize');
 const db = require('.');
+import {User} from './user'
 
 class Notification extends Model {
 
@@ -40,10 +41,11 @@ class Notification extends Model {
     console.log("🚀 ~ Notification ~ associate ~ models:", models)
  
      // define association here
+     Notification.belongsTo(User, { foreignKey: 'user_id',targetKey: 'id',  as: 'user' })
 
    }
 
-  
+
 
 
   /**

@@ -35,7 +35,12 @@ let getAllType = (typeId) => {
             let types = '';
             if (typeId === 'All') {
                 types = await Charger_type.findAll({
-                    
+                    include: [{
+                        association: 'charger',
+                        },
+                    ],
+                        raw: true, 
+                        nest: true
 
                 })
             }
@@ -56,6 +61,33 @@ let getAllTypeByChargerId = (chargerId) => {
         try {
             let types = await Charger_type.findAll({
                     where: { charger_id: chargerId }
+                })
+            
+            resolve(types)
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+
+
+let getAllTypeByUserId = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let types = await Charger_type.findAll({
+                    include: [{
+                        association: 'charger',
+                        include:[{
+                            association: 'location',
+                            where: { user_id : userId },
+                            
+                        }],
+                        //where: { user_id: chargerId }
+                        },
+                    ],
+                        raw: true, 
+                        nest: true
                 })
             
             resolve(types)
@@ -135,6 +167,7 @@ module.exports = {
     createType: createType,
     getAllType: getAllType,
     getAllTypeByChargerId: getAllTypeByChargerId,
+    getAllTypeByUserId: getAllTypeByUserId,
     deleteType: deleteType,
     updateType: updateType
 

@@ -35,7 +35,8 @@ const {
   Model
 } = require('sequelize');
 const db = require('.');
-
+import {Charger} from './charger'
+import {Charger_type} from './charger_type'
 class Maintenance extends Model {
 
   static associate(models) {
@@ -43,7 +44,8 @@ class Maintenance extends Model {
  
      // define association here
      // Maintenance.hasOne(models.User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
-
+     Maintenance.belongsTo(Charger, { foreignKey: 'charger_id',targetKey: 'id',  as: 'charger' })
+     Maintenance.belongsTo(Charger_type, { foreignKey: 'type_id',targetKey: 'id', as : 'type' })
    }
 
   

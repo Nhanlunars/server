@@ -35,7 +35,18 @@ let getAllFeedback = (feedbackId) => {
             let feedbacks = '';
             if (feedbackId === 'All') {
                 feedbacks = await Feedback.findAll({
-                    
+                    include: [{
+                        association: 'user',
+                        },
+                        {
+                            association: 'charger',
+                            },
+                            {
+                                association: 'type',
+                                },
+                    ],
+                        raw: true, 
+                        nest: true
 
                 })
             }

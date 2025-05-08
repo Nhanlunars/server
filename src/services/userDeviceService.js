@@ -1,5 +1,5 @@
 import db from "../models/index";
-import {} from '../models/'
+import {User_device} from '../models/'
 
 let createDevice = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -34,7 +34,18 @@ let getAllDevice = (deviceId) => {
             let devices = '';
             if (deviceId === 'All') {
                 devices = await User_device.findAll({
-                    
+                    include: [{
+                        association: 'user',
+                        },
+                        {
+                            association: 'charger',
+                            },
+                            {
+                                association: 'type',
+                                },
+                    ],
+                        raw: true, 
+                        nest: true
 
                 })
             }

@@ -76,6 +76,18 @@ let getAllHistorys = (historyId) => {
             let historys = '';
             if (historyId === 'All') {
                 historys = await Usege_history.findAll({
+                    include: [{
+                        association: 'user',
+                        },
+                        {
+                            association: 'charger',
+                            },
+                            {
+                                association: 'type',
+                                },
+                    ],
+                        raw: true, 
+                        nest: true
                 })
             }
             if (historyId && historyId !== 'All') {

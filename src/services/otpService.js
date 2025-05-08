@@ -34,7 +34,12 @@ let getAllOTP = (OtpId) => {
             let Otps = '';
             if (OtpId === 'All') {
                 Otps = await OTP.findAll({
-                    
+                    include: [{
+                        association: 'user',
+                        },
+                    ],
+                        raw: true, 
+                        nest: true
 
                 })
             }

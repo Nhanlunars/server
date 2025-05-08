@@ -33,8 +33,8 @@ let getAllCharger = async (req, res) => {
     })
 }
 
-let getAllChargerByLocationId = async (req, res) => {
-    let id = req.query.location_id; //All, id
+let getAllChargerByUserId = async (req, res) => {
+    let id = req.query.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -42,7 +42,7 @@ let getAllChargerByLocationId = async (req, res) => {
             chargers: []
         })
     }
-    let chargers = await chargerService.getAllChargerByLocationId(id);
+    let chargers = await chargerService.getAllChargerByUserId(id);
     //console.log(chargers);
     return res.status(200).json({
         errCode: 0,
@@ -74,7 +74,7 @@ let updateCharger = async (req, res) => {
 module.exports = {
     createCharger: createCharger,
     getAllCharger: getAllCharger,
-    getAllChargerByLocationId: getAllChargerByLocationId,
+    getAllChargerByUserId: getAllChargerByUserId,
     deleteCharger: deleteCharger,
     updateCharger: updateCharger
 }

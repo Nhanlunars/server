@@ -112,11 +112,18 @@ let getAllUsers = (userId) => {
                 })
             }
             if (userId && userId !== 'All') {
-                users = await User.findOne({
+                users = await User.findAll({
                     where: { id: userId },
                     attributes: {
                         exclude: ['password']
-                    }
+                    },
+                    include: [{
+                        association: 'location',
+                        }
+                        ,
+                    ],
+                        raw: true, 
+                        nest: true
                 })
             }
             resolve(users)

@@ -38,24 +38,26 @@ module.exports = (sequelize, DataTypes) => {
 const {
   Model
 } = require('sequelize');
-
+import {Location} from './location'
 class Charger extends Model {
   
   static associate(models) {
     // define association here
-    //User.belongsTo(models.Allcode, { foreignKey: 'roleId', targetKey: 'keyMap', as: 'roleData' })
-    //User.belongsTo(models.Allcode, { foreignKey: 'gender', targetKey: 'keyMap', as: 'genderData' })
-    //User.hasMany(models.Location, { foreignKey: 'user_id', as: 'userLocation' })
+    //Charger.belongsTo(models.Location, { foreignKey: 'location_id', targetKey: 'id', as: 'location' })
+
     Charger.hasMany(models.Reservation, {
       foreignKey: 'charger_id'
     })
-         // User.belongsTo(models.Reservation, { foreignKey: 'user_id', as: 'user' })
+    Charger.belongsTo(Location, { foreignKey: 'location_id', targetKey: 'id', as: 'location' })
+    Charger.hasMany(models.Charger_type, {
+      foreignKey: 'charger_id'
+    })
+    Charger.hasMany(models.Usege_history, { foreignKey: 'charger_id' })
+    Charger.hasMany(models.Feedback, { foreignKey: 'charger_id' })
+    Charger.hasMany(models.User_device, { foreignKey: 'charger_id' })
+    Charger.hasMany(models.Maintenance, { foreignKey: 'charger_id' })
 
-    //User.hasOne(models.Owner_charger_info, { foreignKey: 'user_id' })
-    //User.hasMany(models.Notification, { foreignKey: 'user_id', as: 'userNotification' })
-    //User.hasMany(models.Usege_histories, { foreignKey: 'user_id', as: 'userHistory' })
-    //User.hasMany(models.Feedback, { foreignKey: 'user_id', as: 'userFeedback' })
-    //User.hasMany(models.OTP, { foreignKey: 'user_id', as: 'userOTP' })
+
 
   }
 };

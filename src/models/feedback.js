@@ -37,6 +37,7 @@ const {
 const db = require('.');
 import {User} from './user'
 import {Charger} from './charger'
+import {Charger_type} from './charger_type'
 
 class Feedback extends Model {
 
@@ -44,9 +45,11 @@ class Feedback extends Model {
     console.log("🚀 ~ Feedback ~ associate ~ models:", models)
  
      // define association here
-     // Feedback.hasOne(models.User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
-    //  Feedback.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
-    //  Feedback.belongsTo(Charger, { foreignKey: 'charger_id',targetKey: 'id',  as: 'charger' })
+     //Feedback.hasOne(models.User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
+     Feedback.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
+     Feedback.belongsTo(Charger, { foreignKey: 'charger_id',targetKey: 'id',  as: 'charger' })
+     Feedback.belongsTo(Charger_type, { foreignKey: 'type_id',targetKey: 'id',  as: 'type' })
+
    }
 
   

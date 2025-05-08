@@ -56,7 +56,15 @@ let getAllMaintenance = (maintenanceId) => {
             if (maintenanceId === 'All') {
                 maintenances = await Maintenance.findAll({
                     
-
+                    include: [{
+                        association: 'charger',
+                        },
+                        {
+                            association: 'type',
+                            },
+                    ],
+                        raw: true, 
+                        nest: true
                 })
             }
             if (maintenanceId && maintenanceId !== 'All') {

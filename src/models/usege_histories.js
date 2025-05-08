@@ -38,6 +38,9 @@ const {
   Model
 } = require('sequelize');
 const db = require('.');
+import {User} from './user'
+import {Charger} from './charger'
+import {Charger_type} from './charger_type'
 
 
 class Usege_history extends Model {
@@ -46,7 +49,9 @@ class Usege_history extends Model {
     console.log("🚀 ~ Usege_history ~ associate ~ models:", models)
  
      // define association here
-
+      Usege_history.belongsTo(User, { foreignKey: 'user_id',targetKey: 'id',  as: 'user' })
+      Usege_history.belongsTo(Charger, { foreignKey: 'charger_id',targetKey: 'id',  as: 'charger' })
+      Usege_history.belongsTo(Charger_type, { foreignKey: 'type_id',targetKey: 'id', as : 'type' })
    }
 
   

@@ -42,6 +42,12 @@ let getAllLocation = (locationId) => {
             let users = '';
             if (locationId === 'All') {
                 users = await Location.findAll({
+                    include: [{
+                        association: 'user',
+                        },
+                    ],
+                        raw: true, 
+                        nest: true
                 })
             }
             if (locationId && locationId !== 'All') {
@@ -59,8 +65,19 @@ let getAllLocation = (locationId) => {
 let getAllLocationByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
+           
+
+
+
             let users = await Location.findAll({
-                    where: { user_id: userId }
+                    where: { user_id: userId },
+                    include: [{
+                        association: 'user',
+                        },
+                    ],
+                        raw: true, 
+                        nest: true
+                
                 })
             
             resolve(users)

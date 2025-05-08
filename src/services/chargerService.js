@@ -1,5 +1,6 @@
 import db from "../models/index";
 import { Charger } from "../models/charger";
+import { where } from "sequelize";
 
 let createCharger = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -35,7 +36,13 @@ let getAllCharger = (chargerId) => {
             let chargers = '';
             if (chargerId === 'All') {
                 chargers = await Charger.findAll({
-                    
+                    include: [{
+                        association: 'location',
+                        }
+                        ,
+                    ],
+                        raw: true, 
+                        nest: true
 
                 })
             }
@@ -51,14 +58,24 @@ let getAllCharger = (chargerId) => {
     })
 }
 
-let getAllChargerByLocationId = (locationId) => {
+let getAllChargerByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let locations = await Charger.findAll({
-                    where: { location_id: locationId }
+            let chargers = await Charger.findAll({
+               // where : { location_id : locationId  },
+                    include: [{
+                        association: 'location',
+                            where : {user_id : userId  }
+
+                    }                 
+                    ],
+                    //where : {location.user_id : locationId  },
+
+                        raw: true, 
+                        nest: true
                 })
             
-            resolve(locations)
+            resolve(chargers)
         } catch (e) {
             reject(e);
         }
@@ -133,7 +150,7 @@ let updateCharger = (data) => {
 module.exports = {
     createCharger: createCharger,
     getAllCharger: getAllCharger,
-    getAllChargerByLocationId: getAllChargerByLocationId,
+    getAllChargerByUserId: getAllChargerByUserId,
     deleteCharger: deleteCharger,
     updateCharger: updateCharger
 

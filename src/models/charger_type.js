@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 const {
   Model
 } = require('sequelize');
-
+import {Charger} from './charger' 
 class Charger_type extends Model {
   
   static associate(models) {
@@ -44,12 +44,14 @@ class Charger_type extends Model {
     Charger_type.hasMany(models.Reservation, {
       foreignKey: 'type_id'
     })
-         // Charger_type.belongsTo(models.Reservation, { foreignKey: 'Charger_type_id', as: 'Charger_type' })
+    Charger_type.belongsTo(Charger, { foreignKey: 'charger_id', targetKey: 'id', as: 'charger' })
 
     //Charger_type.hasOne(models.Owner_charger_info, { foreignKey: 'Charger_type_id' })
     //Charger_type.hasMany(models.Notification, { foreignKey: 'Charger_type_id', as: 'Charger_typeNotification' })
-    //Charger_type.hasMany(models.Usege_histories, { foreignKey: 'Charger_type_id', as: 'Charger_typeHistory' })
-    //Charger_type.hasMany(models.Feedback, { foreignKey: 'Charger_type_id', as: 'Charger_typeFeedback' })
+    Charger_type.hasMany(models.Usege_history, { foreignKey: 'type_id'})
+    Charger_type.hasMany(models.Feedback, { foreignKey: 'type_id' })
+    Charger_type.hasMany(models.User_device, { foreignKey: 'type_id' })
+    Charger_type.hasMany(models.Maintenance, { foreignKey: 'type_id' })
     //Charger_type.hasMany(models.OTP, { foreignKey: 'Charger_type_id', as: 'Charger_typeOTP' })
 
   }

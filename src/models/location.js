@@ -37,8 +37,6 @@ const {
 } = require('sequelize');
 const db = require('.');
 import {User} from './user'
-import {Charger} from './charger'
-import {Charger_type} from './charger_type'
 
 class Location extends Model {
 
@@ -47,9 +45,9 @@ class Location extends Model {
  
      // define association here
      // Location.hasOne(models.User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
-    //  Location.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
-    //  Location.belongsTo(Charger, { foreignKey: 'charger_id',targetKey: 'id',  as: 'charger' })
-   }
+      Location.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
+      Location.hasMany(models.Charger, { foreignKey: 'location_id', as: 'charger' })
+}
 
   
 

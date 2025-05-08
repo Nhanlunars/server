@@ -41,7 +41,7 @@ let initWebRoutes = (app) => {
     router.post('/api/create-charger', chargerController.createCharger);
     router.get('/api/get-all-charger', chargerController.getAllCharger);
     //router.get('/api/get-all-chargers', chargerController.handleGetAllLocation);
-    router.get('/api/get-all-charger-by-locationid', chargerController.getAllChargerByLocationId);
+    router.get('/api/get-all-charger-by-userid', chargerController.getAllChargerByUserId);
     router.delete('/api/delete-charger', chargerController.deleteCharger);
     router.put('/api/edit-charger', chargerController.updateCharger);
 
@@ -49,6 +49,8 @@ let initWebRoutes = (app) => {
     router.post('/api/create-type', typeController.createType);
     router.get('/api/get-all-type', typeController.getAllType);
     router.get('/api/get-all-type-by-chargerid', typeController.getAllTypeByChargerId);
+
+    router.get('/api/get-all-type-by-userid', typeController.getAllTypeByUserId);
     router.delete('/api/delete-type', typeController.deleteType);
     router.put('/api/edit-type', typeController.updateType);
     
