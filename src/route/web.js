@@ -57,14 +57,14 @@ let initWebRoutes = (app) => {
 
     router.get('/api/get-all-reservation', reservationController.getAllReservations);
     router.post('/api/create-reservation', reservationController.createReservation);
-    //router.get('/api/get-all-reservation-by-userid', reservationController.getAllTypeByChargerId);
+    router.get('/api/get-all-reservation-by-ownerid', reservationController.getAllReservationByOwnerId);
     router.delete('/api/delete-reservation', reservationController.deleteReservation);
     router.put('/api/edit-reservation', reservationController.updateReservation);
 
 
     router.get('/api/get-all-history', historyController.getAllHistorys);
     router.post('/api/create-history', historyController.createHistory);
-    //router.get('/api/get-all-history-by-userid', historyController.getAllTypeByChargerId);
+    router.get('/api/get-all-history-by-ownerid', historyController.getAllHistoryByOwnerId);
     router.delete('/api/delete-history', historyController.deleteHistory);
     router.put('/api/edit-history', historyController.updateHistory);
 
@@ -80,6 +80,9 @@ let initWebRoutes = (app) => {
     router.post('/api/create-feedback', feedbackController.createFeedback);
     router.get('/api/get-all-feedback-by-chargerid', feedbackController.getAllFeedbackByChargerId);
     router.get('/api/get-all-feedback-by-userid', feedbackController.getAllFeedbackByuserId);
+    router.get('/api/get-all-feedback-by-ownerid', feedbackController.getAllFeedbackByownerId);
+
+    
     router.delete('/api/delete-feedback', feedbackController.deleteFeedback);
     router.put('/api/edit-feedback', feedbackController.updateFeedback);
 
@@ -94,6 +97,8 @@ let initWebRoutes = (app) => {
     router.get('/api/get-all-maintenance', maintenanceController.getAllMaintenance);
     router.post('/api/create-maintenance', maintenanceController.createMaintenance);
     router.get('/api/get-all-maintenance-by-chargerid', maintenanceController.getAllMaintenanceByChargerId);
+    router.get('/api/get-all-maintenance-by-userid', maintenanceController.getAllMaintenanceByOwnerId);
+
     router.delete('/api/delete-maintenance', maintenanceController.deleteMaintenance);
     router.put('/api/edit-maintenance', maintenanceController.updateMaintenance);
 

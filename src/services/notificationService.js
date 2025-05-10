@@ -68,6 +68,20 @@ let getAllNotificationByUserId = (userId) => {
         }
     })
 }
+/*
+let getAllNotificationByOwnerId = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let notifications = await Notification.findAll({
+                    where: { user_id: userId }
+                })
+            
+            resolve(notifications)
+        } catch (e) {
+            reject(e);
+        }
+    })
+}*/
 
 let deleteNotification = (notificationId) => {
     return new Promise(async (resolve, reject) => {

@@ -70,6 +70,24 @@ let getAllFeedbackByuserId = async (req, res) => {
     })
 }
 
+let getAllFeedbackByownerId = async (req, res) => {
+    let id = req.query.user_id; //All, id
+    if (!id) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: 'Missing require parameters',
+            feedbacks: []
+        })
+    }
+    let feedbacks = await feedbackService.getAllFeedbackByownerId(id);
+    //console.log(feedbacks);
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'Ok',
+        feedbacks
+    })
+}
+
 
 let deleteFeedback = async (req, res) => {
     if (!req.body.id) {
@@ -97,6 +115,7 @@ module.exports = {
     getAllFeedback: getAllFeedback,
     getAllFeedbackByChargerId: getAllFeedbackByChargerId,
     getAllFeedbackByuserId: getAllFeedbackByuserId,
+    getAllFeedbackByownerId: getAllFeedbackByownerId,
     deleteFeedback: deleteFeedback,
     updateFeedback: updateFeedback
 }

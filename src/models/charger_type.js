@@ -44,7 +44,7 @@ class Charger_type extends Model {
     Charger_type.hasMany(models.Reservation, {
       foreignKey: 'type_id'
     })
-    Charger_type.belongsTo(Charger, { foreignKey: 'charger_id', targetKey: 'id', as: 'charger' })
+    Charger_type.belongsTo(Charger, { foreignKey: 'charger_id'/*, targetKey: 'id'*/, as: 'charger' })
 
     //Charger_type.hasOne(models.Owner_charger_info, { foreignKey: 'Charger_type_id' })
     //Charger_type.hasMany(models.Notification, { foreignKey: 'Charger_type_id', as: 'Charger_typeNotification' })

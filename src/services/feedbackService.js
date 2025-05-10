@@ -90,6 +90,42 @@ let getAllFeedbackByuserId = (userId) => {
     })
 }
 
+let getAllFeedbackByownerId = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let feedbacks = await Feedback.findAll({
+                    include: [
+                    {
+                    association: 'user',
+                    attributes: {
+                        exclude: ['password', 'image']}
+                    },
+                    {
+                        //model: Charger,
+                        association: 'charger',
+                        required: true,
+                        include:[{
+                            //model: Location,
+                            association: 'location',
+                            where: { user_id : userId },
+                            required: true
+                        }]
+                        },
+                    {
+                        association: 'type',
+                    },
+                    ],
+                        raw: true, 
+                        nest: true
+                })
+            
+            resolve(feedbacks)
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 let deleteFeedback = (feedbackId) => {
     return new Promise(async (resolve, reject) => {
         let foundFeedback = await Feedback.findOne({
@@ -157,6 +193,7 @@ module.exports = {
     getAllFeedback: getAllFeedback,
     getAllFeedbackByChargerId: getAllFeedbackByChargerId,
     getAllFeedbackByuserId: getAllFeedbackByuserId,
+    getAllFeedbackByownerId: getAllFeedbackByownerId,
     deleteFeedback: deleteFeedback,
     updateFeedback: updateFeedback
 

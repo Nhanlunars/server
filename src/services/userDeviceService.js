@@ -65,7 +65,19 @@ let getAllDeviceByuserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let devices = await User_device.findAll({
-                    where: { user_id: userId }
+                    where: { user_id: userId },
+                    include: [{
+                        association: 'user',
+                        },
+                        {
+                            association: 'charger',
+                            },
+                            {
+                                association: 'type',
+                                },
+                    ],
+                    raw: true, 
+                    nest: true
                 })
             
             resolve(devices)

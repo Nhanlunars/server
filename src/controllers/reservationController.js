@@ -32,9 +32,9 @@ let getAllReservations = async (req, res) => {
         reservations
     })
 }
-/*
-let getAllTypeByChargerId = async (req, res) => {
-    let id = req.query.location_id; //All, id
+
+let getAllReservationByOwnerId = async (req, res) => {
+    let id = req.query.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -42,14 +42,14 @@ let getAllTypeByChargerId = async (req, res) => {
             reservations: []
         })
     }
-    let reservations = await reservationService.getAllTypeByChargerId(id);
+    let reservations = await reservationService.getAllReservationByOwnerId(id);
     //console.log(types);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
         reservations
     })
-}*/
+}
 let deleteReservation = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
@@ -74,7 +74,7 @@ let updateReservation = async (req, res) => {
 module.exports = {
     createReservation: createReservation,
     getAllReservations: getAllReservations,
-    //getAllTypeByChargerId: getAllTypeByChargerId,
+    getAllReservationByOwnerId: getAllReservationByOwnerId,
     deleteReservation: deleteReservation,
     updateReservation: updateReservation
 }

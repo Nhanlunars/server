@@ -48,7 +48,7 @@ class Charger extends Model {
     Charger.hasMany(models.Reservation, {
       foreignKey: 'charger_id'
     })
-    Charger.belongsTo(Location, { foreignKey: 'location_id', targetKey: 'id', as: 'location' })
+    Charger.belongsTo(Location, { foreignKey: 'location_id'/*, targetKey: 'id'*/, as: 'location' })
     Charger.hasMany(models.Charger_type, {
       foreignKey: 'charger_id'
     })

@@ -35,6 +35,8 @@ const {
 } = require('sequelize');
 const db = require('.');
 import { User } from './user';
+import { Charger } from './charger';
+
 class Owner_charger_info extends Model {
 
   static associate(models) {
@@ -42,6 +44,8 @@ class Owner_charger_info extends Model {
  
      // define association here
     Owner_charger_info.belongsTo(User, { foreignKey: 'user_id',targetKey: 'id', as: 'user' })
+    //Owner_charger_info.belongsTo(Charger, { foreignKey: 'charger_id',targetKey: 'id', as: 'charger' })
+
 
    }
 

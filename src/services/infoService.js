@@ -39,6 +39,8 @@ let getAllInfos = (infoId) => {
                 infos = await Owner_charger_info.findAll({
                     include: [{
                         association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
                         },
                     ],
                         raw: true, 
@@ -61,6 +63,16 @@ let getInfoByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let infos = await Owner_charger_info.findAll({
+                 include: [{
+                        association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
+                        },
+                        
+                    
+                    ],
+                        raw: true, 
+                        nest: true,
                     where: { user_id: userId }
                 })
             

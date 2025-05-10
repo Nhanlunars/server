@@ -32,24 +32,24 @@ let getAllHistorys = async (req, res) => {
         historys
     })
 }
-/*
-let getAllTypeByChargerId = async (req, res) => {
-    let id = req.query.location_id; //All, id
+
+let getAllHistoryByOwnerId = async (req, res) => {
+    let id = req.query.user_id; //All, id
     if (!id) {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing require parameters',
-            types: []
+            historys: []
         })
     }
-    let types = await historyService.getAllTypeByChargerId(id);
-    //console.log(types);
+    let historys = await historyService.getAllHistoryByOwnerId(id);
+    //console.log(historys);
     return res.status(200).json({
         errCode: 0,
         errMessage: 'Ok',
-        types
+        historys
     })
-}*/
+}
 let deleteHistory = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
@@ -74,7 +74,7 @@ let updateHistory = async (req, res) => {
 module.exports = {
     createHistory: createHistory,
     getAllHistorys: getAllHistorys,
-    //getAllTypeByChargerId: getAllTypeByChargerId,
+    getAllHistoryByOwnerId: getAllHistoryByOwnerId,
     deleteHistory: deleteHistory,
     updateHistory: updateHistory
 }

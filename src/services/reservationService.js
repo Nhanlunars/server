@@ -1,6 +1,8 @@
 
 import {Reservation} from '../models/reservation'
 import {Charger_type} from '../models/charger_type'
+import {Location} from '../models/location'
+import {Charger} from '../models/charger'
 
 
 let createReservation = (data) => {
@@ -107,19 +109,40 @@ let getAllReservations = (reservationId) => {
     })
 }
 
-/*let getAllLocationByUserId = (userId) => {
+let getAllReservationByOwnerId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let users = await Location.findAll({
-                    where: { user_id: userId }
+            let reservations = await Reservation.findAll({
+                   include: [
+                    {
+                    association: 'user',
+                    },
+                    {
+                    
+                        model: Charger,
+                        association: 'charger',
+                        required: true,
+                        include:[{
+                            model: Location,
+                            association: 'location',
+                            where: { user_id : userId },
+                            required: true
+                        }]
+                        },
+                    {
+                        association: 'type',
+                    },
+                    ],
+                        raw: true, 
+                        nest: true
                 })
             
-            resolve(users)
+            resolve(reservations)
         } catch (e) {
             reject(e);
         }
     })
-}*/
+}
 
 let deleteReservation = (reservationId) => {
     return new Promise(async (resolve, reject) => {
@@ -204,7 +227,7 @@ module.exports = {
     createReservation: createReservation,
     //getAllReservation: getAllReservation,
     getAllReservations: getAllReservations,
-    //getAllReservationByUserId: getAllReservationByUserId,
+    getAllReservationByOwnerId: getAllReservationByOwnerId,
     deleteReservation: deleteReservation,
     updateReservation: updateReservation
 

@@ -53,6 +53,23 @@ let getAllMaintenanceByChargerId = async (req, res) => {
 }
 
 
+let getAllMaintenanceByOwnerId = async (req, res) => {
+    let id = req.query.user_id; //All, id
+    if (!id) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: 'Missing require parameters',
+            maintenances: []
+        })
+    }
+    let maintenances = await maintenanceService.getAllMaintenanceByOwnerId(id);
+    //console.log(maintenances);
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'Ok',
+        maintenances
+    })
+}
 let deleteMaintenance = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
@@ -78,6 +95,7 @@ module.exports = {
     createMaintenance: createMaintenance,
     getAllMaintenance: getAllMaintenance,
     getAllMaintenanceByChargerId: getAllMaintenanceByChargerId,
+    getAllMaintenanceByOwnerId: getAllMaintenanceByOwnerId, 
     deleteMaintenance: deleteMaintenance,
     updateMaintenance: updateMaintenance
 }

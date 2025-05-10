@@ -1,5 +1,8 @@
 import db from "../models/index";
 import { Charger_type } from "../models/charger_type";
+import {Location} from '../models/location'
+import {Charger} from '../models/charger'
+
 
 let createType = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -77,14 +80,16 @@ let getAllTypeByUserId = (userId) => {
         try {
             let types = await Charger_type.findAll({
                     include: [{
+                        model: Charger,
                         association: 'charger',
+                        required: true,
                         include:[{
+                            model: Location,
                             association: 'location',
                             where: { user_id : userId },
-                            
-                        }],
-                        //where: { user_id: chargerId }
-                        },
+                            required: true
+                        }]
+                        }
                     ],
                         raw: true, 
                         nest: true

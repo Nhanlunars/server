@@ -101,6 +101,41 @@ let getAllHistorys = (historyId) => {
         }
     })
 }
+
+
+let getAllHistoryByOwnerId = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let historys = await Usege_history.findAll({
+                    include: [
+                    {
+                    association: 'user',
+                    },
+                    {
+                        //model: Charger,
+                        association: 'charger',
+                        required: true,
+                        include:[{
+                            //model: Location,
+                            association: 'location',
+                            where: { user_id : userId },
+                            required: true
+                        }]
+                        },
+                    {
+                        association: 'type',
+                    },
+                    ],
+                        raw: true, 
+                        nest: true
+                })
+            
+            resolve(historys)
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
 /*
 let getAllLocationByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
@@ -205,6 +240,7 @@ module.exports = {
     createHistory: createHistory,
    // getAllLocation: getAllLocation,
     getAllHistorys: getAllHistorys,
+    getAllHistoryByOwnerId: getAllHistoryByOwnerId,
    // getAllLocationByUserId: getAllLocationByUserId,
     deleteHistory: deleteHistory,
     updateHistory: updateHistory

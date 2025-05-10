@@ -93,6 +93,37 @@ let getAllMaintenanceByChargerId = (chargerId) => {
     })
 }
 
+let getAllMaintenanceByOwnerId = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let maintenances = await Maintenance.findAll({
+                    include: [                  
+                    {
+                        //model: Charger,
+                        association: 'charger',
+                        required: true,
+                        include:[{
+                            //model: Location,
+                            association: 'location',
+                            where: { user_id : userId },
+                            required: true
+                        }]
+                        },
+                    {
+                        association: 'type',
+                    },
+                    ],
+                        raw: true, 
+                        nest: true
+                })
+            
+            resolve(maintenances)
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 let deleteMaintenance = (maintenanceId) => {
     return new Promise(async (resolve, reject) => {
         let foundMaintenance = await Maintenance.findOne({
@@ -178,6 +209,7 @@ module.exports = {
     createMaintenance: createMaintenance,
     getAllMaintenance: getAllMaintenance,
     getAllMaintenanceByChargerId: getAllMaintenanceByChargerId,
+    getAllMaintenanceByOwnerId: getAllMaintenanceByOwnerId,
     deleteMaintenance: deleteMaintenance,
     updateMaintenance: updateMaintenance
 
