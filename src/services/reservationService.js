@@ -76,6 +76,8 @@ let getAllReservations = (reservationId) => {
                 reservations = await Reservation.findAll({
                    include: [{
                     association: 'user',
+                    attributes: {
+                        exclude: ['password', 'image']}
                     },
                     {
                         association: 'charger',
@@ -116,6 +118,8 @@ let getAllReservationByOwnerId = (userId) => {
                    include: [
                     {
                     association: 'user',
+                    attributes: {
+                        exclude: ['password', 'image']}
                     },
                     {
                     

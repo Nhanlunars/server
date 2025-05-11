@@ -37,6 +37,8 @@ let getAllFeedback = (feedbackId) => {
                 feedbacks = await Feedback.findAll({
                     include: [{
                         association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
                         },
                         {
                             association: 'charger',

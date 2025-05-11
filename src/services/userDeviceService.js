@@ -36,6 +36,8 @@ let getAllDevice = (deviceId) => {
                 devices = await User_device.findAll({
                     include: [{
                         association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
                         },
                         {
                             association: 'charger',
@@ -68,6 +70,8 @@ let getAllDeviceByuserId = (userId) => {
                     where: { user_id: userId },
                     include: [{
                         association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
                         },
                         {
                             association: 'charger',

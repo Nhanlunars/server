@@ -21,7 +21,6 @@ let initWebRoutes = (app) => {
     router.post('/api/login', userController.handleLogin);
     router.get('/api/get-all-user', userController.handleGetAllUser);
     router.post('/api/create-new-user', userController.handleCreateNewUser);
-    router.post('/api/create-new-user1', userController.handleCreateNewUser1);
     router.put('/api/edit-user', userController.handleEditUser);
     router.delete('/api/delete-user', userController.handleDeleteUser);
     router.get('/api/allcode', userController.getAllCode);
@@ -32,6 +31,8 @@ let initWebRoutes = (app) => {
 
     router.post('/api/create-location', locationController.createLocation);
     router.get('/api/get-all-location', locationController.getAllLocation);
+    router.get('/api/find-location', locationController.handleSearchLocation);
+
     router.get('/api/get-all-location-by-userid', locationController.getAllLocationByUserId);
     router.delete('/api/delete-location', locationController.deleteLocation);
     router.put('/api/edit-location', locationController.editLocation);

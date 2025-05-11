@@ -36,6 +36,8 @@ let getAllNotification = (notificationId) => {
                 notifications = await Notification.findAll({
                     include: [{
                         association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
                         },
                     ],
                         raw: true, 

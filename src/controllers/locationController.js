@@ -51,6 +51,34 @@ let getAllLocationByUserId = async (req, res) => {
         locations
     })
 }
+
+let handleSearchLocation = async (req, res) => {
+    let keyword = req.query.keyword;
+
+    if (!keyword) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: 'Missing keyword',
+            locations: []
+        });
+    }
+
+    try {
+        let locations = await locationService.searchLocationByKeyword(keyword);
+        return res.status(200).json({
+            errCode: 0,
+            errMessage: 'Ok',
+            locations
+        });
+    } catch (e) {
+        console.error("Error in search:", e);
+        return res.status(500).json({
+            errCode: -1,
+            errMessage: 'Server error',
+        });
+    }
+};
+
 let deleteLocation = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
@@ -76,6 +104,7 @@ module.exports = {
     createLocation: createLocation,
     getAllLocation: getAllLocation,
     getAllLocationByUserId: getAllLocationByUserId,
+    handleSearchLocation: handleSearchLocation,
     deleteLocation: deleteLocation,
     editLocation: editLocation
 }

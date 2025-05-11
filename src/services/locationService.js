@@ -1,5 +1,6 @@
 import db from "../models/index";
 import {Location} from '../models/location';
+const { Op } = require("sequelize");
 
 let createLocation = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -44,6 +45,8 @@ let getAllLocation = (locationId) => {
                 users = await Location.findAll({
                     include: [{
                         association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
                         },
                     ],
                         raw: true, 
@@ -65,14 +68,12 @@ let getAllLocation = (locationId) => {
 let getAllLocationByUserId = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-           
-
-
-
             let users = await Location.findAll({
                     where: { user_id: userId },
                     include: [{
                         association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
                         },
                     ],
                         raw: true, 
@@ -86,6 +87,40 @@ let getAllLocationByUserId = (userId) => {
         }
     })
 }
+
+let searchLocationByKeyword = (keyword) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!keyword) {
+                return resolve([]);
+            }
+
+            let result = await Location.findAll({
+                where: {
+                    [Op.or]: [
+                        { location_name: { [Op.like]: `%${keyword}%` } },
+                        { address: { [Op.like]: `%${keyword}%` } },
+                        { city: { [Op.like]: `%${keyword}%` } },
+                        { district: { [Op.like]: `%${keyword}%` } },
+                        { ward: { [Op.like]: `%${keyword}%` } },
+                    ]
+                },
+                include: [{
+                        association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
+                        },
+                    ],
+                raw: true,
+                nest: true,
+            });
+
+            resolve(result);
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
 
 let deleteLocation = (locationId) => {
     return new Promise(async (resolve, reject) => {
@@ -160,6 +195,7 @@ module.exports = {
     createLocation: createLocation,
     getAllLocation: getAllLocation,
     getAllLocationByUserId: getAllLocationByUserId,
+    searchLocationByKeyword: searchLocationByKeyword,
     deleteLocation: deleteLocation,
     updateLocation: updateLocation
 
