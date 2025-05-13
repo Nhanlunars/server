@@ -1,6 +1,8 @@
 import db from "../models/index";
 import { Usege_history } from "../models/usege_histories";
 import { Charger_type } from "../models/charger_type";
+const { Op, fn, col, literal } = require("sequelize");
+
 
 let createHistory = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -174,6 +176,52 @@ let getAllLocationByUserId = (userId) => {
     })
 }*/
 
+const getRevenueStats = async (type) => {
+  try {
+    let dateFormat = "%Y-%m-%d"; // default: ngày
+
+if (type === "month") {
+  dateFormat = "%Y-%m";
+} else if (type === "week") {
+  // ISO Week Format
+  dateFormat = "%x-W%v";
+} else if (type === "year") {
+  dateFormat = "%Y";
+}
+
+    /*const stats = await Usege_history.findAll({
+      attributes: [
+        [fn("DATE_FORMAT", col("end_time"), format), "date"],
+        [fn("SUM", col("cost")), "total"]
+      ],
+      group: [literal(`DATE_FORMAT(end_time, '${format}')`)],
+      order: [[literal(`DATE_FORMAT(end_time, '${format}')`), "ASC"]]
+    });*/
+
+    const stats = await Usege_history.findAll({
+    attributes: [
+      [db.sequelize.literal(`DATE_FORMAT(end_time, '${dateFormat}')`), "date"],
+      [fn("SUM", col("cost")), "total"],
+    ],
+    group: [literal(`DATE_FORMAT(end_time, '${dateFormat}')`)],
+    order: [[literal("date"), "ASC"]],
+    raw: true,
+  });
+
+    return {
+      errCode: 0,
+      errMessage: "OK",
+      data: stats
+    };
+  } catch (e) {
+    console.error("getRevenueStats error:", e);
+    return {
+      errCode: 1,
+      errMessage: "Failed to get dashboard stats"
+    };
+  }
+};
+
 let deleteHistory = (historyId) => {
   return new Promise(async (resolve, reject) => {
     let foundHistory = await Usege_history.findOne({
@@ -270,10 +318,10 @@ let updateHistory = (data) => {
 
 module.exports = {
   createHistory: createHistory,
-  // getAllLocation: getAllLocation,
   getAllHistorys: getAllHistorys,
   getAllHistoryByOwnerId: getAllHistoryByOwnerId,
   // getAllLocationByUserId: getAllLocationByUserId,
+  getRevenueStats: getRevenueStats,
   deleteHistory: deleteHistory,
   updateHistory: updateHistory,
 };

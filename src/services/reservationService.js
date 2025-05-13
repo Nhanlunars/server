@@ -122,7 +122,6 @@ let getAllReservationByOwnerId = (userId) => {
                         exclude: ['password', 'image']}
                     },
                     {
-                    
                         model: Charger,
                         association: 'charger',
                         required: true,

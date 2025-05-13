@@ -50,6 +50,23 @@ let getAllHistoryByOwnerId = async (req, res) => {
         historys
     })
 }
+
+const getDashboardStats = async (req, res) => {
+  try {
+    const type = req.query.type || "day"; // day, week, month
+    const result = await historyService.getRevenueStats(type);
+
+    return res.status(200).json(result);
+  } catch (e) {
+    console.error("getDashboardStats error:", e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Server error"
+    });
+  }
+};
+
+
 let deleteHistory = async (req, res) => {
     if (!req.body.id) {
         return res.status(200).json({
@@ -75,6 +92,7 @@ module.exports = {
     createHistory: createHistory,
     getAllHistorys: getAllHistorys,
     getAllHistoryByOwnerId: getAllHistoryByOwnerId,
+    getDashboardStats: getDashboardStats,
     deleteHistory: deleteHistory,
     updateHistory: updateHistory
 }
