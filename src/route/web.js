@@ -82,11 +82,11 @@ let initWebRoutes = (app) => {
     "/api/get-all-history-by-ownerid",
     historyController.getAllHistoryByOwnerId
   );
-router.get(
-    "/api/get-dashboard",
-    historyController.getDashboardStats
+  router.get("/api/get-dashboard", historyController.getDashboardStats);
+  router.get(
+    "/api/get-dashboard-by-owner",
+    historyController.getDashboardStatsByOwnerId
   );
-  
   router.delete("/api/delete-history", historyController.deleteHistory);
   router.put("/api/edit-history", historyController.updateHistory);
 

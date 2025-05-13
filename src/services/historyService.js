@@ -3,7 +3,6 @@ import { Usege_history } from "../models/usege_histories";
 import { Charger_type } from "../models/charger_type";
 const { Op, fn, col, literal } = require("sequelize");
 
-
 let createHistory = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -24,7 +23,11 @@ let createHistory = (data) => {
           raw: false,
         });
         let cost = null;
-        if (data.number_end !== undefined && data.number_end !== null && data.number_end != 0) {
+        if (
+          data.number_end !== undefined &&
+          data.number_end !== null &&
+          data.number_end != 0
+        ) {
           const quantity = data.number_end - data.number_start;
           if (quantity < 0) {
             return resolve({
@@ -179,45 +182,93 @@ let getAllLocationByUserId = (userId) => {
 const getRevenueStats = async (type) => {
   try {
     let dateFormat = "%Y-%m-%d"; // default: ngày
-
-if (type === "month") {
-  dateFormat = "%Y-%m";
-} else if (type === "week") {
-  // ISO Week Format
-  dateFormat = "%x-W%v";
-} else if (type === "year") {
-  dateFormat = "%Y";
-}
-
-    /*const stats = await Usege_history.findAll({
-      attributes: [
-        [fn("DATE_FORMAT", col("end_time"), format), "date"],
-        [fn("SUM", col("cost")), "total"]
-      ],
-      group: [literal(`DATE_FORMAT(end_time, '${format}')`)],
-      order: [[literal(`DATE_FORMAT(end_time, '${format}')`), "ASC"]]
-    });*/
-
+    if (type === "month") {
+      dateFormat = "%Y-%m";
+    } else if (type === "week") {
+      // ISO Week Format
+      dateFormat = "%x-W%v";
+    } else if (type === "year") {
+      dateFormat = "%Y";
+    }
     const stats = await Usege_history.findAll({
-    attributes: [
-      [db.sequelize.literal(`DATE_FORMAT(end_time, '${dateFormat}')`), "date"],
-      [fn("SUM", col("cost")), "total"],
-    ],
-    group: [literal(`DATE_FORMAT(end_time, '${dateFormat}')`)],
-    order: [[literal("date"), "ASC"]],
-    raw: true,
-  });
+      attributes: [
+        [
+          db.sequelize.literal(`DATE_FORMAT(end_time, '${dateFormat}')`),
+          "date",
+        ],
+        [fn("SUM", col("cost")), "total"],
+      ],
+      group: [literal(`DATE_FORMAT(end_time, '${dateFormat}')`)],
+      order: [[literal("date"), "ASC"]],
+      raw: true,
+    });
 
     return {
       errCode: 0,
       errMessage: "OK",
-      data: stats
+      data: stats,
     };
   } catch (e) {
     console.error("getRevenueStats error:", e);
     return {
       errCode: 1,
-      errMessage: "Failed to get dashboard stats"
+      errMessage: "Failed to get dashboard stats",
+    };
+  }
+};
+
+const getRevenueStatsByOwnerId = async (data) => {
+  try {
+    let dateFormat = "%Y-%m-%d"; // default: ngày
+    if (data.type === "month") {
+      dateFormat = "%Y-%m";
+    } else if (data.type === "week") {
+      // ISO Week Format
+      dateFormat = "%x-W%v";
+    } else if (data.type === "year") {
+      dateFormat = "%Y";
+    }
+    console.log(data)
+    const stats = await Usege_history.findAll({
+      include: [
+        {
+          //model: Charger,
+          association: "charger",
+
+          required: true,
+          include: [
+            {
+              //model: Location,
+              association: "location",
+              where: { user_id: data.userId },
+              required: true,
+            },
+          ],
+        },
+      ],
+      attributes: [
+        [
+          db.sequelize.literal(`DATE_FORMAT(end_time, '${dateFormat}')`),
+          "date",
+        ],
+        [fn("SUM", col("cost")), "total"],
+      ],
+
+      group: [literal(`DATE_FORMAT(end_time, '${dateFormat}')`)],
+      order: [[literal("date"), "ASC"]],
+      raw: true,nest: true,
+    });
+
+    return {
+      errCode: 0,
+      errMessage: "OK1",
+      data: stats,
+    };
+  } catch (e) {
+    console.error("getRevenueStats error1:", e);
+    return {
+      errCode: 1,
+      errMessage: "Failed to get dashboard stats  1",
     };
   }
 };
@@ -322,6 +373,7 @@ module.exports = {
   getAllHistoryByOwnerId: getAllHistoryByOwnerId,
   // getAllLocationByUserId: getAllLocationByUserId,
   getRevenueStats: getRevenueStats,
+  getRevenueStatsByOwnerId: getRevenueStatsByOwnerId,
   deleteHistory: deleteHistory,
   updateHistory: updateHistory,
 };

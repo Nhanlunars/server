@@ -64,8 +64,22 @@ const getDashboardStats = async (req, res) => {
       errMessage: "Server error"
     });
   }
-};
+}; 
 
+const getDashboardStatsByOwnerId = async (req, res) => {
+  try {
+    const type = req.query ; // day, week, month
+    const result = await historyService.getRevenueStatsByOwnerId(type);
+
+    return res.status(200).json(result);
+  } catch (e) {
+    console.error("getDashboardStats error:", e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Server error"
+    });
+  }
+};
 
 let deleteHistory = async (req, res) => {
     if (!req.body.id) {
@@ -93,6 +107,7 @@ module.exports = {
     getAllHistorys: getAllHistorys,
     getAllHistoryByOwnerId: getAllHistoryByOwnerId,
     getDashboardStats: getDashboardStats,
+    getDashboardStatsByOwnerId: getDashboardStatsByOwnerId,
     deleteHistory: deleteHistory,
     updateHistory: updateHistory
 }
