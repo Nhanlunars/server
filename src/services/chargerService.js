@@ -80,6 +80,28 @@ let getAllChargerByUserId = (userId) => {
   });
 };
 
+let getAllChargerByLocationId = (locationId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let chargers = await Charger.findAll({
+        include: [
+          {
+            association: "location",
+          },
+        ],
+        where: { location_id: locationId },
+
+        raw: true,
+        nest: true,
+      });
+
+      resolve(chargers);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let deleteCharger = (chargerId) => {
   return new Promise(async (resolve, reject) => {
     let foundCharger = await Charger.findOne({
@@ -142,6 +164,7 @@ module.exports = {
   createCharger: createCharger,
   getAllCharger: getAllCharger,
   getAllChargerByUserId: getAllChargerByUserId,
+  getAllChargerByLocationId: getAllChargerByLocationId,
   deleteCharger: deleteCharger,
   updateCharger: updateCharger,
 };
