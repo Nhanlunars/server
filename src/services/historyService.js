@@ -1,7 +1,7 @@
-import db from "../models/index";
 import { Usege_history } from "../models/usege_histories";
 import { Charger_type } from "../models/charger_type";
 const { Op, fn, col, literal } = require("sequelize");
+const db = require("./firebase");
 
 let createHistory = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -51,12 +51,35 @@ let createHistory = (data) => {
 
         if (typeStatus) {
           typeStatus.status = data.status;
-          console.log(data.status);
           await typeStatus.save();
           resolve({
             errCode: 0,
             message: "Update the type status succeeds!",
           });
+          if (data.status === "S1") {
+            db.ref(`control${data.type_id}/leds/led1`).set(true);
+            db.ref(`control${data.type_id}/leds/led2`).set(false);
+            db.ref(`control${data.type_id}/leds/led3`).set(false);
+            db.ref(`control${data.type_id}/leds/led4`).set(false);
+          }
+          if (data.status === "S2") {
+            db.ref(`control${data.type_id}/leds/led1`).set(false);
+            db.ref(`control${data.type_id}/leds/led2`).set(true);
+            db.ref(`control${data.type_id}/leds/led3`).set(false);
+            db.ref(`control${data.type_id}/leds/led4`).set(false);
+          }
+          if (data.status === "S3") {
+            db.ref(`control${data.type_id}/leds/led1`).set(false);
+            db.ref(`control${data.type_id}/leds/led2`).set(false);
+            db.ref(`control${data.type_id}/leds/led3`).set(true);
+            db.ref(`control${data.type_id}/leds/led4`).set(false);
+          }
+          if (data.status === "S4") {
+            db.ref(`control${data.type_id}/leds/led1`).set(false);
+            db.ref(`control${data.type_id}/leds/led2`).set(false);
+            db.ref(`control${data.type_id}/leds/led3`).set(false);
+            db.ref(`control${data.type_id}/leds/led4`).set(true);
+          }
         } else {
           resolve({
             errCode: 1,
@@ -228,7 +251,6 @@ const getRevenueStatsByOwnerId = async (data) => {
     } else if (data.type === "year") {
       dateFormat = "%Y";
     }
-    console.log(data)
     const stats = await Usege_history.findAll({
       include: [
         {
@@ -256,7 +278,8 @@ const getRevenueStatsByOwnerId = async (data) => {
 
       group: [literal(`DATE_FORMAT(end_time, '${dateFormat}')`)],
       order: [[literal("date"), "ASC"]],
-      raw: true,nest: true,
+      raw: true,
+      nest: true,
     });
 
     return {
@@ -319,6 +342,30 @@ let updateHistory = (data) => {
           errCode: 0,
           message: "Update the type status succeeds!",
         });
+        if (data.status === "S1") {
+          db.ref(`control${data.type_id}/leds/led1`).set(true);
+          db.ref(`control${data.type_id}/leds/led2`).set(false);
+          db.ref(`control${data.type_id}/leds/led3`).set(false);
+          db.ref(`control${data.type_id}/leds/led4`).set(false);
+        }
+        if (data.status === "S2") {
+          db.ref(`control${data.type_id}/leds/led1`).set(false);
+          db.ref(`control${data.type_id}/leds/led2`).set(true);
+          db.ref(`control${data.type_id}/leds/led3`).set(false);
+          db.ref(`control${data.type_id}/leds/led4`).set(false);
+        }
+        if (data.status === "S3") {
+          db.ref(`control${data.type_id}/leds/led1`).set(false);
+          db.ref(`control${data.type_id}/leds/led2`).set(false);
+          db.ref(`control${data.type_id}/leds/led3`).set(true);
+          db.ref(`control${data.type_id}/leds/led4`).set(false);
+        }
+        if (data.status === "S4") {
+          db.ref(`control${data.type_id}/leds/led1`).set(false);
+          db.ref(`control${data.type_id}/leds/led2`).set(false);
+          db.ref(`control${data.type_id}/leds/led3`).set(false);
+          db.ref(`control${data.type_id}/leds/led4`).set(true);
+        }
       } else {
         resolve({
           errCode: 1,
