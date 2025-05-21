@@ -1,8 +1,6 @@
 const { Sequelize } = require('sequelize');
 import { configurations } from './configuration';
 
-console.log('🚀 ~ configurations:', configurations);
-
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize({
   ...configurations.db,
