@@ -2,6 +2,7 @@ import { Reservation } from '../models/reservation';
 import { Charger_type } from '../models/charger_type';
 import { Location } from '../models/location';
 import { Charger } from '../models/charger';
+const db = require('./firebase');
 
 let createReservation = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -36,6 +37,30 @@ let createReservation = (data) => {
             errCode: 0,
             message: 'Update the type status succeeds!',
           });
+          if (data.status === 'S1') {
+            db.ref(`control${data.type_id}/leds/led1`).set(true);
+            db.ref(`control${data.type_id}/leds/led2`).set(false);
+            db.ref(`control${data.type_id}/leds/led3`).set(false);
+            db.ref(`control${data.type_id}/leds/led4`).set(false);
+          }
+          if (data.status === 'S2') {
+            db.ref(`control${data.type_id}/leds/led1`).set(false);
+            db.ref(`control${data.type_id}/leds/led2`).set(true);
+            db.ref(`control${data.type_id}/leds/led3`).set(false);
+            db.ref(`control${data.type_id}/leds/led4`).set(false);
+          }
+          if (data.status === 'S3') {
+            db.ref(`control${data.type_id}/leds/led1`).set(false);
+            db.ref(`control${data.type_id}/leds/led2`).set(false);
+            db.ref(`control${data.type_id}/leds/led3`).set(true);
+            db.ref(`control${data.type_id}/leds/led4`).set(false);
+          }
+          if (data.status === 'S4') {
+            db.ref(`control${data.type_id}/leds/led1`).set(false);
+            db.ref(`control${data.type_id}/leds/led2`).set(false);
+            db.ref(`control${data.type_id}/leds/led3`).set(false);
+            db.ref(`control${data.type_id}/leds/led4`).set(true);
+          }
         } else {
           resolve({
             errCode: 1,
@@ -93,6 +118,7 @@ let getAllReservations = (reservationId) => {
 
           // subQuery: true
         });
+        console.log('🚀 ~ returnnewPromise ~ reservations:', reservations);
       }
       if (reservationId && reservationId !== 'All') {
         reservations = await Reservation.findOne({
@@ -197,6 +223,30 @@ let updateReservation = (data) => {
           errCode: 0,
           message: 'Update the type status succeeds!',
         });
+        if (data.status === 'S1') {
+          db.ref(`control${data.type_id}/leds/led1`).set(true);
+          db.ref(`control${data.type_id}/leds/led2`).set(false);
+          db.ref(`control${data.type_id}/leds/led3`).set(false);
+          db.ref(`control${data.type_id}/leds/led4`).set(false);
+        }
+        if (data.status === 'S2') {
+          db.ref(`control${data.type_id}/leds/led1`).set(false);
+          db.ref(`control${data.type_id}/leds/led2`).set(true);
+          db.ref(`control${data.type_id}/leds/led3`).set(false);
+          db.ref(`control${data.type_id}/leds/led4`).set(false);
+        }
+        if (data.status === 'S3') {
+          db.ref(`control${data.type_id}/leds/led1`).set(false);
+          db.ref(`control${data.type_id}/leds/led2`).set(false);
+          db.ref(`control${data.type_id}/leds/led3`).set(true);
+          db.ref(`control${data.type_id}/leds/led4`).set(false);
+        }
+        if (data.status === 'S4') {
+          db.ref(`control${data.type_id}/leds/led1`).set(false);
+          db.ref(`control${data.type_id}/leds/led2`).set(false);
+          db.ref(`control${data.type_id}/leds/led3`).set(false);
+          db.ref(`control${data.type_id}/leds/led4`).set(true);
+        }
       } else {
         resolve({
           errCode: 1,

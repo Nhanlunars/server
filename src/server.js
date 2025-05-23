@@ -4,36 +4,31 @@ import viewEngine from './config/viewEngine';
 import initWebRoutes from './route/web';
 import conectDB from './config/conectDB';
 import { configurations } from './config/configuration';
+const cors = require('cors');
 
 let app = express();
 
 let port = configurations.port;
 
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
+const allowedOrigins = ['http://localhost:8081', 'http://localhost:3000'];
 
-  // Request methods you wish to allow
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  );
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true,
+//   }),
+// );
 
-  // Request headers you wish to allow
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-Requested-With,content-type',
-  );
+app.use(cors({ origin: '*' }));
 
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
-  next();
-});
-
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '500mb' }));
 app.use(bodyParser.urlencoded({ limit: '500mb', extended: true }));
 
 viewEngine(app);

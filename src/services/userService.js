@@ -1,12 +1,11 @@
-import db from '../models/index';
 import bcrypt from 'bcryptjs';
-const salt = bcrypt.genSaltSync(10);
 var passwordValidator = require('password-validator');
 import { User } from '../models/user';
 import { Allcode } from '../models/allcode';
 import { mailService } from '../providers/mailService';
 import { createOpt } from './otpService';
 
+const salt = bcrypt.genSaltSync(10);
 // Create a schema
 var schema = new passwordValidator();
 var checkemail = new passwordValidator();

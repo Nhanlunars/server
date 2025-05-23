@@ -11,7 +11,7 @@ let createOpt = async ({ user_id }) => {
   const optCode = UtilServices.generateCode();
 
   return await OTP.create({
-    user_id: 1,
+    user_id,
     code: optCode,
     expiry_date: dayjs().add(configurations.opt.expired_period, 'D').toDate(),
   });
@@ -26,6 +26,9 @@ let getAllOTP = (OtpId) => {
           include: [
             {
               association: 'user',
+              attributes: {
+                exclude: ['password', 'image'],
+              },
             },
           ],
           raw: true,

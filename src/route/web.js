@@ -44,6 +44,10 @@ let initWebRoutes = (app) => {
     "/api/get-all-charger-by-userid",
     chargerController.getAllChargerByUserId
   );
+  router.get(
+    "/api/get-all-charger-by-locationid",
+    chargerController.getAllChargerByLocationId
+  );
   router.delete("/api/delete-charger", chargerController.deleteCharger);
   router.put("/api/edit-charger", chargerController.updateCharger);
 
