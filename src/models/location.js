@@ -1,53 +1,20 @@
-// 'use strict';
-// const {
-//   Model
-// } = require('sequelize');
-// module.exports = (sequelize, DataTypes) => {
-//   class Location extends Model {
-//     /**
-//      * Helper method for defining associations.
-//      * This method is not a part of Sequelize lifecycle.
-//      * The `models/index` file will call this method automatically.
-//      */
-//     static associate(models) {
-//       // define association here
-//       //Location.hasMany(models.Charger, { foreignKey: 'location_id', as: 'locationCharger' })
-//       //Location.belongsTo(models.User, { foreignKey: 'user_id',targetKey: 'id', as: 'userLocation' })
-//     }
-//   };
-//   Location.init({
-//     location_name: DataTypes.STRING,
-//     user_id: DataTypes.INTEGER,
-//     address: DataTypes.STRING,
-//     city: DataTypes.STRING,
-//     district : DataTypes.STRING,
-//     ward : DataTypes.STRING,
-//     lat : DataTypes.FLOAT,
-//     lng : DataTypes.FLOAT,
-//   }, {
-//     sequelize,
-//     modelName: 'Location',
-//   });
-//   return Location ;
-// };
-
-'use strict';
-const { Model } = require('sequelize');
-const db = require('.');
-import { User } from './user';
+"use strict";
+const { Model } = require("sequelize");
+const db = require(".");
+import { User } from "./user";
 
 class Location extends Model {
   static associate(models) {
     // define association here
     // Location.hasOne(models.User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
     Location.belongsTo(User, {
-      foreignKey: 'user_id',
-      targetKey: 'id',
-      as: 'user',
+      foreignKey: "user_id",
+      targetKey: "id",
+      as: "user",
     });
     Location.hasMany(models.Charger, {
-      foreignKey: 'location_id',
-      as: 'charger',
+      foreignKey: "location_id",
+      as: "charger",
     });
   }
 
@@ -76,8 +43,8 @@ const initSource = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Location',
-    },
+      modelName: "Location",
+    }
   );
   return Location;
 };

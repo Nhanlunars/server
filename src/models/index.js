@@ -20,11 +20,20 @@ fs.readdirSync(__dirname)
   })
 
   .forEach((file) => {
-    const { initSource } = require(path.join(__dirname, file));
+    // const { initSource } = require(path.join(__dirname, file));
 
-    const model = initSource(sequelize, Sequelize.DataTypes);
+    // const model = initSource(sequelize, Sequelize.DataTypes);
 
-    db[model.name] = model;
+    // db[model.name] = model;
+    const modelModule = require(path.join(__dirname, file));
+
+  if (typeof modelModule.initSource !== 'function') {
+    console.error(`❌ initSource is not a function in file: ${file}`);
+    return; // bỏ qua file lỗi
+  }
+
+  const model = modelModule.initSource(sequelize, Sequelize.DataTypes);
+  db[model.name] = model;
   });
 
 Object.keys(db).forEach((modelName) => {

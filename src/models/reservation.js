@@ -1,36 +1,28 @@
-'use strict';
-const { Model } = require('sequelize');
-const db = require('.');
-import { User } from './user';
-import { Charger } from './charger';
-import { Charger_type } from './charger_type';
+"use strict";
+const { Model } = require("sequelize");
+const db = require(".");
+import { User } from "./user";
+import { Charger } from "./charger";
+import { Charger_type } from "./charger_type";
 
 class Reservation extends Model {
   static associate(models) {
-    // define association here
-    // Reservation.hasOne(models.User, { foreignKey: 'user_id', targetKey: 'id',  as: 'user' })
     Reservation.belongsTo(User, {
-      foreignKey: 'user_id',
-      targetKey: 'id',
-      as: 'user',
+      foreignKey: "user_id",
+      targetKey: "id",
+      as: "user",
     });
     Reservation.belongsTo(Charger, {
-      foreignKey: 'charger_id',
-      targetKey: 'id',
-      as: 'charger',
+      foreignKey: "charger_id",
+      targetKey: "id",
+      as: "charger",
     });
     Reservation.belongsTo(Charger_type, {
-      foreignKey: 'type_id',
-      targetKey: 'id',
-      as: 'type',
+      foreignKey: "type_id",
+      targetKey: "id",
+      as: "type",
     });
   }
-
-  /**
-   * Helper method for defining associations.
-   * This method is not a part of Sequelize lifecycle.
-   * The `models/index` file will call this method automatically.
-   */
 }
 
 const initSource = (sequelize, DataTypes) => {
@@ -49,8 +41,8 @@ const initSource = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Reservation',
-    },
+      modelName: "Reservation",
+    }
   );
   return Reservation;
 };
