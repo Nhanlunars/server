@@ -36,6 +36,8 @@ let getAllOTP = (OtpId) => {
                 Otps = await OTP.findAll({
                     include: [{
                         association: 'user',
+                        attributes: {
+                        exclude: ['password', 'image']}
                         },
                     ],
                         raw: true, 

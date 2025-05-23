@@ -60,14 +60,12 @@ let getAllChargerByUserId = (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
       let chargers = await Charger.findAll({
-        // where : { location_id : locationId  },
         include: [
           {
             association: "location",
             where: { user_id: userId },
           },
         ],
-        //where : {location.user_id : locationId  },
 
         raw: true,
         nest: true,

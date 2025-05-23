@@ -3,4 +3,4 @@
 /.idea
 .idea/
 .env
-/config/config.json
+/src/config/config.json
