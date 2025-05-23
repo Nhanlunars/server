@@ -4,6 +4,7 @@ import { configurations } from './configuration';
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize({
   ...configurations.db,
+  logging: console.log,
 });
 
 let conectDB = async () => {

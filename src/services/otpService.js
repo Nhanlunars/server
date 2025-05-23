@@ -1,6 +1,5 @@
 import { configurations } from '../config/configuration';
 import { OTP } from '../models/otp';
-import { mailService } from '../providers/mailService';
 import dayjs from 'dayjs';
 import { UtilServices } from '../utils/utilsService';
 
@@ -11,17 +10,11 @@ let createOpt = async ({ user_id }) => {
 
   const optCode = UtilServices.generateCode();
 
-  const opt = OTP.build({
+  return await OTP.create({
     user_id: 1,
     code: optCode,
     expiry_date: dayjs().add(configurations.opt.expired_period, 'D').toDate(),
   });
-
-  await opt.save();
-
-  console.log('🚀 ~ returnnewPromise ~ opt:', opt);
-
-  // await mailService.sendOptToUser();
 };
 
 let getAllOTP = (OtpId) => {

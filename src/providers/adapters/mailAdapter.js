@@ -11,6 +11,7 @@ export class MailAdapter {
   async initTransport() {
     return nodemailer.createTransport({
       host,
+      service: 'gmail',
       port: +port,
       secure: false,
       auth: {

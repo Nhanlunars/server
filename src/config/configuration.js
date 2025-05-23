@@ -13,6 +13,7 @@ export const configurations = {
     port: process.env.MAILER_PORT || 587,
     from: process.env.MAILER_FROM || 'chargingsmart@gmail.com',
     password: process.env.MAILER_PASSWORD || '',
+    user: process.env.MAILER_USER || '',
   },
   opt: {
     expired_period: 2, // expired after 2 day

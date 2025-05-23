@@ -8,8 +8,9 @@ let createOTP = async (req, res) => {
       user_id: req.body.user_id,
     });
 
-    return res.status(200).json(infor);
+    return res.status(200).json('OKe');
   } catch (e) {
+    console.log('🚀 ~ createOTP ~ e:', e);
     return res.status(200).json({
       errCode: -1,
       errMessage: 'Error from the serverrrrr',

@@ -45,6 +45,8 @@ const initSource = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'User',
+      tableName: 'users', // explicitly set the table name
+      timestamps: true,
     },
   );
   return User;

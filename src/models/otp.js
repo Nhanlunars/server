@@ -25,6 +25,8 @@ const initSource = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'OTP',
+      tableName: 'otps', // explicitly set the table name
+      timestamps: true,
     },
   );
   return OTP;
