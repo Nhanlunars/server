@@ -4,6 +4,8 @@ import { User } from '../models/user';
 import { Allcode } from '../models/allcode';
 import { mailService } from '../providers/mailService';
 import { createOpt } from './otpService';
+import { OTP } from '../models/otp';
+import dayjs from 'dayjs';
 
 const salt = bcrypt.genSaltSync(10);
 // Create a schema
@@ -205,7 +207,7 @@ let createNewUser = (data) => {
             const opt = await createOpt({ user_id: user.null });
 
             await mailService.sendOptToUser({
-              otp: opt.code,
+              otp: opt,
               email: user.email,
               username: `${user.firstName} ${user.lastName}`,
             });
@@ -310,7 +312,49 @@ let getAllCodeService = (typeInput) => {
   });
 };
 
+const forgetPassword = async (email) => {
+  const user = await User.findOne({ where: { email } });
+  if (!user) {
+    throw new Error('Email not found');
+  }
+
+  const otp = await createOpt({ user_id: user.id });
+  await mailService.forgotPassword({ email, otp });
+
+  return 'OTP sent to your email';
+};
+
+const confirmForgetPassword = async ({
+  email,
+  code,
+  newPassword,
+  confirmPassword,
+}) => {
+  const user = await User.findOne({ where: { email } });
+  if (!user) {
+    throw new Error('Email not found');
+  }
+
+  if (newPassword !== confirmPassword) {
+    throw new Error('New password and confirm password do not match');
+  }
+
+  const otp = await OTP.findOne({ where: { user_id: user.id, code } });
+
+  if (!otp || otp.is_used || dayjs().isBefore(otp.expiry_date, new Date())) {
+    throw new Error('Invalid or expired OTP');
+  }
+
+  const hashPassword = await bcrypt.hash(newPassword, salt);
+  await user.save({ password: hashPassword });
+  await otp.update({ is_used: true });
+
+  return 'Password updated successfully';
+};
+
 module.exports = {
+  forgetPassword,
+  confirmForgetPassword,
   handleUserLogin: handleUserLogin,
   getAllUsers: getAllUsers,
   createNewUser: createNewUser,

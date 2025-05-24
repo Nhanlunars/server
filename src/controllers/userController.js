@@ -96,7 +96,58 @@ let getAllCode = async (req, res) => {
   }
 };
 
+const confirmForgetPasswordController = async (req, res) => {
+  const requiredFields = ['email', 'code', 'newPassword', 'confirmPassword'];
+  try {
+    const missingRequiredFields = [];
+    requiredFields.forEach((field) => {
+      if (!req.body[field]) {
+        missingRequiredFields.push(field);
+      }
+    });
+
+    if (missingRequiredFields.length) {
+      throw new Error(`Field ${missingRequiredFields.join(', ')} is required`);
+    }
+
+    const message = await userService.confirmForgetPassword(req.body);
+    return res.status(200).json({
+      errCode: 0,
+      errMessage: message,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      errCode: -1,
+      errMessage: error.message,
+    });
+  }
+};
+
+const forgetPasswordController = async (req, res) => {
+  const { email } = req.body;
+  try {
+    if (!email) {
+      throw new Error('Email is required');
+    }
+
+    const message = await userService.forgetPassword(email);
+    return res.status(200).json({
+      errCode: 0,
+      errMessage: message,
+    });
+  } catch (error) {
+    console.error('ForgetPasswordController:', error);
+
+    return res.status(400).json({
+      errCode: -1,
+      errMessage: error.message,
+    });
+  }
+};
+
 module.exports = {
+  confirmForgetPasswordController,
+  forgetPasswordController,
   handleLogin: handleLogin,
   handleGetAllUser: handleGetAllUser,
   handleCreateNewUser: handleCreateNewUser,

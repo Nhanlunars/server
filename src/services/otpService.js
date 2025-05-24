@@ -10,11 +10,19 @@ let createOpt = async ({ user_id }) => {
 
   const optCode = UtilServices.generateCode();
 
-  return await OTP.create({
+  const existingOtp = await OTP.findOne({ where: { user_id, code: optCode } });
+
+  if (existingOtp) {
+    return createOpt({ user_id });
+  }
+
+  await OTP.create({
     user_id,
     code: optCode,
     expiry_date: dayjs().add(configurations.opt.expired_period, 'D').toDate(),
   });
+
+  return optCode;
 };
 
 let getAllOTP = (OtpId) => {
