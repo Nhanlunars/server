@@ -203,12 +203,12 @@ let createNewUser = (data) => {
             });
 
             await user.save();
-
             const opt = await createOpt({ user_id: user.null });
 
             await mailService.sendOptToUser({
-              opt: opt.code,
+              otp: opt.code,
               email: user.email,
+              username: `${user.firstName} ${user.lastName}`,
             });
 
             resolve({
@@ -219,6 +219,7 @@ let createNewUser = (data) => {
         }
       }
     } catch (e) {
+      console.log('🚀 ~ returnnewPromise ~ e:', e);
       reject(e);
     }
   });

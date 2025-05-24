@@ -1,12 +1,13 @@
+import { welcomeUserTemplate } from '../templates/welcomeUser';
 import { MailAdapter } from './adapters/mailAdapter';
 
 class MailService extends MailAdapter {
-  async sendOptToUser(otp, email) {
+  async sendOptToUser({ email, otp, username = '' }) {
     const subject = 'Welcome to our service';
-    const template = `
-      <h1>Welcome to our service</h1>
-      <p>Your OTP code is: ${otp}</p>
-    `;
+    const template = await this.renderHtml(welcomeUserTemplate, {
+      code: otp,
+      name: username,
+    });
 
     await this.sendMail({
       receiveEmail: email,
