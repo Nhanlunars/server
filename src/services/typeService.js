@@ -60,13 +60,32 @@ let getAllType = (typeId) => {
           raw: true,
           nest: true,
         });
+        return resolve(types);
       }
       if (typeId && typeId !== "All") {
         types = await Charger_type.findOne({
           where: { id: typeId },
+          include: [
+            {
+              association: "charger",
+            },
+          ],
         });
+        // Lấy thêm dữ liệu từ Firebase
+        const snapshot = await db
+          .ref(`control${typeId}/pzem/energy`)
+          .once("value");
+        const firebaseData = snapshot.val();
+
+        // Có thể thêm vào kết quả trả về nếu muốn
+        const result = {
+          ...types?.dataValues,
+          energy: firebaseData,
+        };
+
+        return resolve(result);
       }
-      resolve(types);
+      resolve(null);
     } catch (e) {
       reject(e);
     }
@@ -142,7 +161,7 @@ let deleteType = (typeId) => {
 let updateType = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.id || !data.type_name || !data.default_price) {
+      if (!data.id) {
         resolve({
           errCode: 2,
           message: "Missing required parameter !",

@@ -73,6 +73,7 @@ let getAllNotificationByUserId = (userId) => {
     try {
       let notifications = await Notification.findAll({
         where: { user_id: userId },
+        order: [["createdAt", "DESC"]],
       });
 
       resolve(notifications);

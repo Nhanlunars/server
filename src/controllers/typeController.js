@@ -48,7 +48,7 @@ let getAllTypeByChargerId = async (req, res) => {
         errMessage: 'Ok',
         types
     })
-}
+} 
 
 
 let getAllTypeByUserId = async (req, res) => {

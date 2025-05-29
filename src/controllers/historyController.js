@@ -49,6 +49,24 @@ let getAllHistoryByOwnerId = async (req, res) => {
         errMessage: 'Ok',
         historys
     })
+} 
+
+let getHistoryByTypeId = async (req, res) => {
+    let id = req.query.type_id; //All, id
+    if (!id) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: 'Missing require parameters',
+            historys: []
+        })
+    }
+    let historys = await historyService.getHistoryByTypeId(id);
+    //console.log(historys);
+    return res.status(200).json({
+        errCode: 0,
+        errMessage: 'Ok',
+        historys
+    })
 }
 
 const getDashboardStats = async (req, res) => {
@@ -106,6 +124,7 @@ module.exports = {
     createHistory: createHistory,
     getAllHistorys: getAllHistorys,
     getAllHistoryByOwnerId: getAllHistoryByOwnerId,
+    getHistoryByTypeId: getHistoryByTypeId,
     getDashboardStats: getDashboardStats,
     getDashboardStatsByOwnerId: getDashboardStatsByOwnerId,
     deleteHistory: deleteHistory,

@@ -2,6 +2,8 @@ import { Usege_history } from "../models/usege_histories";
 import { Charger_type } from "../models/charger_type";
 const { Op, fn, col, literal } = require("sequelize");
 const db = require("./firebase");
+const database = require("../models");
+const sequelize = database.sequelize;
 
 let createHistory = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -37,6 +39,24 @@ let createHistory = (data) => {
             });
           }
           cost = quantity * typeStatus.default_price;
+        }
+        // 🔍 Kiểm tra xung đột lịch/phiên sạc
+        const [conflict] = await sequelize.query(
+          `
+        
+        SELECT 1 FROM Usege_histories
+        WHERE user_id = :userId AND end_time IS NULL
+      `,
+          {
+            replacements: { userId: data.user_id },
+          }
+        );
+
+        if (conflict.length > 0) {
+          return resolve({
+            errCode: 2,
+            messages: "Bạn đã có một lịch đặt hoặc phiên sạc chưa hoàn thành.",
+          });
         }
         await Usege_history.create({
           user_id: data.user_id,
@@ -187,20 +207,22 @@ let getAllHistoryByOwnerId = (userId) => {
     }
   });
 };
-/*
-let getAllLocationByUserId = (userId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let historys = await Location.findAll({
-                    where: { user_id: userId }
-                })
-            
-            resolve(historys)
-        } catch (e) {
-            reject(e);
-        }
-    })
-}*/
+
+let getHistoryByTypeId = (typeId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let historys = await Usege_history.findOne({
+        where: { type_id: typeId },
+
+        order: [["createdAt", "DESC"]],
+      });
+
+      resolve(historys);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 const getRevenueStats = async (type) => {
   try {
@@ -321,6 +343,7 @@ let deleteHistory = (historyId) => {
 let updateHistory = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log("check data", data);
       if (!data.id || !data.user_id || !data.charger_id) {
         resolve({
           errCode: 2,
@@ -328,7 +351,7 @@ let updateHistory = (data) => {
         });
       }
       let history = await Usege_history.findOne({
-        where: { id: data.id },
+        where: { id: data.id, user_id: data.user_id },
         raw: false,
       });
       let typeStatus = await Charger_type.findOne({
@@ -378,7 +401,7 @@ let updateHistory = (data) => {
         data.number_end !== null &&
         data.number_end !== 0
       ) {
-        const quantity = data.number_end - data.number_start;
+        const quantity = data.number_end - history.number_start;
         if (quantity < 0) {
           return resolve({
             errCode: 3,
@@ -418,7 +441,7 @@ module.exports = {
   createHistory: createHistory,
   getAllHistorys: getAllHistorys,
   getAllHistoryByOwnerId: getAllHistoryByOwnerId,
-  // getAllLocationByUserId: getAllLocationByUserId,
+  getHistoryByTypeId: getHistoryByTypeId,
   getRevenueStats: getRevenueStats,
   getRevenueStatsByOwnerId: getRevenueStatsByOwnerId,
   deleteHistory: deleteHistory,

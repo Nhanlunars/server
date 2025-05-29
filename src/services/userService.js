@@ -1,17 +1,20 @@
-import bcrypt from 'bcryptjs';
-var passwordValidator = require('password-validator');
-import { User } from '../models/user';
-import { Allcode } from '../models/allcode';
-import { mailService } from '../providers/mailService';
-import { createOpt } from './otpService';
-import { OTP } from '../models/otp';
-import dayjs from 'dayjs';
-
+import bcrypt from "bcryptjs";
+var passwordValidator = require("password-validator");
+import { User } from "../models/user";
+import { Allcode } from "../models/allcode";
+import { mailService } from "../providers/mailService";
+import { createOpt } from "./otpService";
+import { OTP } from "../models/otp";
+import dayjs from "dayjs";
+import jwt from "jsonwebtoken";
 const salt = bcrypt.genSaltSync(10);
 // Create a schema
 var schema = new passwordValidator();
 var checkemail = new passwordValidator();
-checkemail.is().min(8).has(['@']);
+checkemail.is().min(8).has(["@"]);
+
+// Bí mật cho JWT (nên để trong .env)
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 // Add properties to it
 schema
@@ -50,12 +53,12 @@ let handleUserLogin = (email, password) => {
         //User already exist
         let user = await User.findOne({
           attributes: [
-            'email',
-            'roleId',
-            'password',
-            'firstName',
-            'lastName',
-            'id',
+            "email",
+            "roleId",
+            "password",
+            "firstName",
+            "lastName",
+            "id",
           ],
           where: { email: email },
           raw: true,
@@ -64,14 +67,21 @@ let handleUserLogin = (email, password) => {
           //compare password
           let check = await bcrypt.compareSync(password, user.password);
           if (check) {
+            // ✅ Tạo JWT token
+            const token = jwt.sign(
+              { id: user.id, email: user.email, roleId: user.roleId },
+              JWT_SECRET,
+              { expiresIn: "7d" }
+            );
             userData.errCode = 0;
-            userData.errMessage = 'Ok';
+            userData.errMessage = "Ok";
             //console.log(user)
             delete user.password;
             userData.user = user;
+            userData.token = token; // ✅ Thêm token vào trả về
           } else {
             userData.errCode = 3;
-            userData.errMessage = 'Wrong password?';
+            userData.errMessage = "Wrong password?";
           }
         } else {
           userData.errCode = 2;
@@ -96,7 +106,7 @@ let checkUserEmail = (userEmail) => {
         where: { email: userEmail },
       });
       let check1 = checkemail.validate(userEmail);
-      console.log('checkemai', check1);
+      console.log("checkemai", check1);
       if (check1 === true) {
         if (user) {
           resolve(true);
@@ -113,23 +123,23 @@ let checkUserEmail = (userEmail) => {
 let getAllUsers = (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let users = '';
-      if (userId === 'All') {
+      let users = "";
+      if (userId === "All") {
         users = await User.findAll({
           attributes: {
-            exclude: ['password'],
+            exclude: ["password"],
           },
         });
       }
-      if (userId && userId !== 'All') {
+      if (userId && userId !== "All") {
         users = await User.findAll({
           where: { id: userId },
           attributes: {
-            exclude: ['password'],
+            exclude: ["password"],
           },
           include: [
             {
-              association: 'location',
+              association: "location",
             },
           ],
           raw: true,
@@ -149,7 +159,7 @@ let getAllRoles = (roleType) => {
       let users = await User.findAll({
         where: { roleId: roleType },
         attributes: {
-          exclude: ['password'],
+          exclude: ["password"],
         },
       });
 
@@ -169,14 +179,14 @@ let createNewUser = (data) => {
       if (check === true) {
         resolve({
           errCode: 1,
-          errMessage: 'Your email is already in used, Plz try another email',
+          errMessage: "Your email is already in used, Plz try another email",
         });
       } else {
         if (check === 1) {
           resolve({
             errCode: 1,
             errMessage:
-              'Your email is not right, email it nhat 8 ki tự, phải có @',
+              "Your email is not right, email it nhat 8 ki tự, phải có @",
           });
         } else {
           let check1 = schema.validate(data.password);
@@ -184,7 +194,7 @@ let createNewUser = (data) => {
             resolve({
               errCode: 2,
               errMessage:
-                'Your password is not right, password min 8, max 50, has uppercase, has lowercase, has digits, no space ',
+                "Your password is not right, password min 8, max 50, has uppercase, has lowercase, has digits, no space ",
             });
           } else {
             //console.log('1')
@@ -214,13 +224,13 @@ let createNewUser = (data) => {
 
             resolve({
               errCode: 0,
-              message: 'Ok',
+              message: "Ok",
             });
           }
         }
       }
     } catch (e) {
-      console.log('🚀 ~ returnnewPromise ~ e:', e);
+      console.log("🚀 ~ returnnewPromise ~ e:", e);
       reject(e);
     }
   });
@@ -254,7 +264,7 @@ let updateUserData = (data) => {
       if (!data.id || !data.roleId || !data.gender) {
         resolve({
           errCode: 2,
-          message: 'Missing required parameter !',
+          message: "Missing required parameter !",
         });
       }
       let user = await User.findOne({
@@ -275,7 +285,7 @@ let updateUserData = (data) => {
         await user.save();
         resolve({
           errCode: 0,
-          message: 'Update the user succeeds!',
+          message: "Update the user succeeds!",
         });
       } else {
         resolve({
@@ -295,7 +305,7 @@ let getAllCodeService = (typeInput) => {
       if (!typeInput) {
         resolve({
           errCode: 1,
-          errMessage: 'Missing required parameters',
+          errMessage: "Missing required parameters",
         });
       } else {
         let res = {};
@@ -315,13 +325,13 @@ let getAllCodeService = (typeInput) => {
 const forgetPassword = async (email) => {
   const user = await User.findOne({ where: { email } });
   if (!user) {
-    throw new Error('Email not found');
+    throw new Error("Email not found");
   }
 
   const otp = await createOpt({ user_id: user.id });
   await mailService.forgotPassword({ email, otp });
 
-  return 'OTP sent to your email';
+  return "OTP sent to your email";
 };
 
 const confirmForgetPassword = async ({
@@ -332,24 +342,24 @@ const confirmForgetPassword = async ({
 }) => {
   const user = await User.findOne({ where: { email } });
   if (!user) {
-    throw new Error('Email not found');
+    throw new Error("Email not found");
   }
 
   if (newPassword !== confirmPassword) {
-    throw new Error('New password and confirm password do not match');
+    throw new Error("New password and confirm password do not match");
   }
 
   const otp = await OTP.findOne({ where: { user_id: user.id, code } });
 
   if (!otp || otp.is_used || dayjs().isBefore(otp.expiry_date, new Date())) {
-    throw new Error('Invalid or expired OTP');
+    throw new Error("Invalid or expired OTP");
   }
 
   const hashPassword = await bcrypt.hash(newPassword, salt);
   await user.save({ password: hashPassword });
   await otp.update({ is_used: true });
 
-  return 'Password updated successfully';
+  return "Password updated successfully";
 };
 
 module.exports = {

@@ -21,6 +21,7 @@ let handleLogin = async (req, res) => {
     errCode: userData.errCode,
     message: userData.errMessage,
     user: userData.user ? userData.user : {},
+    token: userData.token || null, // ✅ Thêm token trả về
   });
 };
 

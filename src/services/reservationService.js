@@ -1,8 +1,10 @@
-import { Reservation } from '../models/reservation';
-import { Charger_type } from '../models/charger_type';
-import { Location } from '../models/location';
-import { Charger } from '../models/charger';
-const db = require('./firebase');
+import { Reservation } from "../models/reservation";
+import { Charger_type } from "../models/charger_type";
+import { Location } from "../models/location";
+import { Charger } from "../models/charger";
+const db = require("./firebase");
+const database = require("../models");
+const sequelize = database.sequelize;
 
 let createReservation = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -15,9 +17,27 @@ let createReservation = (data) => {
       ) {
         resolve({
           errCode: 1,
-          errMessage: 'Missing parameter',
+          errMessage: "Missing parameter",
         });
       } else {
+        // 🔍 Kiểm tra xung đột lịch/phiên sạc
+        const [conflict] = await sequelize.query(
+          `
+        SELECT 1 FROM Reservations
+        WHERE user_id = :userId AND end_time > NOW()
+      `,
+          {
+            replacements: { userId: data.user_id },
+          }
+        );
+
+        if (conflict.length > 0) {
+          return resolve({
+            errCode: 2,
+            messages:
+              "Bạn đã có một lịch đặt hoặc phiên sạc chưa hoàn thành.",
+          });
+        }
         await Reservation.create({
           user_id: data.user_id,
           charger_id: data.charger_id,
@@ -35,27 +55,27 @@ let createReservation = (data) => {
           await typeStatus.save();
           resolve({
             errCode: 0,
-            message: 'Update the type status succeeds!',
+            message: "Update the type status succeeds!",
           });
-          if (data.status === 'S1') {
+          if (data.status === "S1") {
             db.ref(`control${data.type_id}/leds/led1`).set(true);
             db.ref(`control${data.type_id}/leds/led2`).set(false);
             db.ref(`control${data.type_id}/leds/led3`).set(false);
             db.ref(`control${data.type_id}/leds/led4`).set(false);
           }
-          if (data.status === 'S2') {
+          if (data.status === "S2") {
             db.ref(`control${data.type_id}/leds/led1`).set(false);
             db.ref(`control${data.type_id}/leds/led2`).set(true);
             db.ref(`control${data.type_id}/leds/led3`).set(false);
             db.ref(`control${data.type_id}/leds/led4`).set(false);
           }
-          if (data.status === 'S3') {
+          if (data.status === "S3") {
             db.ref(`control${data.type_id}/leds/led1`).set(false);
             db.ref(`control${data.type_id}/leds/led2`).set(false);
             db.ref(`control${data.type_id}/leds/led3`).set(true);
             db.ref(`control${data.type_id}/leds/led4`).set(false);
           }
-          if (data.status === 'S4') {
+          if (data.status === "S4") {
             db.ref(`control${data.type_id}/leds/led1`).set(false);
             db.ref(`control${data.type_id}/leds/led2`).set(false);
             db.ref(`control${data.type_id}/leds/led3`).set(false);
@@ -69,10 +89,12 @@ let createReservation = (data) => {
         }
         resolve({
           errCode: 0,
-          errMessage: 'Ok',
+          errMessage: "Ok",
         });
       }
     } catch (e) {
+      console.error("❌ createReservation error:", e); // Thêm dòng này
+
       reject(e);
     }
   });
@@ -96,21 +118,21 @@ let createReservation = (data) => {
 let getAllReservations = (reservationId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let reservations = '';
-      if (reservationId === 'All') {
+      let reservations = "";
+      if (reservationId === "All") {
         reservations = await Reservation.findAll({
           include: [
             {
-              association: 'user',
+              association: "user",
               attributes: {
-                exclude: ['password', 'image'],
+                exclude: ["password", "image"],
               },
             },
             {
-              association: 'charger',
+              association: "charger",
             },
             {
-              association: 'type',
+              association: "type",
             },
           ],
           raw: true,
@@ -118,9 +140,8 @@ let getAllReservations = (reservationId) => {
 
           // subQuery: true
         });
-        console.log('🚀 ~ returnnewPromise ~ reservations:', reservations);
       }
-      if (reservationId && reservationId !== 'All') {
+      if (reservationId && reservationId !== "All") {
         reservations = await Reservation.findOne({
           where: { id: reservationId },
         });
@@ -138,26 +159,26 @@ let getAllReservationByOwnerId = (userId) => {
       let reservations = await Reservation.findAll({
         include: [
           {
-            association: 'user',
+            association: "user",
             attributes: {
-              exclude: ['password', 'image'],
+              exclude: ["password", "image"],
             },
           },
           {
             model: Charger,
-            association: 'charger',
+            association: "charger",
             required: true,
             include: [
               {
                 model: Location,
-                association: 'location',
+                association: "location",
                 where: { user_id: userId },
                 required: true,
               },
             ],
           },
           {
-            association: 'type',
+            association: "type",
           },
         ],
         raw: true,
@@ -171,6 +192,85 @@ let getAllReservationByOwnerId = (userId) => {
   });
 };
 
+let getReservationByUserId = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let reservations = await Reservation.findOne({
+        where: { user_id: data.userId },
+        include: [
+          {
+            association: "user",
+            attributes: {
+              exclude: ["password", "image"],
+            },
+          },
+          {
+            model: Charger,
+            association: "charger",
+            required: true,
+            include: [
+              {
+                model: Location,
+                association: "location",
+                required: true,
+              },
+            ],
+          },
+          {
+            association: "type",
+          },
+        ],
+        raw: true,
+        nest: true,
+      });
+
+      resolve(reservations);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let getReservationByTypeId = (typeId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let reservations = await Reservation.findOne({
+        where: { type_id: typeId },
+        include: [
+          {
+            association: "user",
+            attributes: {
+              exclude: ["password", "image"],
+            },
+            required: true,
+          },
+          {
+            model: Charger,
+            association: "charger",
+            required: true,
+            include: [
+              {
+                model: Location,
+                association: "location",
+                required: true,
+              },
+            ],
+          },
+          {
+            association: "type",
+          },
+        ],
+        order: [["createdAt", "DESC"]],
+        raw: true,
+        nest: true,
+      });
+
+      resolve(reservations);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let deleteReservation = (reservationId) => {
   return new Promise(async (resolve, reject) => {
     let foundReservation = await Reservation.findOne({
@@ -205,7 +305,7 @@ let updateReservation = (data) => {
       ) {
         resolve({
           errCode: 2,
-          message: 'Missing required parameter !',
+          message: "Missing required parameter !",
         });
       }
       let reser = await Reservation.findOne({
@@ -221,27 +321,27 @@ let updateReservation = (data) => {
         await typeStatus.save();
         resolve({
           errCode: 0,
-          message: 'Update the type status succeeds!',
+          message: "Update the type status succeeds!",
         });
-        if (data.status === 'S1') {
+        if (data.status === "S1") {
           db.ref(`control${data.type_id}/leds/led1`).set(true);
           db.ref(`control${data.type_id}/leds/led2`).set(false);
           db.ref(`control${data.type_id}/leds/led3`).set(false);
           db.ref(`control${data.type_id}/leds/led4`).set(false);
         }
-        if (data.status === 'S2') {
+        if (data.status === "S2") {
           db.ref(`control${data.type_id}/leds/led1`).set(false);
           db.ref(`control${data.type_id}/leds/led2`).set(true);
           db.ref(`control${data.type_id}/leds/led3`).set(false);
           db.ref(`control${data.type_id}/leds/led4`).set(false);
         }
-        if (data.status === 'S3') {
+        if (data.status === "S3") {
           db.ref(`control${data.type_id}/leds/led1`).set(false);
           db.ref(`control${data.type_id}/leds/led2`).set(false);
           db.ref(`control${data.type_id}/leds/led3`).set(true);
           db.ref(`control${data.type_id}/leds/led4`).set(false);
         }
-        if (data.status === 'S4') {
+        if (data.status === "S4") {
           db.ref(`control${data.type_id}/leds/led1`).set(false);
           db.ref(`control${data.type_id}/leds/led2`).set(false);
           db.ref(`control${data.type_id}/leds/led3`).set(false);
@@ -263,7 +363,7 @@ let updateReservation = (data) => {
         await reser.save();
         resolve({
           errCode: 0,
-          message: 'Update the reservation succeeds!',
+          message: "Update the reservation succeeds!",
         });
       } else {
         resolve({
@@ -282,6 +382,8 @@ module.exports = {
   //getAllReservation: getAllReservation,
   getAllReservations: getAllReservations,
   getAllReservationByOwnerId: getAllReservationByOwnerId,
+  getReservationByUserId: getReservationByUserId,
+  getReservationByTypeId: getReservationByTypeId,
   deleteReservation: deleteReservation,
   updateReservation: updateReservation,
 };
