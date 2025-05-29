@@ -1,41 +1,41 @@
 import express from "express";
 import bodyParser from "body-parser";
 import viewEngine from "./config/viewEngine";
-import initWebRoutes from './route/web';
-import conectDB from './config/conectDB';
-require('dotenv').config();
+import initWebRoutes from "./route/web";
+import conectDB from "./config/conectDB";
+import { configurations } from "./config/configuration";
+const cors = require("cors");
 
 let app = express();
 
-app.use(function (req, res, next) {
+let port = configurations.port;
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', process.env.URL_REACT);
+const allowedOrigins = ["http://localhost:8081", "http://localhost:3000"];
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true,
+//   }),
+// );
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+app.use(cors({ origin: "*" }));
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
-
-app.use(bodyParser.json({ limit: '500mb' }));
-app.use(bodyParser.urlencoded({ limit: '500mb' , extended:true}))
+app.use(bodyParser.json({ limit: "500mb" }));
+app.use(bodyParser.urlencoded({ limit: "500mb", extended: true }));
 
 viewEngine(app);
 initWebRoutes(app);
 
 conectDB();
 
-let port = process.env.PORT || 8888;
 app.listen(port, () => {
-    console.log("Beckend Nodejs is running on the port: " + port)
-})
+  console.log("Beckend Nodejs is running on the port: " + port);
+});

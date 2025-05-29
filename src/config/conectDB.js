@@ -1,11 +1,10 @@
 const { Sequelize } = require('sequelize');
-
+import { configurations } from './configuration';
 
 // Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('pcss', 'root', null, {
-  host: 'localhost',
-  dialect: 'mysql',
-  logging: false
+const sequelize = new Sequelize({
+  ...configurations.db,
+  logging: console.log,
 });
 
 let conectDB = async () => {
@@ -15,6 +14,6 @@ let conectDB = async () => {
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
-}
+};
 
 module.exports = conectDB;
