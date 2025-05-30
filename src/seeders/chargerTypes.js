@@ -3,6 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Types', [
+      //21
       {
         charger_id: 1,
         type_name: 'Sạc Xe Điện FEROS 48V/60V 12Ah-24Ah',
@@ -30,6 +31,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //22
       {
         charger_id: 4,
         type_name: 'Sạc Xe Điện 60V-12AH Chống Phồng Bình, Phích Cái 3 Chấu',
@@ -57,6 +59,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //23
       {
         charger_id: 7,
         type_name: 'Sạc xe điện tự động ngắt khi đầy 60v - 84v',
@@ -75,6 +78,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //24
       {
         charger_id: 9,
         type_name: 'Loại 9',
@@ -102,6 +106,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //25
       {
         charger_id: 12,
         type_name: 'Sạc Xe Điện 60V20AH Sạc Tự Ngắt Khi Đầy Chân Vuông Đặc',
@@ -129,6 +134,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //26
       {
         charger_id: 15,
         type_name: 'Sạc xe đạp điện / xe máy điện (48V-12Ah)',
@@ -156,6 +162,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //27
       {
         charger_id: 18,
         type_name: 'Sạc xe điện 60v20ah - 96v20ah',
@@ -192,6 +199,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //28
       {
         charger_id: 22,
         type_name: 'Sạc Xe Điện FEROS 48V/60V 12Ah-24Ah',
@@ -228,6 +236,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //29
       {
         charger_id: 26,
         type_name: 'Máy sạc bình acquy 12v tự ngắt',
@@ -264,8 +273,36 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //30
       {
         charger_id: 30,
+        type_name: 'Sạc xe điện báo pin 72V- 12 ah & 72V- 20ah',
+        describe: '6 bình ác quy',
+        default_price: 2600,
+        status: 'S3',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        charger_id: 31,
+        type_name: 'Sạc Xe Điện Báo Pin 48-60v - 12-20ah Hiệu BLQ ',
+        describe: 'Hiển Thị Màn Hình Điện Tử, Chế Độ Tự Ngắ',
+        default_price: 2900,
+        status: 'S4',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        charger_id: 32,
+        type_name: 'Sạc 5 bình acquy 60-12a-20a',
+        describe: 'Tự ngắt chống phồng bình',
+        default_price: 3000,
+        status: 'S1',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        charger_id: 33,
         type_name: 'Sạc xe điện 48V 12Ah Tự Ngắt Chống Phồng Bình',
         describe: 'IC thông minh giúp sạc đầy bình hơn từ đó tăng hành trình đi được của xe',
         default_price: 2700,

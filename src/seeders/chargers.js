@@ -3,7 +3,8 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Chargers', [
-           {
+      // vị trí userid 21
+      {
         charger_name: 'Trụ số 1',
         capacity: '220V',
         installation_date: '2025-01-01 08:00:00',
@@ -30,6 +31,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      // vị trí 22
       {
         charger_name: 'Trụ số 4',
         capacity: '110V',
@@ -57,6 +59,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      // vị trí 23
       {
         charger_name: 'Trụ số 7',
         capacity: '220V',
@@ -75,6 +78,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //24
       {
         charger_name: 'Trụ số 9',
         capacity: '220V',
@@ -102,6 +106,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //25
       {
         charger_name: 'Trụ số 12',
         capacity: '110V',
@@ -129,6 +134,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //26
       {
         charger_name: 'Trụ số 15',
         capacity: '220V',
@@ -156,6 +162,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //27
       {
         charger_name: 'Trụ số 18',
         capacity: '110V',
@@ -192,6 +199,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //28
       {
         charger_name: 'Trụ số 22',
         capacity: '110V',
@@ -228,6 +236,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //29
       {
         charger_name: 'Trụ số 26',
         capacity: '110V',
@@ -264,8 +273,36 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      //30
       {
         charger_name: 'Trụ số 30',
+        capacity: '110V',
+        installation_date: '2025-05-25 12:00:00',
+        last_maintenance_date: '2025-07-25 12:00:00',
+        location_id: 30,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        charger_name: 'Trụ số 31',
+        capacity: '110V',
+        installation_date: '2025-05-25 12:00:00',
+        last_maintenance_date: '2025-07-25 12:00:00',
+        location_id: 30,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        charger_name: 'Trụ số 32',
+        capacity: '110V',
+        installation_date: '2025-05-25 12:00:00',
+        last_maintenance_date: '2025-07-25 12:00:00',
+        location_id: 30,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        charger_name: 'Trụ số 33',
         capacity: '110V',
         installation_date: '2025-05-25 12:00:00',
         last_maintenance_date: '2025-07-25 12:00:00',
