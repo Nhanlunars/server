@@ -94,6 +94,10 @@ let initWebRoutes = (app) => {
     "/api/get-all-history-by-ownerid",
     historyController.getAllHistoryByOwnerId
   ); 
+   router.get(
+    "/api/get-all-history-by-userid",
+    historyController.getAllHistoryByUserId
+  );
   router.get(
     "/api/get-history-by-typeid",
     historyController.getHistoryByTypeId
