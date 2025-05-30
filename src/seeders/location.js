@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('Locations', [
       {
         location_name: 'Bãi đỗ xe Hòa Khánh',
-        user_id: 21,
+        user_id: 38,
         address: '12 Đường số 5',
         city: 'Đà Nẵng',
         district: 'Liên Chiểu',
@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Nguyễn Văn Linh',
-        user_id: 21,
+        user_id: 38,
         address: '234 Nguyễn Văn Linh',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Lê Văn Hiến',
-        user_id: 21,
+        user_id: 38,
         address: '56 Lê Văn Hiến',
         city: 'Đà Nẵng',
         district: 'Ngũ Hành Sơn',
@@ -41,7 +41,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Lê Đình Lý',
-        user_id: 22,
+        user_id: 38,
         address: '28 Lê Đình Lý',
         city: 'Đà Nẵng',
         district: 'Thanh Khê',
@@ -53,7 +53,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Nguyễn Tất Thành',
-        user_id: 22,
+        user_id: 39,
         address: '222 Nguyễn Tất Thành',
         city: 'Đà Nẵng',
         district: 'Thanh Khê',
@@ -65,7 +65,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Nguyễn Hữu Thọ',
-        user_id: 22,
+        user_id: 39,
         address: '89 Nguyễn Hữu Thọ',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -77,7 +77,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm xăng Hòa Minh',
-        user_id: 23,
+        user_id: 39,
         address: '22 Nguyễn Lương Bằng',
         city: 'Đà Nẵng',
         district: 'Liên Chiểu',
@@ -89,7 +89,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe An Hải',
-        user_id: 23,
+        user_id: 39,
         address: '78 An Hải Bắc',
         city: 'Đà Nẵng',
         district: 'Sơn Trà',
@@ -101,7 +101,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Bạch Đằng',
-        user_id: 24,
+        user_id: 40,
         address: '123 Bạch Đằng',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -113,7 +113,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Nguyễn Tri Phương',
-        user_id: 24,
+        user_id: 40,
         address: '45 Nguyễn Tri Phương',
         city: 'Đà Nẵng',
         district: 'Thanh Khê',
@@ -125,7 +125,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Hàm Nghi',
-        user_id: 24,
+        user_id: 40,
         address: '65 Hàm Nghi',
         city: 'Đà Nẵng',
         district: 'Thanh Khê',
@@ -137,7 +137,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Trần Hưng Đạo',
-        user_id: 25,
+        user_id: 40,
         address: '120 Trần Hưng Đạo',
         city: 'Đà Nẵng',
         district: 'Sơn Trà',
@@ -149,7 +149,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Núi Thành',
-        user_id: 25,
+        user_id: 41,
         address: '90 Núi Thành',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -161,7 +161,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Phạm Văn Đồng',
-        user_id: 25,
+        user_id: 41,
         address: '112 Phạm Văn Đồng',
         city: 'Đà Nẵng',
         district: 'Sơn Trà',
@@ -173,7 +173,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Điện Biên Phủ',
-        user_id: 26,
+        user_id: 41,
         address: '150 Điện Biên Phủ',
         city: 'Đà Nẵng',
         district: 'Thanh Khê',
@@ -185,7 +185,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Nguyễn Văn Cừ',
-        user_id: 26,
+        user_id: 41,
         address: '32 Nguyễn Văn Cừ',
         city: 'Đà Nẵng',
         district: 'Liên Chiểu',
@@ -197,7 +197,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm xăng Ngô Quyền',
-        user_id: 26,
+        user_id: 42,
         address: '102 Ngô Quyền',
         city: 'Đà Nẵng',
         district: 'Sơn Trà',
@@ -209,7 +209,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Hùng Vương',
-        user_id: 27,
+        user_id: 42,
         address: '45 Hùng Vương',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -221,7 +221,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Trần Cao Vân',
-        user_id: 27,
+        user_id: 42,
         address: '30 Trần Cao Vân',
         city: 'Đà Nẵng',
         district: 'Thanh Khê',
@@ -233,7 +233,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Nguyễn Hữu Thọ 2',
-        user_id: 27,
+        user_id: 42,
         address: '200 Nguyễn Hữu Thọ',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -245,7 +245,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Lý Thái Tổ',
-        user_id: 27,
+        user_id: 43,
         address: '80 Lý Thái Tổ',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -257,7 +257,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Tôn Đức Thắng',
-        user_id: 28,
+        user_id: 43,
         address: '140 Tôn Đức Thắng',
         city: 'Đà Nẵng',
         district: 'Liên Chiểu',
@@ -269,7 +269,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Võ Văn Kiệt',
-        user_id: 28,
+        user_id: 43,
         address: '15 Võ Văn Kiệt',
         city: 'Đà Nẵng',
         district: 'Sơn Trà',
@@ -281,7 +281,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Lê Lợi',
-        user_id: 28,
+        user_id: 43,
         address: '17 Lê Lợi',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -293,7 +293,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Phan Đăng Lưu',
-        user_id: 28,
+        user_id: 44,
         address: '30 Phan Đăng Lưu',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -305,7 +305,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Hoàng Diệu',
-        user_id: 29,
+        user_id: 44,
         address: '77 Hoàng Diệu',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -317,7 +317,7 @@ module.exports = {
       },
       {
         location_name: 'Trạm sạc Trần Phú',
-        user_id: 29,
+        user_id: 44,
         address: '9 Trần Phú',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -329,7 +329,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Phan Châu Trinh',
-        user_id: 29,
+        user_id: 44,
         address: '102 Phan Châu Trinh',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -341,7 +341,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe Nguyễn Chí Thanh',
-        user_id: 29,
+        user_id: 45,
         address: '55 Nguyễn Chí Thanh',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -354,7 +354,7 @@ module.exports = {
 
       {
         location_name: 'Bãi đỗ xe Duy Tân',
-        user_id: 30,
+        user_id: 45,
         address: '88 Duy Tân',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -366,7 +366,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe 1',
-        user_id: 30,
+        user_id: 45,
         address: '123 Lê Duẩn',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -378,7 +378,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe 10',
-        user_id: 30,
+        user_id: 45,
         address: '124 Lê Duẩn',
         city: 'Đà Nẵng',
         district: 'Hải Châu',
@@ -390,7 +390,7 @@ module.exports = {
       },
       {
         location_name: 'Bãi đỗ xe 2',
-        user_id: 30,
+        user_id: 45,
         address: '68 Võ Chí Công',
         city: 'Đà Nẵng',
         district: 'Ngũ Hành Sơn',
@@ -399,7 +399,7 @@ module.exports = {
         lng: 108.22,
         createdAt: new Date(),
         updatedAt: new Date()
-      },
+      }
       
     ]);
   },

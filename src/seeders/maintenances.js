@@ -2,10 +2,10 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Maintenance', [
+    return queryInterface.bulkInsert('maintenances', [
       {
-        charger_id: 1,
-        type_id: 4,
+        charger_id: 2,
+        type_id: 1,
         maintenance_date: '2025-05-01 08:00:00',
         completion_date: '2025-05-01 10:00:00',
         maintenance_type: 'Kiểm tra định kỳ',
@@ -15,7 +15,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        charger_id: 2,
+        charger_id: 5,
         type_id: 3,
         maintenance_date: '2025-05-03 09:00:00',
         completion_date: '2025-05-03 11:30:00',
@@ -26,8 +26,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        charger_id: 3,
-        type_id: 2,
+        charger_id: 5,
+        type_id: 4,
         maintenance_date: '2025-05-05 13:00:00',
         completion_date: '2025-05-05 15:00:00',
         maintenance_type: 'Sửa chữa nhỏ',
@@ -37,8 +37,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        charger_id: 4,
-        type_id: 1,
+        charger_id: 2,
+        type_id: 5,
         maintenance_date: '2025-05-07 08:30:00',
         completion_date: '2025-05-07 11:00:00',
         maintenance_type: 'Nâng cấp',
@@ -48,8 +48,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        charger_id: 5,
-        type_id: 5,
+        charger_id: 4,
+        type_id: 6,
         maintenance_date: '2025-05-09 14:00:00',
         completion_date: '2025-05-09 16:30:00',
         maintenance_type: 'Thay thế linh kiện',
@@ -59,8 +59,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        charger_id: 6,
-        type_id: 4,
+        charger_id: 1,
+        type_id: 7,
         maintenance_date: '2025-05-10 09:00:00',
         completion_date: '2025-05-10 10:30:00',
         maintenance_type: 'Kiểm tra nhanh',
@@ -71,7 +71,7 @@ module.exports = {
       },
       {
         charger_id: 7,
-        type_id: 3,
+        type_id: 8,
         maintenance_date: '2025-05-12 10:00:00',
         completion_date: '2025-05-12 12:00:00',
         maintenance_type: 'Bảo dưỡng định kỳ',
@@ -82,7 +82,7 @@ module.exports = {
       },
       {
         charger_id: 8,
-        type_id: 2,
+        type_id: 9,
         maintenance_date: '2025-05-13 15:00:00',
         completion_date: '2025-05-13 16:30:00',
         maintenance_type: 'Sửa chữa nhanh',
@@ -93,7 +93,7 @@ module.exports = {
       },
       {
         charger_id: 9,
-        type_id: 1,
+        type_id: 10,
         maintenance_date: '2025-05-15 08:00:00',
         completion_date: '2025-05-15 10:00:00',
         maintenance_type: 'Kiểm tra chi tiết',
@@ -104,7 +104,7 @@ module.exports = {
       },
       {
         charger_id: 10,
-        type_id: 6,
+        type_id: 11,
         maintenance_date: '2025-05-16 14:30:00',
         completion_date: '2025-05-16 17:00:00',
         maintenance_type: 'Bảo trì tổng hợp',
@@ -116,7 +116,7 @@ module.exports = {
       // Thêm 20 bản ghi hợp lý khác
       {
         charger_id: 11,
-        type_id: 4,
+        type_id: 12,
         maintenance_date: '2025-05-17 09:00:00',
         completion_date: '2025-05-17 11:00:00',
         maintenance_type: 'Sửa chữa nhỏ',
@@ -127,7 +127,7 @@ module.exports = {
       },
       {
         charger_id: 12,
-        type_id: 3,
+        type_id: 13,
         maintenance_date: '2025-05-18 10:30:00',
         completion_date: '2025-05-18 12:30:00',
         maintenance_type: 'Nâng cấp phần mềm',
@@ -138,7 +138,7 @@ module.exports = {
       },
       {
         charger_id: 13,
-        type_id: 2,
+        type_id: 14,
         maintenance_date: '2025-05-19 14:00:00',
         completion_date: '2025-05-19 16:00:00',
         maintenance_type: 'Bảo dưỡng hệ thống',
@@ -149,7 +149,7 @@ module.exports = {
       },
       {
         charger_id: 14,
-        type_id: 1,
+        type_id: 15,
         maintenance_date: '2025-05-20 08:30:00',
         completion_date: '2025-05-20 10:30:00',
         maintenance_type: 'Thay thế cảm biến',
@@ -160,7 +160,7 @@ module.exports = {
       },
       {
         charger_id: 15,
-        type_id: 6,
+        type_id: 16,
         maintenance_date: '2025-05-21 11:00:00',
         completion_date: '2025-05-21 13:30:00',
         maintenance_type: 'Bảo trì mạng',
@@ -169,7 +169,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      // Tiếp tục thêm cho đến 30 bản ghi (có thể để mình xuất file luôn cho bạn)
+      
     ]);
   },
 
